@@ -16,7 +16,7 @@ public class MouseControl : MonoBehaviour {
 	public float minY;
 	public float yAdjustmentSpeed;
 
-	private Vector3 defaultBallPos;
+	public Vector3 defaultBallPos;
 	
 	// Update is called once per frame
 	void FixedUpdate () {
