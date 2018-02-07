@@ -77,7 +77,7 @@ public class CheatingBot : MonoBehaviour {
 
 		Vector3 dist = ball.position - target.position;
 		dist.y = 0;
-		float l = 2 * dist.magnitude; // distance to target
+		float l = 3 * dist.magnitude; // distance to target
 									 // 2* above is a hack, don't know what's wrong but without it the balls are short
 
 		float t = (Mathf.Sqrt(2 * g * (h - h0)) + Mathf.Sqrt(2 * g * h))/g; // time of flight - intermediate value
