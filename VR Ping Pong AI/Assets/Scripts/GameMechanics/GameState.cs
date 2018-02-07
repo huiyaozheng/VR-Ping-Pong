@@ -53,6 +53,7 @@ public class GameState : MonoBehaviour {
 				Events.eSetEnded();
 			}
 		}
+        //Debug.Log("S0: " + score0 + " S1: " + score1);
 	}
 
 	// Use this for initialization

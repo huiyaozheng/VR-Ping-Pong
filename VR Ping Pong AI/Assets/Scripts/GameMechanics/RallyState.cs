@@ -22,6 +22,8 @@ public class RallyState : MonoBehaviour {
 
 	private void OnEvent_rallyEnded()
 	{
+        //Debug.Log("STate is"+currState);
+        //game.GetComponent<GameState>().ResetBall();
 		currState = eRallyState.S0;
 	}
 		
@@ -57,10 +59,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_ATT_TABLE:
 				currState = eRallyState.S1;
+                Debug.Log("Returned S0");
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
+                Debug.Log("Returned S0");
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Debug.Log("Returned S0");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		case eRallyState.S1:
@@ -68,10 +73,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_DEF_TABLE:
 				currState = eRallyState.S2;
+                Debug.Log("Returned S1");
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
+                Debug.Log("Returned S1");
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Debug.Log("Returned S1");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		case eRallyState.S2:
@@ -79,10 +87,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				currState = eRallyState.S3;
+                Debug.Log("Returned S2");
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
+                Debug.Log("Returned S2");
 				return eRallyOutcome.RO_DEF_WINS;
 			default:
+                Debug.Log("Returned S2");
 				return eRallyOutcome.RO_ATT_WINS;
 			}
 		case eRallyState.S3:
@@ -90,10 +101,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_ATT_TABLE:
 				currState = eRallyState.S4;
+                Debug.Log("Returned S3");
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
+                Debug.Log("Returned S3");
 				return eRallyOutcome.RO_DEF_WINS;
 			default:
+                Debug.Log("Returned S3");
 				return eRallyOutcome.RO_ATT_WINS;
 			}
 		case eRallyState.S4:
@@ -101,10 +115,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
 				currState = eRallyState.S1;
+                Debug.Log("Returned S4");
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
+                Debug.Log("Returned S4");
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Debug.Log("Returned S4");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		default:

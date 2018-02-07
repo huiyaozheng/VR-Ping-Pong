@@ -21,9 +21,21 @@ public class GameCollisionTracker : MonoBehaviour {
 		racket0 = game.racket0.GetComponent<Collider>();
 		racket1 = game.racket1.GetComponent<Collider>();
 	}
-
+    public float eRallyDisableTime = 1.5f;
+    public float eRallyDisableTimer = 0.0f;
 	void OnCollisionEnter(Collision col)
 	{
+		//if (ballColliderDisableTimer > 0f)
+		//{
+		//	ballColliderDisableTimer += Time.deltaTime;
+		//	if (ballColliderDisableTimer > ballColliderDisableTime)
+		//	{
+		//		ballColliderDisableTimer = 0f;
+		//		ballCollider.enabled = true;
+		//		Debug.Log("Enabled ball's collider");
+		//	}
+		//}
+        Debug.Log("Collision");
 		RallyState.eRallyOutcome outcome = RallyState.eRallyOutcome.RO_NONE;
 
 		if (col.collider == table0)
@@ -45,12 +57,21 @@ public class GameCollisionTracker : MonoBehaviour {
 			return;
 
 		game.player1WonAPoint = game.DoesPlayer1Serve() ^ (outcome == RallyState.eRallyOutcome.RO_DEF_WINS);
-		Events.eRallyEnded();
+
+        Debug.Log("OUTCOME:"+outcome);
+        //eRallyDisableTime = 0.0f;
+        //Debug.Log("Timers: " + eRallyDisableTimer + " " + eRallyDisableTime);
+        //if (eRallyDisableTimer > eRallyDisableTime)
+        //{
+            Events.eRallyEnded();
+            //eRallyDisableTimer = 0;
+        //}
+        //eRallyDisableTimer += 0.1f;
 	}
 
 	void OnEvent_rallyEnded()
 	{
-		
+
 	}
 
 }
