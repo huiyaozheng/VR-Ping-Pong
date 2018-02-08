@@ -11,23 +11,28 @@ ModelImporter:
     100006: LowRes
     100008: LowResConvex
     100010: //RootNode
+    100012: HiRes
     400000: Camera
     400002: Cube
     400004: Lamp
     400006: LowRes
     400008: LowResConvex
     400010: //RootNode
+    400012: HiRes
     2000000: Camera
     2100000: Material
     2300000: Cube
     2300002: LowRes
     2300004: LowResConvex
+    2300006: HiRes
     3300000: Cube
     3300002: LowRes
     3300004: LowResConvex
+    3300006: HiRes
     4300000: LowResConvex
     4300002: LowRes
     4300004: Cube
+    4300006: HiRes
     10800000: Lamp
   externalObjects: {}
   materials:
