@@ -7,7 +7,7 @@ using UnityEngine;
 public class Shooter : MonoBehaviour {
 
 	private const float	REWARD_WIN  =  1.0f, // Given when the racket returns the ball successfully or the shooter misses and the racket doesn't hit the ball.
-						REWARD_HIT  =  0.1f, // Given when the racket hit the ball in the right state, but the ball didn't go in.
+						REWARD_HIT  =  0.6f, // Given when the racket hit the ball in the right state, but the ball didn't go in.
 						REWARD_FAIL = -1.0f; // Given when the racket loses a point, but is not eligible for the HIT reward.
 
 	public Agent trainee;
@@ -37,7 +37,10 @@ public class Shooter : MonoBehaviour {
 
 	void RewardAndReset(float reward)
 	{
+        Debug.Log("I received reward " + reward);
 		trainee.reward = reward;
+        racket.gameObject.transform.position = racket.gameObject.GetComponent<PPAgent>().defaultRacketPos;
+        racket.gameObject.transform.rotation= racket.gameObject.GetComponent<PPAgent>().defaultRacketRot;
 		ShootBall();
 	}
 
