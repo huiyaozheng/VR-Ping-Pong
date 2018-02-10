@@ -16,12 +16,16 @@ public class PPAgent : Agent
 	public Quaternion defaultRacketRot;
 
 	private float invertXZMult;
+    private float midX, midY, midZ;
 
 	void Start()
 	{
 		invertXZMult = invertXZ ? -1 : 1;
 		defaultRacketPos = gameObject.transform.position;
 		defaultRacketRot = gameObject.transform.rotation;
+        midX = (maxX - minX) / 2.0f + minX;
+        midY = (maxY - minY) / 2.0f + minY;
+        midZ = (maxZ - minZ) / 2.0f + minZ;
 	}
 
     public override List<float> CollectState()
@@ -55,9 +59,11 @@ public class PPAgent : Agent
     public override void AgentStep(float[] act)
     {
         //Debug.Log("POS act: " + act[0] + " " + act[1] + " " + act[2]);
-        act[0] = Mathf.Clamp(act[0], minX, maxX);
-        act[1] = Mathf.Clamp(act[1], minY, maxY);
-        act[2] = Mathf.Clamp(act[2], minZ, maxZ);
+        act[0] = Mathf.Clamp(midX+act[0], minX, maxX);
+        //TODO HACKS below with 'magic' numbers. need to be fixed.
+        act[1] = Mathf.Clamp(midY+act[1]*0.1f, minY, maxY);
+        act[2] = Mathf.Clamp(midZ+act[2]*2.5f, minZ, maxZ);
+        Debug.Log("act012: " + act[0] + " " + act[1] + " "+act[2]);
 		Vector3 requestedPos = new Vector3(act[0], act[1], act[2]);
 		Vector3 requestedRot = new Vector3(act[3], act[4], act[5]);
 
