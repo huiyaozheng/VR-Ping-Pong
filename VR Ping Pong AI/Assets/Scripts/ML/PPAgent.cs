@@ -10,7 +10,8 @@ public class PPAgent : Agent
     public bool invertXZ;
     public float[] min = new float[3];
     public float[] max = new float[3];
-	public float minX, maxX, minY, maxY, minZ, maxZ;
+    public bool ballHasHitOnce=false;
+	//public float minX, maxX, minY, maxY, minZ, maxZ;
 
     //DOBO: I did that (turning these public) so after each shot the racket is placed back, but it
     //may turn out it's better to reset it on academy reset;
@@ -18,6 +19,8 @@ public class PPAgent : Agent
 	public Quaternion defaultRacketRot;
 
 	private float invertXZMult;
+    private Vector2[] last2 = new Vector2[2];
+    private Vector2 lastBatPos;
     //private float midX, midY, midZ;
 
 	void Start()
@@ -25,6 +28,7 @@ public class PPAgent : Agent
 		invertXZMult = invertXZ ? -1 : 1;
 		defaultRacketPos = gameObject.transform.position;
 		defaultRacketRot = gameObject.transform.rotation;
+        last2[0] = last2[1] = new Vector2(0,0);
         //midX = (maxX - minX) / 2.0f + minX;
         //midY = (maxY - minY) / 2.0f + minY;
         //midZ = (maxZ - minZ) / 2.0f + minZ;
@@ -35,24 +39,36 @@ public class PPAgent : Agent
         List<float> state = new List<float>();
 
 		// Racket pos:
-        state.Add(invertXZMult * gameObject.transform.position.x);
+        //state.Add(invertXZMult * gameObject.transform.position.x);
 		state.Add(               gameObject.transform.position.y);
 		state.Add(invertXZMult * gameObject.transform.position.z);
 
-		// Racket rot:
-		state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.x);
-		state.Add(               gameObject.transform.rotation.eulerAngles.y);
-		state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.z);
+        // Racket rot:
+        //state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.x);
+        //state.Add(               gameObject.transform.rotation.eulerAngles.y);
+        //state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.z);
 
-		// Ball pos:
-		state.Add(invertXZMult * ball.transform.position.x);
-		state.Add(               ball.transform.position.y);
-		state.Add(invertXZMult * ball.transform.position.z);
+        // Ball pos:
+        //state.Add(invertXZMult * ball.transform.position.x);
+        float con = 5.0f;
+        //Debug.Log(Time.deltaTime);
+        //Debug.Log(ball.transform.position.y + " " + ball.transform.position.z);
+        //Debug.Log((ball.transform.position.y+ball.velocity.y*con*Time.deltaTime) + " " + (ball.transform.position.z+ball.velocity.z*con*Time.deltaTime));
+
+		state.Add(               ball.transform.position.y+ball.velocity.y*con*Time.deltaTime);
+		state.Add(invertXZMult * ball.transform.position.z+ball.velocity.z*con*Time.deltaTime);
+        for (int i = 0; i < 2; i++)
+        {
+            state.Add(last2[i].x);
+            state.Add(last2[i].y);
+        }
+        last2[0] = last2[1];
+        last2[1] = new Vector2(ball.transform.position.y+ball.velocity.y*con*Time.deltaTime, ball.transform.position.z+ball.velocity.z*con*Time.deltaTime);
 
 		// Ball vel:
-		state.Add(invertXZMult * ball.velocity.x);
-		state.Add(               ball.velocity.y);
-		state.Add(invertXZMult * ball.velocity.z);
+		//state.Add(invertXZMult * ball.velocity.x);
+		//state.Add(               ball.velocity.y);
+		//state.Add(invertXZMult * ball.velocity.z);
 
         return state;
     }
@@ -60,17 +76,39 @@ public class PPAgent : Agent
     // to be implemented by the developer
     public override void AgentStep(float[] act)
     {
-        Debug.Log("POS act: " + act[0] + " " + act[1] + " " + act[2]);
+        //Debug.Log("POS act: " + 0.0 + " " + act[0] + " " + act[1]);
         //Debug.Log("ROT act: " + act[3] + " " + act[4] + " " + act[5]);
         //Debug.Assert(act[2] == 15.0f);
         //NOTE:
         //exp(x)/(1+exp(x)) always gives number between 0 and 1 and 0.5 at x=0
         //1*(maxX-minX)+minX=maxX
         //0*byTheSameThingIs=minX
-        for(int i = 0; i < 3; i++)
+        float cons = 1.0f;
+        float eps = 5.0f;
+        for(int i = 0; i < 2; i++)
         {
-            act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
+            //FIXME for training with X=0.0
+            act[i] = (Mathf.Exp(act[i]*cons) / (1.0f + Mathf.Exp(act[i]*cons))) * (max[i+1] - min[i+1]) + min[i+1];
         }
+        Vector2 cPos = new Vector2(act[0], act[1]);
+        Vector2 offset = cPos - last2[1];
+        //Debug.Log(cPos + " " + last2[1]);
+        //Debug.Log(Vector2.SqrMagnitude(offset));
+        if (Vector2.SqrMagnitude(offset) < eps)
+        {
+            if (ballHasHitOnce == true) reward += 0.2f;
+            else reward -= 0.01f;
+            //Debug.Log("HIT ONCE?: "+ballHasHitOnce);
+            
+            //Debug.Log("CLOSE enough");
+        }
+        //if(lastBatPos.x!=act[0] && lastBatPos.y != act[1])
+        //{
+        //    reward += 0.01f;
+        //}
+        //lastBatPos.x = act[0];
+        //lastBatPos.y = act[1];
+        //Debug.Log("act clamped: " + 0.0 + " " + act[0] + " " + act[1]);
 
         //act[0] = (Mathf.Exp(act[0]) / (1 + Mathf.Exp(act[0]))) * (maxX - minX) + minX;
         //act[1] =( Mathf.Exp(act[1]) / (1 + Mathf.Exp(act[1]))) * (maxY - minY) + minY;
@@ -78,8 +116,8 @@ public class PPAgent : Agent
         //Debug.Assert(act[0] >= minX && act[0] <= maxX);
 
 
-        Debug.Log("act012: " + act[0] + " " + act[1] + " "+act[2]);
-		Vector3 requestedPos = new Vector3(act[0], act[1], act[2]);
+        //Debug.Log("act012: 0.0 " + act[0] + " " + act[1] );
+		Vector3 requestedPos = new Vector3(0.0f, act[0], act[1]);
 		//Vector3 requestedRot = new Vector3(act[3], act[4], act[5]);
 
         // TODO: 

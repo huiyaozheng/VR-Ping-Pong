@@ -17,7 +17,7 @@ public class Shooter : MonoBehaviour
     /// <summary>
     /// Given when the racket loses a point, but is not eligible for the HIT reward.
     /// </summary>
-    public float REWARD_FAIL = -1.0f;
+    public float REWARD_FAIL = -0.5f;
 
     /// <summary>
     /// Lower bound of the initial velocity in X-axis (left/right)
@@ -90,6 +90,7 @@ public class Shooter : MonoBehaviour
 	{
         Debug.Log("I received reward " + reward);
 		trainee.reward = reward;
+        trainee.GetComponent<PPAgent>().ballHasHitOnce = false;
         racket.gameObject.transform.position = racket.gameObject.GetComponent<PPAgent>().defaultRacketPos;
         racket.gameObject.transform.rotation= racket.gameObject.GetComponent<PPAgent>().defaultRacketRot;
 		ShootBall();
@@ -155,10 +156,12 @@ public class Shooter : MonoBehaviour
 		} 
 		else if (col.gameObject == closerTable.gameObject)
 		{
+            trainee.GetComponent<PPAgent>().ballHasHitOnce = true;
 			MakeStep(eShooterTransition.ST_BADTABLE);
 		}
 		else if (col.gameObject == furtherTable.gameObject)
 		{
+            trainee.GetComponent<PPAgent>().ballHasHitOnce = false;
 			MakeStep(eShooterTransition.ST_GOODTABLE);
 		}
 		else if (col.gameObject == racket.gameObject)
