@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PhysicsLibrary;
 
 public class CheatingBot : MonoBehaviour {
 
@@ -58,36 +59,12 @@ public class CheatingBot : MonoBehaviour {
 		}
 	}
 
-	// Cheat and change the velocity of the ball so that it hits the target and flies at a give maximum height
-	// Works given assumption that table is at height 0!
-
-	Vector3 velFromTraj(Vector3 target, Vector3 currPos, float maxHeightTarget, float g)
-	{
-		float H = Mathf.Max(maxHeightTarget, currPos.y + 0.01f);
-		float h0 = currPos.y;
-
-		Vector3 dist = currPos - target;
-		dist.y = 0;
-		float l = dist.magnitude; // distance to target
-
-		float v_y = Mathf.Sqrt((H - h0) * 2 * g);
-		float v_x = l * g / (v_y + Mathf.Sqrt(2 * g * H));
-
-		Vector3 vel = target - currPos;
-		vel.y = 0;
-		vel = vel.normalized;
-		vel.y = v_y;
-		vel.x *= v_x;
-		vel.z *= v_x;
-		return vel;
-	}
-
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject != ball.gameObject)
 			return;
 
-		ball.velocity = velFromTraj(target.position, ball.position, heightTarget.position.y, Physics.gravity.magnitude);
+		ball.velocity = PhysicsCalculations.velFromTraj(target.position, ball.position, heightTarget.position.y, Physics.gravity.magnitude);
 		return;
 	}
 }

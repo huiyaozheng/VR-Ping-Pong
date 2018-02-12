@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using PhysicsLibrary;
+
 
 public class Catcher : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class Catcher : MonoBehaviour
     public Rigidbody ball;
 
     private Vector3 landPos;
-    private Vector3 netPos;
+    private float maxHeight;
 
     /// <summary>
     /// The racket controlled by this script.
@@ -31,6 +29,8 @@ public class Catcher : MonoBehaviour
     /// Opponent's side of table.
     /// </summary>
     public Collider opponentTable;
+
+    public bool invertXZ;
 
     /// <summary>
     /// Z-axis distance between the ball and myRacket. Used to detect whether the ball is flying towards us.
@@ -62,42 +62,32 @@ public class Catcher : MonoBehaviour
     /// </param>
     /// </summary>
     //Public, so agent's can set it
-    public void setTargets(Vector3 _landPos, Vector3 _netPos)
+    public void setTargets(Vector3 _landPos, float _maxHeight)
     {
         //Note the vector3 for the net can be vector2 as net is always on Z=0j
 
         landPos = _landPos;
-        netPos = _netPos;
+        maxHeight = _maxHeight;
     }
-    //These below are pretty self explanatory
-    public Vector3 getLandPos()
-    {
-        return landPos;
-    }
-    public Vector3 getNetPos()
-    {
-        return netPos;
-    }
+
     /// <summary>
     /// Apply a calculated velocity to the ball to hit the target.
     /// </summary>
     void hit()
     {
-        //TODO to be fixed with Kuba's fn.
-        //Vector3 targetLand = getTargets();
-        //ball.AddForce(new Vector3(0, 0, -10), ForceMode.Impulse);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxHeight, Physics.gravity.magnitude);
     }
 
     // Use this for initialization
     void Start()
     {
-        prevZDistance = Math.Abs(ball.transform.position.z - myRacket.transform.position.z);
+        prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float currentZDistance = Math.Abs(ball.transform.position.z - myRacket.transform.position.z);
+        float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
         if (currentZDistance < prevZDistance)
         {
             myRacket.transform.position = new Vector3(ball.transform.position.x, myRacket.transform.position.y,
@@ -110,6 +100,9 @@ public class Catcher : MonoBehaviour
     {
         if (col.gameObject == ball.gameObject)
         {
+            float x = (opponentTable.transform.parent.gameObject.transform.localScale.x)/2 - 0.5f;
+            float z = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
+            setTargets(new Vector3(Random.Range(-x, x), 0, Random.Range(2, z) * (invertXZ ? -1f : 1f)), 5);
             hit();
         }
     }

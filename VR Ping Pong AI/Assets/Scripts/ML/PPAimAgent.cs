@@ -73,7 +73,7 @@ public class PPAimAgent : Agent
         //An issue we will experience is that agentStep is called much more frequently than we use it.
         //using it less frequently on the other side will require LAAARGE training
         //(Recall training with FramesToSkip set to sth positive)
-        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], act[1], act[2]), new Vector3(act[3], act[4], act[5]));
+        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], act[1], act[2]), act[3]);
     }
 
     // to be implemented by the developer
