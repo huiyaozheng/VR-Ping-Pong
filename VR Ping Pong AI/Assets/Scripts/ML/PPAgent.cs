@@ -12,8 +12,6 @@ public class PPAgent : Agent
     public float[] max = new float[3];
 	public float minX, maxX, minY, maxY, minZ, maxZ;
 
-    //DOBO: I did that (turning these public) so after each shot the racket is placed back, but it
-    //may turn out it's better to reset it on academy reset;
 	public Vector3 defaultRacketPos;
 	public Quaternion defaultRacketRot;
 

@@ -9,6 +9,9 @@ public class Catcher : MonoBehaviour
     public GameState game;
     public Rigidbody ball;
 
+    private Vector3 landPos;
+    private Vector3 netPos;
+
     /// <summary>
     /// The racket controlled by this script.
     /// </summary>
@@ -51,19 +54,38 @@ public class Catcher : MonoBehaviour
 
     /// <summary>
     /// Set where to return the ball to.
+    /// <param>
+    /// Landing position (vector3)
+    /// </param>
+    /// <param>
+    /// Point above the net (vector3)
+    /// </param>
     /// </summary>
-    Vector3 setTarget()
+    //Public, so agent's can set it
+    public void setTargets(Vector3 _landPos, Vector3 _netPos)
     {
-        return new Vector3();
-    }
+        //Note the vector3 for the net can be vector2 as net is always on Z=0j
 
+        landPos = _landPos;
+        netPos = _netPos;
+    }
+    //These below are pretty self explanatory
+    public Vector3 getLandPos()
+    {
+        return landPos;
+    }
+    public Vector3 getNetPos()
+    {
+        return netPos;
+    }
     /// <summary>
     /// Apply a calculated velocity to the ball to hit the target.
     /// </summary>
     void hit()
     {
-        Vector3 target = setTarget();
-        ball.AddForce(new Vector3(0, 0, -10), ForceMode.Impulse);
+        //TODO to be fixed with Kuba's fn.
+        //Vector3 targetLand = getTargets();
+        //ball.AddForce(new Vector3(0, 0, -10), ForceMode.Impulse);
     }
 
     // Use this for initialization

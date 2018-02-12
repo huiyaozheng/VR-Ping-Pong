@@ -82,10 +82,13 @@ public class Shooter : MonoBehaviour
     /// </summary>
 	private float invertXZMult;
 
-	/// <summary>
+    /// <summary>
     /// Give the reward, log it and reset the scene.
     /// </summary>
     /// <param name="reward">Value of the reward</param>
+
+    //TODO: 
+    //maybe change when we reward it, so that it works with two rackets?
 	void RewardAndReset(float reward)
 	{
         Debug.Log("I received reward " + reward);
