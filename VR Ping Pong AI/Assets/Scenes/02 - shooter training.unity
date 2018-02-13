@@ -197,6 +197,36 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 14115173}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &108135232 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1276643513675082, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804233837}
+--- !u!64 &108135233 stripped
+MeshCollider:
+  m_PrefabParentObject: {fileID: 64644140378981612, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804233837}
+--- !u!114 &108135234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 108135232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95567a29ffdb33846b0435540b9fe910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 0}
+  ball: {fileID: 1370734860}
+  myRacket: {fileID: 1804233838}
+  closerTable: {fileID: 1110160736}
+  opponentRacket: {fileID: 518356818}
+  opponentTable: {fileID: 14115176}
+  maxRacketMovingSpeed: 8
+  invertXZ: 1
+  maxTrajectoryHeight: 4
 --- !u!1 &227895638
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,11 +458,9 @@ GameObject:
   - component: {fileID: 518356820}
   - component: {fileID: 518356819}
   - component: {fileID: 518356818}
-  - component: {fileID: 518356817}
-  - component: {fileID: 518356822}
   - component: {fileID: 518356823}
   m_Layer: 9
-  m_Name: Racket0 - ML Bot
+  m_Name: Racket0 - Catcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,23 +474,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518356815}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.9, z: 15.73}
+  m_LocalPosition: {x: 0, y: 2, z: -15}
   m_LocalScale: {x: 0.20274998, y: 0.20275, z: 0.20274998}
   m_Children: []
   m_Father: {fileID: 714634112}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &518356817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 518356815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a787505c9df2c449abdd9c5cd5331f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &518356818
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -537,17 +554,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518356815}
   m_Mesh: {fileID: 4300006, guid: 347c67546ffadbe45bd2ca3943ec235a, type: 3}
---- !u!114 &518356822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 518356815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d89ff9fa6aca2dd41918db587a3d236f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &518356823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,14 +565,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4913dcfed1cad4fa37432111365673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 714634113}
+  game: {fileID: 0}
   ball: {fileID: 1370734860}
   myRacket: {fileID: 518356818}
-  opponentRacket: {fileID: 0}
   closerTable: {fileID: 1110160736}
+  opponentRacket: {fileID: 1804233838}
   opponentTable: {fileID: 14115176}
-  maxSpeed: 0.2
-  invertXZ: 1
+  maxRacketMovingSpeed: 8
+  invertXZ: 0
+  maxTrajectoryHeight: 3.5
 --- !u!1 &714634111
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +582,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 714634112}
-  - component: {fileID: 714634113}
+  - component: {fileID: 714634114}
+  - component: {fileID: 714634115}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -596,10 +604,23 @@ Transform:
   - {fileID: 265999555}
   - {fileID: 1370734859}
   - {fileID: 518356816}
+  - {fileID: 1804233839}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &714634113
+--- !u!114 &714634114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 714634111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ffab0690ee990447a6b5569e50651bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 0}
+--- !u!114 &714634115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -613,7 +634,7 @@ MonoBehaviour:
   player0: {fileID: 0}
   player1: {fileID: 0}
   racket0: {fileID: 518356818}
-  racket1: {fileID: 0}
+  racket1: {fileID: 1804233838}
   table0: {fileID: 14115176}
   table1: {fileID: 1110160736}
   floor: {fileID: 227895641}
@@ -893,6 +914,7 @@ GameObject:
   - component: {fileID: 1370734856}
   - component: {fileID: 1370734860}
   - component: {fileID: 1370734861}
+  - component: {fileID: 1370734864}
   - component: {fileID: 1370734862}
   m_Layer: 10
   m_Name: Ball
@@ -998,9 +1020,10 @@ MonoBehaviour:
   minZ: 3
   maxZ: 13
   floor: {fileID: 227895641}
-  closerTable: {fileID: 1110160736}
-  furtherTable: {fileID: 14115176}
-  racket: {fileID: 518356819}
+  table0: {fileID: 14115176}
+  table1: {fileID: 1110160736}
+  racket0: {fileID: 518356819}
+  racket1: {fileID: 108135233}
   invertXZMult: 0
   maxHeight: 5
 --- !u!96 &1370734862
@@ -1090,6 +1113,18 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &1370734864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1370734855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0afe54c44dbfcb40bc640062f348acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 714634115}
 --- !u!1 &1462528024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,3 +1552,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 39.45, y: 180, z: 0}
+--- !u!1001 &1804233837
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 714634112}
+    m_Modifications:
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1276643513675082, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_Name
+      value: Racket1 - Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 33014294948028988, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300006, guid: 347c67546ffadbe45bd2ca3943ec235a, type: 3}
+    - target: {fileID: 64644140378981612, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64644140378981612, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 347c67546ffadbe45bd2ca3943ec235a, type: 3}
+    - target: {fileID: 54829829247028486, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 54829829247028486, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54829829247028486, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 82a4186e514ee9a4fb14ea46d7539fe0, type: 2}
+  m_IsPrefabParent: 0
+--- !u!54 &1804233838 stripped
+Rigidbody:
+  m_PrefabParentObject: {fileID: 54829829247028486, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804233837}
+--- !u!4 &1804233839 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804233837}

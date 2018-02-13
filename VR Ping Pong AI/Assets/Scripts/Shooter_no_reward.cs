@@ -33,48 +33,29 @@ public class Shooter_no_reward : MonoBehaviour
     public Collider floor;
 
     /// <summary>
-    /// The half closer to racket.
+    /// The half closer to racket0.
     /// </summary>
-    public Collider closerTable;
+    public Collider table0;
 
     /// <summary>
-    /// The half further from racket.
+    /// The half closer to racket1.
     /// </summary>
-    public Collider furtherTable;
+    public Collider table1;
 
     /// <summary>
-    /// The bot's racket.
+    /// One racket.
     /// </summary>
-    public Collider racket;
-
-    private Vector3 racketDefaultPosition;
-    private Quaternion racketDefaultRotation;
+    public Collider racket0;
 
     /// <summary>
-    /// States in the state machine.
+    /// Another racket.
     /// </summary>
-    private enum eShooterState
-    {
-        State0,
-        State1,
-        State2
-    };
+    public Collider racket1;
 
-    /// <summary>
-    /// Inputs to the state machine.
-    /// </summary>
-    private enum eShooterTransition
-    {
-        ST_RACK,
-        ST_BADTABLE,
-        ST_GOODTABLE,
-        ST_FLOOR
-    };
-
-    /// <summary>
-    /// Current state of the state machine.
-    /// </summary>
-    private eShooterState currState = eShooterState.State0;
+    private Vector3 racket0DefaultPosition;
+    private Vector3 racket1DefaultPosition;
+    private Quaternion racket0DefaultRotation;
+    private Quaternion racket1DefaultRotation;
 
     /// <summary>
     /// Default starting position of the ball.
@@ -92,115 +73,54 @@ public class Shooter_no_reward : MonoBehaviour
     public bool invertXZMult;
 
     /// <summary>
-    /// maxHeight in the ball's trajectory
+    /// maxTrajectoryHeight in the ball's trajectory
     /// </summary>
     public float maxHeight = 2;
 
-    /// <summary>
-    /// Step the state machine.
-    /// </summary>
-    /// <param name="transition">Input of the machine</param>
-    void MakeStep(eShooterTransition transition)
-    {
-        switch (currState)
-        {
-            case eShooterState.State0:
-                switch (transition)
-                {
-                    case eShooterTransition.ST_BADTABLE:
-                        currState = eShooterState.State1;
-                        break;
-                    case eShooterTransition.ST_RACK:
-                        ShootBall();
-                        break;
-                    default:
-                        ShootBall();
-                        break;
-                }
-                break;
-            case eShooterState.State1:
-                switch (transition)
-                {
-                    case eShooterTransition.ST_RACK:
-                        currState = eShooterState.State2;
-                        break;
-                    default:
-                        ShootBall();
-                        break;
-                }
-                break;
-            case eShooterState.State2:
-                switch (transition)
-                {
-                    case eShooterTransition.ST_GOODTABLE:
-                        ShootBall();
-                        break;
-                    default:
-                        ShootBall();
-                        break;
-                }
-                break;
-        }
-    }
-
-    /// <summary>
-    /// When the ball collides with something, step the state machine.
-    /// </summary>
-    /// <param name="col">The collision object</param>
-    void OnCollisionEnter(Collision col)
-    {
-        Debug.Log("Collided with " + col.gameObject.name);
-        if (col.gameObject == floor.gameObject)
-        {
-            MakeStep(eShooterTransition.ST_FLOOR);
-        }
-        else if (col.gameObject == closerTable.gameObject)
-        {
-            MakeStep(eShooterTransition.ST_BADTABLE);
-        }
-        else if (col.gameObject == furtherTable.gameObject)
-        {
-            MakeStep(eShooterTransition.ST_GOODTABLE);
-        }
-        else if (col.gameObject == racket.gameObject)
-        {
-            MakeStep(eShooterTransition.ST_RACK);
-        }
-    }
-
     void OnCollisionExit(Collision col)
     {
-        if (col.gameObject == closerTable.gameObject)
+        if (col.gameObject == table0.gameObject)
         {
-            racket.gameObject.GetComponent<Catcher>().startTracking();
+            racket0.gameObject.GetComponent<Catcher>().startTracking();
+        }
+        else if (col.gameObject == table1.gameObject)
+        {
+            racket1.gameObject.GetComponent<Catcher>().startTracking();
         }
     }
 
     /// <summary>
     /// Reset the ball to the default position and add a random velocity to the ball.
     /// </summary>
-    void ShootBall()
+    public void ShootBall()
     {
-        racket.gameObject.transform.rotation = racketDefaultRotation;
-        racket.gameObject.transform.position = racketDefaultPosition;
-        racket.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        racket.gameObject.GetComponent<Catcher>().stopTracking();
-        currState = eShooterState.State0;
+        racket0.gameObject.transform.rotation = racket0DefaultRotation;
+        racket0.gameObject.transform.position = racket0DefaultPosition;
+        racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        racket0.gameObject.GetComponent<Catcher>().stopTracking();
+        racket1.gameObject.transform.rotation = racket1DefaultRotation;
+        racket1.gameObject.transform.position = racket1DefaultPosition;
+        racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        racket1.gameObject.GetComponent<Catcher>().stopTracking();
+
         gameObject.transform.position = defaultBallPos;
-        float x = (closerTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
-        float z = (closerTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+        float x = (table0.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
+        float z = (table0.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
         x = Random.Range(-x, x);
         z = Random.Range(4, z);
-        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f), ballBody.position, maxHeight, Physics.gravity.magnitude);
+        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f),
+            ballBody.position, maxHeight, Physics.gravity.magnitude);
     }
 
     void Start()
     {
         defaultBallPos = gameObject.transform.position;
-        racketDefaultPosition = racket.gameObject.transform.position;
-        racketDefaultRotation = racket.gameObject.transform.rotation;
+        racket0DefaultPosition = racket0.gameObject.transform.position;
+        racket0DefaultRotation = racket0.gameObject.transform.rotation;
+        racket1DefaultPosition = racket1.gameObject.transform.position;
+        racket1DefaultRotation = racket1.gameObject.transform.rotation;
         ballBody = gameObject.GetComponent<Rigidbody>();
-        currState = eShooterState.State0;
+
         ShootBall();
     }
 

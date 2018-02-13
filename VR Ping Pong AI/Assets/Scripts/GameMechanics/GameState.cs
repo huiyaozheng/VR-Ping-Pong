@@ -35,8 +35,7 @@ public class GameState : MonoBehaviour {
 
 	public void ResetBall()
 	{
-		ball.position = defaultBallPos;
-		ball.velocity = Vector3.zero;
+		ball.GetComponent<Shooter_no_reward>().ShootBall();
 	}
 
 	public void OnEvent_rallyEnded()
@@ -53,7 +52,9 @@ public class GameState : MonoBehaviour {
 				Events.eSetEnded();
 			}
 		}
-	}
+
+	    ball.GetComponent<Shooter_no_reward>().ShootBall();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -65,7 +66,6 @@ public class GameState : MonoBehaviour {
 	void Update () {
 		
 	}
-
 
 	void OnEnable()
 	{

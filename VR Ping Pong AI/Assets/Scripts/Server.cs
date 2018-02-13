@@ -92,7 +92,7 @@ public class Server : MonoBehaviour
     public bool invertXZMult;
 
     /// <summary>
-    /// maxHeight in the ball's trajectory
+    /// maxTrajectoryHeight in the ball's trajectory
     /// </summary>
     public float maxHeight = 2;
 

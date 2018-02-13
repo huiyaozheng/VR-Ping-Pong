@@ -41,6 +41,7 @@ public class GameCollisionTracker : MonoBehaviour {
 		if (col.collider == floor)
 			outcome = rallyState.MakeStep(RallyState.eRallyStateMachineAction.RSMA_OUT);
 
+        Debug.Log(outcome);
 		if (outcome == RallyState.eRallyOutcome.RO_NONE)
 			return;
 

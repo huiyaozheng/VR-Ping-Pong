@@ -81,15 +81,15 @@ public class PPAgent : Agent
 		//Vector3 requestedRot = new Vector3(act[3], act[4], act[5]);
 
         // TODO: 
-        // Make public variables maxSpeed and maxAngularSpeed so that you can set them from editor.
-        // Set new position based on the requests as well as maxSpeed and maxAngularSpeed.
+        // Make public variables maxRacketMovingSpeed and maxAngularSpeed so that you can set them from editor.
+        // Set new position based on the requests as well as maxRacketMovingSpeed and maxAngularSpeed.
 
         // Hmm... Perhaps we'll have to be smart here and measure time since the last update or something.
         // Because to use the max velocity limit, we need to know over what time the movement takes place.
         // If there's gonna be a lot of time between the actions, then we'll have to smooth out the motion of the bat,
         // not just have it jump to the new position.
 
-        // So perhaps for now ignore the maxSpeed and maxAngSpeed limits and just teleport the bat! We'll see how this turns out :)
+        // So perhaps for now ignore the maxRacketMovingSpeed and maxAngSpeed limits and just teleport the bat! We'll see how this turns out :)
 
         //DOBO:
         //First train will be with super speed (i.e. just set pos and rot requestedPos and requestedRot)

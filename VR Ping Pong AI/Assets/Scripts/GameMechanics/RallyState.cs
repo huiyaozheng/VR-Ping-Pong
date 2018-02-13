@@ -18,11 +18,12 @@ public class RallyState : MonoBehaviour {
 
 	private enum eRallyState{ S0, S1, S2, S3, S4 };
 
-	private eRallyState currState = eRallyState.S4; // To bypass serving for now...
+	private eRallyState currState = eRallyState.S1; // To bypass serving for now...
 
 	private void OnEvent_rallyEnded()
 	{
-		currState = eRallyState.S0;
+        // Ignore serving for now.
+		currState = eRallyState.S1;
 	}
 		
 	// I drew out a state machine to control a game, including serves, and implemented it below:

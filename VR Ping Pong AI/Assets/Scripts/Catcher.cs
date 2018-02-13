@@ -7,23 +7,20 @@ public class Catcher : MonoBehaviour
     public GameState game;
     public Rigidbody ball;
 
-    private Vector3 landPos;
-    private float maxHeight;
-
     /// <summary>
     /// The racket controlled by this script.
     /// </summary>
     public Rigidbody myRacket;
 
     /// <summary>
-    /// The opponent's racket.
-    /// </summary>
-    public Rigidbody opponentRacket;
-
-    /// <summary>
     /// This side of the table.
     /// </summary>
     public Collider closerTable;
+
+    /// <summary>
+    /// The opponent's racket.
+    /// </summary>
+    public Rigidbody opponentRacket;
 
     /// <summary>
     /// Opponent's side of table.
@@ -33,14 +30,17 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// The max speed that the racket can move at.
     /// </summary>
-    public float maxSpeed;
+    public float maxRacketMovingSpeed;
 
+    /// <summary>
+    /// True if the racket has positive Z-coordinate.
+    /// </summary>
     public bool invertXZ;
 
     /// <summary>
     /// If tracking is false, the racket will only track the ball in X-axis. Otherwise it goes towards the ball.
     /// </summary>
-    private bool tracking;
+    protected bool tracking;
 
     /// <summary>
     /// Z-axis distance between the ball and myRacket. Used to detect whether the ball is flying towards us.
@@ -48,13 +48,27 @@ public class Catcher : MonoBehaviour
     private float prevZDistance;
 
     /// <summary>
-    /// Predict where the ball will hit the closer table.
+    /// Max height of the returned ball's trajectory.
+    /// </summary>
+    public float maxTrajectoryHeight;
+
+    /// <summary>
+    /// The returned ball's landing position.
+    /// </summary>
+    protected Vector3 landPos;
+
+    /// <summary>
+    /// The ball will tell the racket to start to move towards it when it bounces on the closer table.
     /// </summary>
     public void startTracking()
     {
+        Debug.Log("Start tracking");
         tracking = true;
     }
 
+    /// <summary>
+    /// To tell the racket to stop from moving towards the ball.
+    /// </summary>
     public void stopTracking()
     {
         tracking = false;
@@ -63,75 +77,82 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// Move the racket to catch the ball.
     /// </summary>
-    void move(float targetDistance)
+    protected void move(float targetDistance)
     {
+        //Todo: move the racket backwards after returning the ball. Otherwise the next ball may land behind the racket.
+
         if (tracking)
         {
+            // If the ball has bounced on the closer table, move towards the ball.
             Vector3 direction = (ball.transform.position - myRacket.transform.position).normalized;
-            myRacket.velocity = direction * maxSpeed;
+            myRacket.velocity = direction * maxRacketMovingSpeed;
         }
         else
         {
-            myRacket.transform.position = new Vector3(ball.transform.position.x, myRacket.transform.position.y,
+            // Otherwise, just track the ball in X-direction.
+            Vector3 direction = new Vector3(ball.transform.position.x - myRacket.transform.position.x, 0, 0).normalized;
+            float xPos =
+                maxRacketMovingSpeed * Time.fixedDeltaTime > Mathf.Abs(ball.transform.position.x - myRacket.transform.position.x)
+                    ? ball.transform.position.x
+                    : (myRacket.position + direction * maxRacketMovingSpeed * Time.fixedDeltaTime).x;
+            myRacket.transform.position = new Vector3(xPos, myRacket.transform.position.y,
                 myRacket.transform.position.z);
         }
     }
 
     /// <summary>
-    /// Set where to return the ball to.
-    /// <param>
-    /// Landing position (vector3)
-    /// </param>
-    /// <param>
-    /// Point above the net (vector3)
-    /// </param>
+    /// Set the trajectory of the returned ball.
     /// </summary>
-    //Public, so agent's can set it
+    /// <param name="_landPos">Landing position on the opponent's side of table</param>
+    /// <param name="_maxHeight"></param>
     public void setTargets(Vector3 _landPos, float _maxHeight)
     {
-        //Note the vector3 for the net can be vector2 as net is always on Z=0j
-
         landPos = _landPos;
-        maxHeight = _maxHeight;
+        maxTrajectoryHeight = _maxHeight;
     }
 
     /// <summary>
     /// Apply a calculated velocity to the ball to hit the target.
     /// </summary>
-    void hit()
+    protected void hit()
     {
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxHeight, Physics.gravity.magnitude);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude);
     }
 
-    // Use this for initialization
-    void Start()
+    protected void Start()
     {
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
         tracking = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
-        if (currentZDistance < prevZDistance) // The ball is incoming.
+
+        // Move if the ball is incoming.
+        if (currentZDistance < prevZDistance) 
         {
             move(currentZDistance);
         }
+
+        //Todo: If the ball has flied passed the racket, i.e. the racket missed the ball, stop the racket from moving.
+        
         prevZDistance = currentZDistance;
     }
 
-    void OnCollisionEnter(Collision col)
+    protected virtual void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == ball.gameObject)
         {
+            // Return the ball to a random location.
             float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
             float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
             x = Random.Range(-x, x);
             z = Random.Range(2, z);
-            Debug.Log("Target: "+x+", "+z);
-            setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), 5);
+            setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
             hit();
+
+            // After hitting the ball, stop the racket.
             myRacket.velocity = new Vector3(0,0,0);
             tracking = false;
         }
