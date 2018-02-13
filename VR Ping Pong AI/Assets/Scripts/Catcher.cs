@@ -30,7 +30,17 @@ public class Catcher : MonoBehaviour
     /// </summary>
     public Collider opponentTable;
 
+    /// <summary>
+    /// The max speed that the racket can move at.
+    /// </summary>
+    public float maxSpeed = 0.2f;
+
     public bool invertXZ;
+
+    /// <summary>
+    /// If tracking is false, the racket will only track the ball in X-axis. Otherwise it goes towards the ball.
+    /// </summary>
+    private bool tracking;
 
     /// <summary>
     /// Z-axis distance between the ball and myRacket. Used to detect whether the ball is flying towards us.
@@ -40,16 +50,38 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// Predict where the ball will hit the closer table.
     /// </summary>
-    public void predict()
+    public void startTracking()
     {
-        //TODO: predict the highest point in the ball's trajectory and move the racket there.
+        tracking = true;
+    }
+
+    public void stopTracking()
+    {
+        tracking = false;
     }
 
     /// <summary>
     /// Move the racket to catch the ball.
     /// </summary>
-    void move()
+    void move(float targetDistance)
     {
+        if (tracking)
+        {
+            Vector3 direction = (ball.transform.position - myRacket.transform.position).normalized;
+            if (targetDistance > maxSpeed)
+            {
+                myRacket.transform.position = myRacket.transform.position + direction * maxSpeed;
+            }
+            else
+            {
+                myRacket.transform.position = ball.transform.position;
+            }
+        }
+        else
+        {
+            myRacket.transform.position = new Vector3(ball.transform.position.x, myRacket.transform.position.y,
+                myRacket.transform.position.z);
+        }
     }
 
     /// <summary>
@@ -82,27 +114,30 @@ public class Catcher : MonoBehaviour
     void Start()
     {
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
+        tracking = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
-        if (currentZDistance < prevZDistance)
+        if (currentZDistance < prevZDistance) // The ball is incoming.
         {
-            myRacket.transform.position = new Vector3(ball.transform.position.x, myRacket.transform.position.y,
-                myRacket.transform.position.z);
+            move(currentZDistance);
         }
         prevZDistance = currentZDistance;
     }
 
-    void OnCollisionExit(Collision col)
+    void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == ball.gameObject)
         {
-            float x = (opponentTable.transform.parent.gameObject.transform.localScale.x)/2 - 0.5f;
-            float z = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
-            setTargets(new Vector3(Random.Range(-x, x), 0, Random.Range(2, z) * (invertXZ ? -1f : 1f)), 5);
+            float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
+            float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+            x = Random.Range(-x, x);
+            z = Random.Range(2, z);
+            Debug.Log("Target: "+x+", "+z);
+            setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), 5);
             hit();
         }
     }

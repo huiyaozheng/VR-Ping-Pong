@@ -37,7 +37,7 @@ public class SteamVR_TestThrow : MonoBehaviour
 
 			// We should probably apply the offset between trackedObj.transform.position
 			// and device.transform.pos to insert into the physics sim at the correct
-			// location, however, we would then want to predict ahead the visual representation
+			// location, however, we would then want to startTracking ahead the visual representation
 			// by the same amount we are predicting our render poses.
 
 			var origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PhysicsLibrary;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -91,6 +92,11 @@ public class Shooter_no_reward : MonoBehaviour
     public bool invertXZMult;
 
     /// <summary>
+    /// maxHeight in the ball's trajectory
+    /// </summary>
+    public float maxHeight = 2;
+
+    /// <summary>
     /// Step the state machine.
     /// </summary>
     /// <param name="transition">Input of the machine</param>
@@ -166,7 +172,7 @@ public class Shooter_no_reward : MonoBehaviour
     {
         if (col.gameObject == closerTable.gameObject)
         {
-            racket.gameObject.GetComponent<Catcher>().predict();
+            racket.gameObject.GetComponent<Catcher>().startTracking();
         }
     }
 
@@ -178,12 +184,14 @@ public class Shooter_no_reward : MonoBehaviour
         racket.gameObject.transform.rotation = racketDefaultRotation;
         racket.gameObject.transform.position = racketDefaultPosition;
         racket.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        racket.gameObject.GetComponent<Catcher>().stopTracking();
         currState = eShooterState.State0;
         gameObject.transform.position = defaultBallPos;
-        float x = Random.Range(minX, maxX);
-        float z = Random.Range(minZ, maxZ);
-        ballBody.velocity = Vector3.zero;
-        ballBody.AddForce(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f), ForceMode.Impulse);
+        float x = (closerTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
+        float z = (closerTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+        x = Random.Range(-x, x);
+        z = Random.Range(4, z);
+        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f), ballBody.position, maxHeight, Physics.gravity.magnitude);
     }
 
     void Start()

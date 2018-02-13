@@ -565,6 +565,7 @@ MonoBehaviour:
   opponentRacket: {fileID: 0}
   closerTable: {fileID: 1110160736}
   opponentTable: {fileID: 14115176}
+  maxSpeed: 0.2
   invertXZ: 1
 --- !u!1 &714634111
 GameObject:
@@ -1001,6 +1002,7 @@ MonoBehaviour:
   furtherTable: {fileID: 14115176}
   racket: {fileID: 518356819}
   invertXZMult: 0
+  maxHeight: 5
 --- !u!96 &1370734862
 TrailRenderer:
   serializedVersion: 2
