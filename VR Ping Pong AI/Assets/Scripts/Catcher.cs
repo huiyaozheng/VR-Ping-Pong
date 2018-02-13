@@ -33,7 +33,7 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// The max speed that the racket can move at.
     /// </summary>
-    public float maxSpeed = 0.2f;
+    public float maxSpeed;
 
     public bool invertXZ;
 
@@ -68,14 +68,7 @@ public class Catcher : MonoBehaviour
         if (tracking)
         {
             Vector3 direction = (ball.transform.position - myRacket.transform.position).normalized;
-            if (targetDistance > maxSpeed)
-            {
-                myRacket.transform.position = myRacket.transform.position + direction * maxSpeed;
-            }
-            else
-            {
-                myRacket.transform.position = ball.transform.position;
-            }
+            myRacket.velocity = direction * maxSpeed;
         }
         else
         {
@@ -139,6 +132,8 @@ public class Catcher : MonoBehaviour
             Debug.Log("Target: "+x+", "+z);
             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), 5);
             hit();
+            myRacket.velocity = new Vector3(0,0,0);
+            tracking = false;
         }
     }
 }
