@@ -40,11 +40,17 @@ public class GameState : MonoBehaviour {
 
 	public void OnEvent_rallyEnded()
 	{
-		if (player1WonAPoint)
-			score1++;
-		else
-			score0++;
-		
+        if (player1WonAPoint)
+        {
+            Debug.Log("P1WAP");
+            racket1.GetComponent<PPAimAgent>().reward += 0.3f;
+            //score1++;
+        }
+        else
+        {
+            //racket1.GetComponent<PPAimAgent>().reward -= 0.1f;
+            //score0++;
+        }
 		if(score0 >= winningScore || score1 >= winningScore)
 		{
 			if (Mathf.Abs(score0-score1) > 1)

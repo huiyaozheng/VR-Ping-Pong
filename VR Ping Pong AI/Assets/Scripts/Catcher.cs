@@ -11,6 +11,7 @@ public class Catcher : MonoBehaviour
     /// The racket controlled by this script.
     /// </summary>
     public Rigidbody myRacket;
+    protected Vector3 myDefPos;
 
     /// <summary>
     /// This side of the table.
@@ -114,13 +115,17 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// Apply a calculated velocity to the ball to hit the target.
     /// </summary>
-    protected void hit()
+    protected virtual void hit()
     {
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude);
+        myRacket.transform.position = new Vector3(myRacket.transform.position.x,
+                                                 myRacket.transform.position.y,
+                                                 myDefPos.z);
     }
 
     protected void Start()
     {
+        myDefPos = myRacket.transform.position;
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
         tracking = false;
     }
@@ -134,7 +139,6 @@ public class Catcher : MonoBehaviour
         {
             move(currentZDistance);
         }
-
         //Todo: If the ball has flied passed the racket, i.e. the racket missed the ball, stop the racket from moving.
         
         prevZDistance = currentZDistance;

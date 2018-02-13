@@ -16,14 +16,22 @@ public class PPAimAgent : Agent
     public bool invertXZ;
     public float[] min = new float[3];
     public float[] max = new float[3];
-    public float minX, maxX, minY, maxY, minZ, maxZ;
-    private Queue<Collision> lastCollisions;
+    //public float minX, maxX, minY, maxY, minZ, maxZ;
+    //private Queue<Collision> lastCollisions;
 
-	private Vector3 defaultRacketPos;
+    //FIXME temporary fix for the catcher;
+	public Vector3 defaultRacketPos;
 	private Quaternion defaultRacketRot;
 
 	void Start()
 	{
+        //Debug.Log("START CALLED");
+        //min[0]=-gameObject.GetComponent<CatcherBot>().opponentTable.transform.parent.gameObject.transform.localScale.x;
+        //max[0] = -min[0];
+        //min[1]=-gameObject.GetComponent<CatcherBot>().opponentTable.transform.parent.gameObject.transform.localScale.z;
+        //max[1] = -min[1];
+        //min[2] = 0; 
+        //max[2] = gameObject.GetComponent<CatcherBot>().maxTrajectoryHeight;
 		defaultRacketPos = gameObject.transform.position;
 		defaultRacketRot = gameObject.transform.rotation;
 	}
@@ -36,22 +44,11 @@ public class PPAimAgent : Agent
 		state.Add(                     gameObject.transform.position.y);
 		state.Add((invertXZ ? -1 : 1 )*gameObject.transform.position.z);
 
-        //TODO to be addet at a later stage when simple training is verified
-        // //My racket (not opponents) rotation 
-        // state.Add((invertXZ ? -1 : 1 )*gameObject.transform.rotation.eulerAngles.x);
-		// state.Add(                     gameObject.transform.rotation.eulerAngles.y);
-		// state.Add((invertXZ ? -1 : 1 )*gameObject.transform.rotation.eulerAngles.z);
-
         //Opponent's racket position
-        state.Add((invertXZ ? -1 : 1 )*gameObject.transform.position.x);
-		state.Add(                     gameObject.transform.position.y);
-		state.Add((invertXZ ? -1 : 1 )*gameObject.transform.position.z);
+        state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.x);
+		state.Add(                     opponentRacket.transform.position.y);
+		state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.z);
 
-        //TODO to be addet at a later stage when simple training is verified
-        // //Opponent's racket rotation 
-        // state.Add((invertXZ ? -1 : 1 )*gameObject.transform.rotation.eulerAngles.x);
-        // state.Add(                     gameObject.transform.rotation.eulerAngles.y);
-        // state.Add((invertXZ ? -1 : 1 )*gameObject.transform.rotation.eulerAngles.z);
 
         //Let's discuss that!
         //
@@ -68,20 +65,17 @@ public class PPAimAgent : Agent
     // to be implemented by the developer
     public override void AgentStep(float[] act)
     {
-        //Ad-hoc 
-        //to be experimented
-        //An issue we will experience is that agentStep is called much more frequently than we use it.
-        //using it less frequently on the other side will require LAAARGE training
-        //(Recall training with FramesToSkip set to sth positive)
-        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], act[1], act[2]), act[3]);
+        //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
+        for(int i = 0; i < 3; i++)
+        {
+            act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
+        }
+        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),gameObject.transform.position.y+act[2]);
     }
 
     // to be implemented by the developer
     public override void AgentReset()
     {
-        //Need to test how often academy resets and if
-        //that will cause problems if it's affecting our score
-		//gameObject.transform.position = defaultRacketPos;
-		//gameObject.transform.rotation = defaultRacketRot;
+        reward = 0;
     }
 }
