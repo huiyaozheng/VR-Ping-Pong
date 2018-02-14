@@ -13,10 +13,10 @@ public class CatcherBot : Catcher
                                                  myRacket.transform.position.y,
                                                  myDefPos.z);
         Vector3 dist = (landPos-opponentRacket.transform.position);
-        //TODO magic numbers FIXME
-        float disst = dist.sqrMagnitude/10.0f;
-        Debug.Log("DISTANCE TO OPP." + disst);
-        trainee.reward += (Mathf.Exp(dist.sqrMagnitude-100.0f)/(1+Mathf.Exp(dist.sqrMagnitude-100.0f)))*0.03f;
+        ////TODO magic numbers FIXME
+        //float disst = dist.sqrMagnitude/10.0f;
+        //Debug.Log("DISTANCE TO OPP." + disst);
+        //trainee.reward += (Mathf.Exp(dist.sqrMagnitude-100.0f)/(1+Mathf.Exp(dist.sqrMagnitude-100.0f)))*0.03f;
     }
     protected override void OnCollisionEnter(Collision col)
     {
