@@ -43,12 +43,11 @@ public class GameState : MonoBehaviour {
         if (player1WonAPoint)
         {
             Debug.Log("P1WAP");
-            racket1.GetComponent<PPAimAgent>().reward += 0.3f;
             //score1++;
         }
         else
         {
-            //racket1.GetComponent<PPAimAgent>().reward -= 0.1f;
+            Debug.Log("P0WAP");
             //score0++;
         }
 		if(score0 >= winningScore || score1 >= winningScore)

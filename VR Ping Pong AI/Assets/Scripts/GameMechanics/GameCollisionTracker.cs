@@ -26,22 +26,30 @@ public class GameCollisionTracker : MonoBehaviour {
 	{
 		RallyState.eRallyOutcome outcome = RallyState.eRallyOutcome.RO_NONE;
 
-		if (col.collider == table0)
-			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE : RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE);
+        if (col.collider == table0)
+        {
+            outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE : RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE);
+        }
 
 		if (col.collider == table1)
+        {
 			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE : RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE);
-
-		if (col.collider == racket0)
-			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_RACK : RallyState.eRallyStateMachineAction.RSMA_ATT_RACK);
+        }
+        if (col.collider == racket0)
+        {
+            outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_RACK : RallyState.eRallyStateMachineAction.RSMA_ATT_RACK);
+        }
 
 		if (col.collider == racket1)
+        {
 			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_ATT_RACK : RallyState.eRallyStateMachineAction.RSMA_DEF_RACK);
+        }
 
 		if (col.collider == floor)
+        {
 			outcome = rallyState.MakeStep(RallyState.eRallyStateMachineAction.RSMA_OUT);
+        }
 
-        Debug.Log(outcome);
 		if (outcome == RallyState.eRallyOutcome.RO_NONE)
 			return;
 

@@ -25,30 +25,36 @@ public class RallyState : MonoBehaviour {
         // Ignore serving for now.
 		currState = eRallyState.S1;
 	}
-		
+
+    public Agent trainee;
+    private void Reward(float reward)
+    {
+        //Debug.Log("I was rewarded " + reward);
+        trainee.reward += reward;
+    }
 	// I drew out a state machine to control a game, including serves, and implemented it below:
 
 	public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
 	{
 		// Debug:
-		switch (rsma)
-		{
-		case eRallyStateMachineAction.RSMA_ATT_RACK:
-			Debug.Log("Attacker racket.");
-			break;
-		case eRallyStateMachineAction.RSMA_DEF_RACK:
-			Debug.Log("Defender racket.");
-			break;
-		case eRallyStateMachineAction.RSMA_ATT_TABLE:
-			Debug.Log("Attacker's half of the table.");
-			break;
-		case eRallyStateMachineAction.RSMA_DEF_TABLE:
-			Debug.Log("Defender's half of the table.");
-			break;
-		case eRallyStateMachineAction.RSMA_OUT:
-			Debug.Log("Ball went out.");
-			break;
-		}
+		//switch (rsma)
+		//{
+		//case eRallyStateMachineAction.RSMA_ATT_RACK:
+		//	Debug.Log("Attacker racket.");
+		//	break;
+		//case eRallyStateMachineAction.RSMA_DEF_RACK:
+		//	Debug.Log("Defender racket.");
+		//	break;
+		//case eRallyStateMachineAction.RSMA_ATT_TABLE:
+		//	Debug.Log("Attacker's half of the table.");
+		//	break;
+		//case eRallyStateMachineAction.RSMA_DEF_TABLE:
+		//	Debug.Log("Defender's half of the table.");
+		//	break;
+		//case eRallyStateMachineAction.RSMA_OUT:
+		//	Debug.Log("Ball went out.");
+		//	break;
+		//}
 
 
 		switch(currState)
@@ -62,6 +68,7 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		case eRallyState.S1:
@@ -73,6 +80,7 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		case eRallyState.S2:
@@ -82,6 +90,7 @@ public class RallyState : MonoBehaviour {
 				currState = eRallyState.S3;
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
+                Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			default:
 				return eRallyOutcome.RO_ATT_WINS;
@@ -91,10 +100,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_ATT_TABLE:
 				currState = eRallyState.S4;
+                Reward(0.05f);
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
+                Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			default:
+                Reward(-0.3f);
 				return eRallyOutcome.RO_ATT_WINS;
 			}
 		case eRallyState.S4:
@@ -106,6 +118,7 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
+                Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		default:

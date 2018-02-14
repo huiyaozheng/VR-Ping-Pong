@@ -108,6 +108,7 @@ public class Catcher : MonoBehaviour
     /// <param name="_maxHeight"></param>
     public void setTargets(Vector3 _landPos, float _maxHeight)
     {
+        //Debug.Log("TARGETS SET");
         landPos = _landPos;
         maxTrajectoryHeight = _maxHeight;
     }
@@ -117,7 +118,8 @@ public class Catcher : MonoBehaviour
     /// </summary>
     protected virtual void hit()
     {
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude);
+        float aimm = Random.Range(0.0f, maxTrajectoryHeight);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude);
         myRacket.transform.position = new Vector3(myRacket.transform.position.x,
                                                  myRacket.transform.position.y,
                                                  myDefPos.z);
@@ -132,6 +134,7 @@ public class Catcher : MonoBehaviour
 
     protected void Update()
     {
+        //Debug.Log("maxTrajH " + maxTrajectoryHeight);
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
 
         // Move if the ball is incoming.

@@ -34,8 +34,16 @@ public class PPAimAgent : Agent
         //max[2] = gameObject.GetComponent<CatcherBot>().maxTrajectoryHeight;
 		defaultRacketPos = gameObject.transform.position;
 		defaultRacketRot = gameObject.transform.rotation;
+        if (System.Double.IsNaN(reward) == true)
+            reward = 0.0f;
 	}
 
+    public void Update()
+    {
+        if (System.Double.IsNaN(reward) == true)
+            reward = 0.0f;
+        //Debug.Log("REWERDDDD " + System.Double.IsNaN(reward));
+    }
     public override List<float> CollectState()
     {
         List<float> state=new List<float>();
@@ -48,6 +56,7 @@ public class PPAimAgent : Agent
         state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.x);
 		state.Add(                     opponentRacket.transform.position.y);
 		state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.z);
+        //Debug.Log("AGENT COLLECTS");
 
 
         //Let's discuss that!
@@ -64,18 +73,25 @@ public class PPAimAgent : Agent
 
     // to be implemented by the developer
     public override void AgentStep(float[] act)
-    {
+   {
+        //Debug.Log("AGENT STEPS");
         //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
+        //Debug.Log("Reward = " + reward);
         for(int i = 0; i < 3; i++)
         {
             act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
         }
         gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),gameObject.transform.position.y+act[2]);
+        //Vector3 lp = new Vector3(act[0], 0, act[1]);
+        //lp -= opponentRacket.transform.position;
+        //float dist = (lp.sqrMagnitude - 90.0f) / 10.0f;
+        //reward += (Mathf.Exp(dist) / (1 + Mathf.Exp(dist)))*0.02f;
     }
 
     // to be implemented by the developer
     public override void AgentReset()
     {
-        reward = 0;
+        //Debug.Log("RESETTTT");
+        //reward = 0.0f;
     }
 }

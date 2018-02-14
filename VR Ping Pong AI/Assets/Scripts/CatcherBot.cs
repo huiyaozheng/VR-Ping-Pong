@@ -4,6 +4,7 @@ using PhysicsLibrary;
 
 public class CatcherBot : Catcher
 {
+    public Agent trainee;
     protected override void hit()
     {
 
@@ -12,15 +13,16 @@ public class CatcherBot : Catcher
                                                  myRacket.transform.position.y,
                                                  myDefPos.z);
         Vector3 dist = (landPos-opponentRacket.transform.position);
-        //Debug.Log("DISTANCE TO OPP." + dist.sqrMagnitude);
-        //TODO magic number FIXME
-        myRacket.GetComponent<PPAimAgent>().reward += (Mathf.Exp(dist.sqrMagnitude-100.0f)/(1+Mathf.Exp(dist.sqrMagnitude-100.0f)))*0.1f;
+        //TODO magic numbers FIXME
+        float disst = dist.sqrMagnitude/10.0f;
+        Debug.Log("DISTANCE TO OPP." + disst);
+        trainee.reward += (Mathf.Exp(dist.sqrMagnitude-100.0f)/(1+Mathf.Exp(dist.sqrMagnitude-100.0f)))*0.03f;
     }
     protected override void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == ball.gameObject)
         {
-            myRacket.GetComponent<PPAimAgent>().reward += 0.01f;
+            //myRacket.GetComponent<PPAimAgent>().reward += 0.01f;
             //Never delete until the very end. Comment out!
             // //TODO: delete this block after hooked to agent
             // float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
