@@ -63,7 +63,6 @@ public class Catcher : MonoBehaviour
     /// </summary>
     public void startTracking()
     {
-        Debug.Log("Start tracking");
         tracking = true;
     }
 
@@ -120,9 +119,6 @@ public class Catcher : MonoBehaviour
     {
         float aimm = Random.Range(0.0f, maxTrajectoryHeight);
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude);
-        myRacket.transform.position = new Vector3(myRacket.transform.position.x,
-                                                 myRacket.transform.position.y,
-                                                 myDefPos.z);
     }
 
     protected void Start()
@@ -138,11 +134,18 @@ public class Catcher : MonoBehaviour
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
 
         // Move if the ball is incoming.
-        if (currentZDistance < prevZDistance) 
+        if (currentZDistance < prevZDistance)
         {
             move(currentZDistance);
         }
-        //Todo: If the ball has flied passed the racket, i.e. the racket missed the ball, stop the racket from moving.
+        else
+        {
+            // If the racket is close to the default position, stop moving.
+            if ((myDefPos - myRacket.transform.position).magnitude < 2)
+            {
+                myRacket.velocity = new Vector3(0,0,0);
+            }
+        }
         
         prevZDistance = currentZDistance;
     }
@@ -155,12 +158,12 @@ public class Catcher : MonoBehaviour
             float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
             float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
             x = Random.Range(-x, x);
-            z = Random.Range(2, z);
+            z = Random.Range(3, z);
             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
             hit();
 
-            // After hitting the ball, stop the racket.
-            myRacket.velocity = new Vector3(0,0,0);
+            // Move the racket back to the default position.
+            myRacket.velocity = (myDefPos - myRacket.transform.position).normalized * maxRacketMovingSpeed * 0.2f;
             tracking = false;
         }
     }
