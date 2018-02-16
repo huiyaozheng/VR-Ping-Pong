@@ -24,13 +24,13 @@ public class CatcherBot : Catcher
             //myRacket.GetComponent<PPAimAgent>().reward += 0.01f;
             //Never delete until the very end. Comment out!
             // //TODO: delete this block after hooked to agent
-             float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
-             float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
-             Debug.Log("OTABLEx " + x);
-             Debug.Log("OTABLEz " + z);
-             x = Random.Range(-x, x);
-             z = Random.Range(2, z);
-             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
+//             float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
+//             float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+//             Debug.Log("OTABLEx " + x);
+//             Debug.Log("OTABLEz " + z);
+//             x = Random.Range(-x, x);
+//             z = Random.Range(2, z);
+//             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
              // end of block
 
             // Return the ball to the location as specifed by the agent.
