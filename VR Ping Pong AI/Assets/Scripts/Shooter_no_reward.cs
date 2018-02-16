@@ -77,7 +77,7 @@ public class Shooter_no_reward : MonoBehaviour
     /// </summary>
     public float maxHeight = 2;
 
-    void OnCollisionExit(Collision col)
+    void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == table0.gameObject)
         {
