@@ -8,6 +8,7 @@ public class GameState : MonoBehaviour {
 	public Rigidbody racket0, racket1;
 	public Collider table0, table1, floor;
 	public Rigidbody ball;
+    public PPAcademy acad;
 
 	public int winningScore = 11;
 
@@ -28,6 +29,7 @@ public class GameState : MonoBehaviour {
 
 	public void InitGame()
 	{
+        acad.AcademyReset();
 		score0 = 0;
 		score1 = 0;
 		player1StartedGame = false;
@@ -40,6 +42,7 @@ public class GameState : MonoBehaviour {
 
 	public void OnEvent_rallyEnded()
 	{
+        acad.AcademyReset();
         if (player1WonAPoint)
         {
             Debug.Log("P1WAP");

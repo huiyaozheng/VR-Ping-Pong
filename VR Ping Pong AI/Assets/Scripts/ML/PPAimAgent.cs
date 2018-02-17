@@ -81,7 +81,8 @@ public class PPAimAgent : Agent
         {
             act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
         }
-        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),gameObject.transform.position.y+act[2]);
+        //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
+        gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),act[2]);
         //Vector3 lp = new Vector3(act[0], 0, act[1]);
         //lp -= opponentRacket.transform.position;
         //float dist = (lp.sqrMagnitude - 90.0f) / 10.0f;

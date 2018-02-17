@@ -32,6 +32,11 @@ public class RallyState : MonoBehaviour {
         //Debug.Log("I was rewarded " + reward);
         trainee.reward += reward;
     }
+    private void Reward(float reward, bool reset)
+    {
+        //Debug.Log("I was rewarded " + reward);
+        trainee.reward = reward;
+    }
 	// I drew out a state machine to control a game, including serves, and implemented it below:
 
 	public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
@@ -100,13 +105,13 @@ public class RallyState : MonoBehaviour {
 			{
 			case eRallyStateMachineAction.RSMA_ATT_TABLE:
 				currState = eRallyState.S4;
-                Reward(0.05f);
+                //Reward(0.05f);
 				return eRallyOutcome.RO_NONE;
 			case eRallyStateMachineAction.RSMA_ATT_RACK:
                 Reward(0.6f);
 				return eRallyOutcome.RO_DEF_WINS;
 			default:
-                Reward(-0.3f);
+                Reward(-0.3f,true);
 				return eRallyOutcome.RO_ATT_WINS;
 			}
 		case eRallyState.S4:
@@ -118,7 +123,7 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
-                Reward(0.6f);
+                Reward(0.6f);Debug.Log("I WON");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		default:

@@ -5,17 +5,25 @@ using PhysicsLibrary;
 public class CatcherBot : Catcher
 {
     public Agent trainee;
+    public const float mult = 2.0f;
     protected override void hit()
     {
 
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude);
-        Vector3 dist = (landPos-opponentRacket.transform.position);
+        //Vector3 dist = (landPos-opponentRacket.transform.position);
 
 
         ////TODO magic numbers FIXME
-        //float disst = dist.sqrMagnitude/10.0f;
-        //Debug.Log("DISTANCE TO OPP." + disst);
-        //trainee.reward += (Mathf.Exp(dist.sqrMagnitude-100.0f)/(1+Mathf.Exp(dist.sqrMagnitude-100.0f)))*0.03f;
+        float disst = Mathf.Abs(landPos.x-opponentRacket.transform.position.x);
+        //Debug.Log("DISTANCE TO OPP. " + disst);
+        //Debug.Log("Reward for DISTANCE TO OPP. " + (Mathf.Exp(disst-6f)/(1+Mathf.Exp(disst-6f)))*0.20f);
+        //Debug.Log("max height " + maxTrajectoryHeight);
+        trainee.reward += (Mathf.Exp(disst-6f)/(1+Mathf.Exp(disst-6f)))*0.20f;
+        //Debug.Log((Mathf.Exp(mult*(3.5f-maxTrajectoryHeight)) / (1 + Mathf.Exp(mult*(3.5f-maxTrajectoryHeight)))) * 0.25f-0.1f)
+        trainee.reward+=(Mathf.Exp(mult*(5f-maxTrajectoryHeight)) / (1 + Mathf.Exp(mult*(5f-maxTrajectoryHeight)))) * 0.25f;
+        //trainee.reward += (Mathf.Exp(disst - 0.5f) / (1 + Mathf.Exp(disst - 0.5f))) * 0.20f;
+        //Debug.Log((Mathf.Exp(mult * (5f - maxTrajectoryHeight)) / (1 + Mathf.Exp(mult * (5f - maxTrajectoryHeight)))));
+        //Debug.Assert(!System.Double.IsNaN(trainee.reward));
     }
     protected override void OnCollisionEnter(Collision col)
     {
