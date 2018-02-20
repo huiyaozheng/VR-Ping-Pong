@@ -77,14 +77,29 @@ public class Shooter_no_reward : MonoBehaviour
     /// </summary>
     public float maxHeight = 2;
 
+    /// <summary>
+    /// The ball first bounces on the serving side's table. Do not notify the racket in this case.
+    /// </summary>
+    private bool firstBounce = true;
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == table0.gameObject)
         {
+            if (firstBounce)
+            {
+                firstBounce = false;
+                return;
+            }
             racket0.gameObject.GetComponent<Catcher>().startTracking();
         }
         else if (col.gameObject == table1.gameObject)
         {
+            if (firstBounce)
+            {
+                firstBounce = false;
+                return;
+            }
             racket1.gameObject.GetComponent<Catcher>().startTracking();
         }
     }
@@ -103,13 +118,15 @@ public class Shooter_no_reward : MonoBehaviour
         racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         racket1.gameObject.GetComponent<Catcher>().stopTracking();
 
-        gameObject.transform.position = defaultBallPos;
-        float x = (table0.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
-        float z = (table0.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+        gameObject.transform.position = racket0DefaultPosition;
+        float x = (table0.transform.parent.gameObject.transform.localScale.x) / 2 - 2f;
+        float z = (table0.transform.parent.gameObject.transform.localScale.z) / 2 - 1f;
         x = Random.Range(-x, x);
         z = Random.Range(4, z);
         ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f),
-            ballBody.position, maxHeight, Physics.gravity.magnitude);
+            ballBody.position, 3, Physics.gravity.magnitude);
+
+        firstBounce = true;
     }
 
     void Start()

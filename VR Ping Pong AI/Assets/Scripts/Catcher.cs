@@ -79,8 +79,6 @@ public class Catcher : MonoBehaviour
     /// </summary>
     protected void move(float targetDistance)
     {
-        //Todo: move the racket backwards after returning the ball. Otherwise the next ball may land behind the racket.
-
         if (tracking)
         {
             // If the ball has bounced on the closer table, move towards the ball.

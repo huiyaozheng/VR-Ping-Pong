@@ -18,12 +18,12 @@ public class RallyState : MonoBehaviour {
 
 	private enum eRallyState{ S0, S1, S2, S3, S4 };
 
-	private eRallyState currState = eRallyState.S1; // To bypass serving for now...
+	private eRallyState currState = eRallyState.S0; // To bypass serving for now...
 
 	private void OnEvent_rallyEnded()
 	{
         // Ignore serving for now.
-		currState = eRallyState.S1;
+		currState = eRallyState.S0;
 	}
 
     public Agent trainee;
