@@ -16,6 +16,9 @@ public class PPAimAgent : Agent
     public bool invertXZ;
     public float[] min = new float[3];
     public float[] max = new float[3];
+    public float tickRate=0.99f;
+    public float multiplier = 1.0f;
+   
     //public float minX, maxX, minY, maxY, minZ, maxZ;
     //private Queue<Collision> lastCollisions;
 
@@ -23,6 +26,10 @@ public class PPAimAgent : Agent
 	public Vector3 defaultRacketPos;
 	private Quaternion defaultRacketRot;
 
+    private float expo(float x)
+    {
+        return Mathf.Exp(x) / (1 + Mathf.Exp(x));
+    }
 	void Start()
 	{
         //Debug.Log("START CALLED");
@@ -40,8 +47,8 @@ public class PPAimAgent : Agent
 
     public void Update()
     {
-        if (System.Double.IsNaN(reward) == true)
-            reward = 0.0f;
+        //if (System.Double.IsNaN(reward) == true)
+        //    reward = 0.0f;
         //Debug.Log("REWERDDDD " + System.Double.IsNaN(reward));
     }
     public override List<float> CollectState()
@@ -58,16 +65,11 @@ public class PPAimAgent : Agent
 		state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.z);
         //Debug.Log("AGENT COLLECTS");
 
+        //ball's position
+        state.Add(ball.transform.position.x);
+		state.Add(ball.transform.position.y);
+		state.Add(ball.transform.position.z);
 
-        //Let's discuss that!
-        //
-        //It might be a good idea to be able keep track of the last X collisions with the 
-        //opponents racket (i.e. also return them as state but to be decided how to convert
-        //information to float so that the brain infers to pick a point that is hard to hit.
-        //Therefore I leave a queue<collision> on top as public that the collider may need
-        //to alter.
-        //
-        //Do you think there would be a better way to do that?
         return state;
     }
 
@@ -83,6 +85,8 @@ public class PPAimAgent : Agent
         }
         //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
         gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),act[2]);
+        float dist = Mathf.Abs(act[0]-opponentRacket.transform.position.x);
+        reward += expo(dist - 7f) * 0.01f * multiplier;
         //Vector3 lp = new Vector3(act[0], 0, act[1]);
         //lp -= opponentRacket.transform.position;
         //float dist = (lp.sqrMagnitude - 90.0f) / 10.0f;
