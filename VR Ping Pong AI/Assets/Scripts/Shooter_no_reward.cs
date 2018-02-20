@@ -118,13 +118,8 @@ public class Shooter_no_reward : MonoBehaviour
         racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         racket1.gameObject.GetComponent<Catcher>().stopTracking();
 
-        gameObject.transform.position = racket0DefaultPosition;
-        float x = (table0.transform.parent.gameObject.transform.localScale.x) / 2 - 2f;
-        float z = (table0.transform.parent.gameObject.transform.localScale.z) / 2 - 1f;
-        x = Random.Range(-x, x);
-        z = Random.Range(4, z);
-        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f),
-            ballBody.position, 3, Physics.gravity.magnitude);
+        //TODO: let the rackets serve in turn.
+        racket0.gameObject.GetComponent<Catcher>().serve();
 
         firstBounce = true;
     }

@@ -116,7 +116,7 @@ public class Catcher : MonoBehaviour
     protected virtual void hit()
     {
         float aimm = Random.Range(0.0f, maxTrajectoryHeight);
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
     protected void Start()
@@ -159,10 +159,22 @@ public class Catcher : MonoBehaviour
             z = Random.Range(3, z);
             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
             hit();
-
             // Move the racket back to the default position.
             myRacket.velocity = (myDefPos - myRacket.transform.position).normalized * maxRacketMovingSpeed * 0.2f;
             tracking = false;
         }
+    }
+
+    public void serve() {
+        float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 7f;
+        x = Random.Range(-x, x);
+        myRacket.transform.position = new Vector3(x, myRacket.transform.position.y, myRacket.transform.position.z);
+        ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.5f) * (invertXZ ? -1f : 1f);
+        x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 6f;
+        float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 4;
+        x = Random.Range(-x, x);
+        z = Random.Range(z + 2, z + 2);
+        Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
+        ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y + 1f, Physics.gravity.magnitude, true);
     }
 }

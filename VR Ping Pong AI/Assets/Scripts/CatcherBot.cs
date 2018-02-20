@@ -9,7 +9,7 @@ public class CatcherBot : Catcher
     protected override void hit()
     {
 
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude, false);
         //Vector3 dist = (landPos-opponentRacket.transform.position);
 
 

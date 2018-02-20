@@ -64,7 +64,7 @@ public class CheatingBot : MonoBehaviour {
 		if (col.gameObject != ball.gameObject)
 			return;
 
-		ball.velocity = PhysicsCalculations.velFromTraj(target.position, ball.position, heightTarget.position.y, Physics.gravity.magnitude);
+		ball.velocity = PhysicsCalculations.velFromTraj(target.position, ball.position, heightTarget.position.y, Physics.gravity.magnitude, false);
 		return;
 	}
 }

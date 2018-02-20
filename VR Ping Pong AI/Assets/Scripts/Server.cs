@@ -191,7 +191,7 @@ public class Server : MonoBehaviour
         float z = (closerTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
         x = Random.Range(-x, x);
         z = Random.Range(4, z);
-        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f), ballBody.position, maxHeight, Physics.gravity.magnitude);
+        ballBody.velocity = PhysicsCalculations.velFromTraj(new Vector3(x, 0, z) * (invertXZMult ? -1f : 1f), ballBody.position, maxHeight, Physics.gravity.magnitude, false);
     }
 
     void Start()
