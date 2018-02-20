@@ -115,7 +115,7 @@ public class Catcher : MonoBehaviour
     /// </summary>
     protected virtual void hit()
     {
-        float aimm = Random.Range(0.0f, maxTrajectoryHeight);
+        float aimm = Random.Range(2.0f, maxTrajectoryHeight);
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
