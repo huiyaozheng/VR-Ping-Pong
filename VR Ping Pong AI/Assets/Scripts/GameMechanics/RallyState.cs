@@ -26,21 +26,25 @@ public class RallyState : MonoBehaviour {
 		currState = eRallyState.S0;
 	}
 
-    public Agent trainee;
+    public PPAimAgent trainee;
     private void Reward(float reward)
     {
-        //Debug.Log("I was rewarded " + reward);
-        trainee.reward += reward;
+        //Debug.Log("I was rewarded " + trainee.multiplier*reward);
+        trainee.reward += trainee.multiplier*reward;
+        trainee.multiplier = 1f;
+
     }
     private void Reward(float reward, bool reset)
     {
         //Debug.Log("I was rewarded " + reward);
         trainee.reward = reward;
+        trainee.multiplier = 1f;
     }
 	// I drew out a state machine to control a game, including serves, and implemented it below:
 
 	public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
 	{
+        trainee.multiplier *= trainee.tickRate;
 		// Debug:
 		//switch (rsma)
 		//{
@@ -123,7 +127,7 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
-                Reward(0.6f);Debug.Log("I WON");
+                Reward(1.0f);Debug.Log("I WON");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		default:
