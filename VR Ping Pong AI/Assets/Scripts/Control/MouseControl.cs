@@ -30,7 +30,7 @@ public class MouseControl : MonoBehaviour {
 
 		float ballY = ball.position.y;
 
-		if (minY < ballY && ballY < maxY)
+		if (true)//minY < ballY && ballY < maxY)
 		{
 			velocity.y = ballY - racket.position.y;
 			velocity.y *= yAdjustmentSpeed;
@@ -57,4 +57,11 @@ public class MouseControl : MonoBehaviour {
 			ball.velocity = Vector3.zero;
 		}
 	}
+
+	void OnCollisionEnter(Collision col) {
+		if (col.gameObject != ball.gameObject)
+			return;
+		ball.velocity = PhysicsLibrary.PhysicsCalculations.batHit (ball.velocity, racket.velocity, racket.transform.forward.normalized);
+	}
 }
+
