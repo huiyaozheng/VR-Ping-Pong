@@ -13,8 +13,6 @@ public class HeuristicBot : CatcherBot {
 	private Vector3 lastShot2 = Vector3.zero; // Second-to-last shot
 	private Vector3 lastShot3 = Vector3.zero; // Third-to-last shot
 
-	private bool iAmPlayer1;
-
 	// Overrides:
 
 	public override void startTracking()
@@ -24,12 +22,6 @@ public class HeuristicBot : CatcherBot {
 	}
 	private float reactionTimeTimer = 0f;
 	private float reactionTimeDuration = 0f;
-
-	protected override void Start()
-	{
-		base.Start();
-		iAmPlayer1 = game.player1 == gameObject;
-	}
 
 	protected override void Update()
 	{
@@ -166,7 +158,9 @@ public class HeuristicBot : CatcherBot {
 		// Only do this if we win a point.
 		if (!lastShot.Equals(Vector3.zero))
 		{
-			bool iWonAPoint = !iAmPlayer1 ^ game.player1WonAPoint;
+			bool iAmPlayer1 = (game.player1 == gameObject);
+			bool iAmPlayer0 = (game.player0 == gameObject);
+			bool iWonAPoint = (iAmPlayer1 && game.player1WonAPoint || iAmPlayer0 && !game.player1WonAPoint);
 
 			if (iWonAPoint)
 			{
