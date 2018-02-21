@@ -33,11 +33,11 @@ public class GameState : MonoBehaviour {
 		score0 = 0;
 		score1 = 0;
 		player1StartedGame = false;
-	}
+    }
 
 	public void ResetBall()
 	{
-		ball.GetComponent<Shooter_no_reward>().ShootBall();
+		ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
 	}
 
 	public void OnEvent_rallyEnded()
@@ -46,12 +46,12 @@ public class GameState : MonoBehaviour {
         if (player1WonAPoint)
         {
             Debug.Log("P1WAP");
-            //score1++;
+            score1++;
         }
         else
         {
             Debug.Log("P0WAP");
-            //score0++;
+            score0++;
         }
 		if(score0 >= winningScore || score1 >= winningScore)
 		{
@@ -61,7 +61,7 @@ public class GameState : MonoBehaviour {
 			}
 		}
 
-	    ball.GetComponent<Shooter_no_reward>().ShootBall();
+	    ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
     }
 
 	// Use this for initialization
