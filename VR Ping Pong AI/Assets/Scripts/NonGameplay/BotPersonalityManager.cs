@@ -5,7 +5,7 @@ using System.IO;
 
 public class BotPersonalityManager : MonoBehaviour {
 
-	private static BotPersonalities botPersonalities;
+	private static BotPersonalities botPersonalities = null;
 
 	// Use this for initialization
 	void Start () {
@@ -22,17 +22,16 @@ public class BotPersonalityManager : MonoBehaviour {
 		}
 		else
 		{
-			Debug.LogError("Cannot load bot personalities from " + filePath);
+			Debug.LogWarning("Cannot load bot personalities from " + filePath + "\n Creating a new BotPersonalities object.");
+			botPersonalities = new BotPersonalities();
 		}
 	}
 
 	private static void SaveBotPersonalities()
 	{
-
 		string dataAsJson = JsonUtility.ToJson (botPersonalities);
 		string filePath = Statics.path_botPersonalities();
 		File.WriteAllText (filePath, dataAsJson);
-
 	}
 
 	// OnDisable() is called after Alt+F4 and similar, so it's ok to do important finalization stuff here.

@@ -164,12 +164,12 @@ public class HeuristicBot : CatcherBot {
 
 			if (iWonAPoint)
 			{
-				Debug.Log(":) I won a point, let's update heuristics!");
+				Debug.Log(":) I (" + bot.botGivenName + ") won a point, let's update heuristics!");
 				UpdateHeuristicsAfterWin();
 			}
 			else
 			{
-				Debug.Log(":( I lost a point, let's update heuristics!");
+				Debug.Log(":( I (" + bot.botGivenName + ") lost a point, let's update heuristics!");
 				UpdateHeuristicsAfterLoss();
 			}
 		}
@@ -211,16 +211,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}
@@ -238,16 +238,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot2);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot2);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}
@@ -265,16 +265,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}
@@ -297,16 +297,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}
@@ -324,16 +324,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot2);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot2);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}
@@ -351,16 +351,16 @@ public class HeuristicBot : CatcherBot {
 			{
 
 			}
-			int shotHeight = shotHeight(lastShot);
-			if (shotHeight == 0) // shot was low
+			int sh = shotHeight(lastShot);
+			if (sh == 0) // shot was low
 			{
 
 			}
-			else if (shotHeight == 1) // shot was medium
+			else if (sh == 1) // shot was medium
 			{
 
 			}
-			else if (shotHeight == 2) // shot was high
+			else if (sh == 2) // shot was high
 			{
 
 			}

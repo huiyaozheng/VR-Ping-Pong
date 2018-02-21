@@ -39,4 +39,23 @@ public class CoachableHeuristics : System.Object {
 	///    play.y represents the maxHeight.
 	/// </summary>
 	public List<Vector3> winningShots;
+
+
+	public CoachableHeuristics()
+	{
+		reactionTime_mean = 0.3f;
+		reactionTime_stDev = 0.05f;
+
+		errorRate_tooHigh = 0.05f;
+		errorRate_tooLow = 0.05f;
+
+		sidePreference_left_max05 = 0f;
+		sidePreference_right_max05 = 0f;
+
+		heightPreference_high_max033 = 0f;
+		heightPreference_medium_max033 = 0f;
+		heightPreference_low_max033 = 0f;
+
+		winningShots = new List<Vector3>();
+	}
 }

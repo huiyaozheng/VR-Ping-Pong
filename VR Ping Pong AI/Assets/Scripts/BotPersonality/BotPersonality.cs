@@ -9,4 +9,10 @@ public class BotPersonality : System.Object {
 	public CoachableHeuristics heuristics;
 	public string bytesPath;
 
+	public BotPersonality(string name, string bytesPath)
+	{
+		this.bytesPath = bytesPath;
+		this.botGivenName = name;
+		this.heuristics = new CoachableHeuristics();
+	}
 }
