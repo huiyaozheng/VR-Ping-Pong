@@ -4,14 +4,14 @@ using UnityEngine;
 
 [System.Serializable]
 public class BotPersonality : System.Object {
-	
+
+	public TextAsset bytesFile;
 	public string botGivenName;
 	public CoachableHeuristics heuristics;
-	public string bytesPath;
 
-	public BotPersonality(string name, string bytesPath)
+	public BotPersonality(string name, TextAsset bytesFile)
 	{
-		this.bytesPath = bytesPath;
+		this.bytesFile = bytesFile;
 		this.botGivenName = name;
 		this.heuristics = new CoachableHeuristics();
 	}
