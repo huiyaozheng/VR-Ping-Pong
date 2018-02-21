@@ -17,7 +17,7 @@ public class BallScript : MonoBehaviour {
 			if (speed > maxSpeed)
 			{
 				ball.velocity *= (maxSpeed / speed);
-//				Debug.Log("Capped ball's speed at " + maxSpeed.ToString());
+				Debug.LogWarning("Capped ball's speed at " + maxSpeed.ToString());
 			}
 		}
 	}

@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour {
 
-	public Player player0, player1;
+	public GameObject player0, player1;
 	public Rigidbody racket0, racket1;
 	public Collider table0, table1, floor;
 	public Rigidbody ball;
+    public PPAcademy acad;
 
 	public int winningScore = 11;
 
 	private bool player1StartedGame;
+
+	/// Guaranteed to be set before the rallyEnded event is called!
 	public bool player1WonAPoint;
 	private int score0, score1;
 
@@ -28,6 +31,7 @@ public class GameState : MonoBehaviour {
 
 	public void InitGame()
 	{
+        acad.AcademyReset();
 		score0 = 0;
 		score1 = 0;
 		player1StartedGame = false;
@@ -35,17 +39,22 @@ public class GameState : MonoBehaviour {
 
 	public void ResetBall()
 	{
-		ball.position = defaultBallPos;
-		ball.velocity = Vector3.zero;
+		ball.GetComponent<Shooter_no_reward>().ShootBall();
 	}
 
 	public void OnEvent_rallyEnded()
 	{
-		if (player1WonAPoint)
-			score1++;
-		else
-			score0++;
-		
+        acad.AcademyReset();
+        if (player1WonAPoint)
+        {
+            Debug.Log("P1WAP");
+            //score1++;
+        }
+        else
+        {
+            Debug.Log("P0WAP");
+            //score0++;
+        }
 		if(score0 >= winningScore || score1 >= winningScore)
 		{
 			if (Mathf.Abs(score0-score1) > 1)
@@ -53,7 +62,9 @@ public class GameState : MonoBehaviour {
 				Events.eSetEnded();
 			}
 		}
-	}
+
+	    ball.GetComponent<Shooter_no_reward>().ShootBall();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -65,7 +76,6 @@ public class GameState : MonoBehaviour {
 	void Update () {
 		
 	}
-
 
 	void OnEnable()
 	{

@@ -14,7 +14,7 @@ namespace Valve.VR.InteractionSystem
 		public int segmentCount = 60;
 		public float thickness = 0.01f;
 
-		[Tooltip( "The amount of time in seconds to predict the motion of the projectile." )]
+		[Tooltip( "The amount of time in seconds to startTracking the motion of the projectile." )]
 		public float arcDuration = 3.0f;
 
 		[Tooltip( "The amount of time in seconds between each segment of the projectile." )]
