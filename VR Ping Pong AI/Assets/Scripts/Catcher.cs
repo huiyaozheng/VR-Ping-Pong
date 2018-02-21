@@ -119,7 +119,7 @@ public class Catcher : MonoBehaviour
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
-    private void Start()
+	protected virtual void Start()
     {
         myDefPos = myRacket.transform.position;
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);

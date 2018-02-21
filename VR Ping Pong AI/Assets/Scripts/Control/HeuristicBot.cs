@@ -10,6 +10,10 @@ public class HeuristicBot : CatcherBot {
 	public float lowHeight = 2.2f, medHeight=3.8f, highHeight=5.6f;
 
 	private Vector3 lastShot = Vector3.zero;
+	private Vector3 lastShot2 = Vector3.zero; // Second-to-last shot
+	private Vector3 lastShot3 = Vector3.zero; // Third-to-last shot
+
+	private bool iAmPlayer1;
 
 	// Overrides:
 
@@ -20,6 +24,12 @@ public class HeuristicBot : CatcherBot {
 	}
 	private float reactionTimeTimer = 0f;
 	private float reactionTimeDuration = 0f;
+
+	protected override void Start()
+	{
+		base.Start();
+		iAmPlayer1 = game.player1 == gameObject;
+	}
 
 	protected override void Update()
 	{
@@ -70,16 +80,26 @@ public class HeuristicBot : CatcherBot {
 		{
 			aimPos *= 2;
 			aimHeight *= 2;
-			ball.velocity = PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude, false);
-			lastShot = new Vector3(aimPos.x, aimHeight, aimPos.z);
+			HitAndSaveShot(aimPos, aimHeight);
 			return;
 		}
 		if(tooLow)
 		{
 			aimPos.z *= 0.1f;
 			aimHeight /= 2;
-			ball.velocity = PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude, false);
-			lastShot = new Vector3(aimPos.x, aimHeight, aimPos.z);
+			HitAndSaveShot(aimPos, aimHeight);
+			return;
+		}
+
+		bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb();
+		if (replayWinningShot && bot.heuristics.winningShots.Count > 0)
+		{
+			int rand_ind = Random.Range(0, bot.heuristics.winningShots.Count - 1);
+			aimPos.x = bot.heuristics.winningShots[rand_ind].x;
+			aimPos.z = bot.heuristics.winningShots[rand_ind].z;
+			aimHeight = bot.heuristics.winningShots[rand_ind].y;
+
+			HitAndSaveShot(aimPos, aimHeight);
 			return;
 		}
 
@@ -128,29 +148,232 @@ public class HeuristicBot : CatcherBot {
 			aimHeight = Random.Range(highHeight - 1.0f, highHeight + 1.0f);
 		}
 
-		ball.velocity = PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude, false);
-		lastShot = new Vector3(aimPos.x, aimHeight, aimPos.z);
+		HitAndSaveShot(aimPos, aimHeight);
 		return;
 	}
 
-
-
+	// Perform a hit with the specified trajectory, and save into the 'lastShot' field.
+	private void HitAndSaveShot(Vector3 aimPos, float aimHeight)
+	{
+		ball.velocity = PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude, false);
+		lastShot3 = lastShot2;
+		lastShot2 = lastShot;
+		lastShot = new Vector3(aimPos.x, aimHeight, aimPos.z);
+	}
 
 	private void OnEvent_rallyEnded()
 	{
-		// Only do this if we win the shot (which holds when we're not tracking - HACK).
-		if (!lastShot.Equals(Vector3.zero) && !tracking)
+		// Only do this if we win a point.
+		if (!lastShot.Equals(Vector3.zero))
 		{
-			int n = Statics.bot_winningPlays_listLength();
-			while (bot.heuristics.winningShots.Count >= n)
-				bot.heuristics.winningShots.RemoveAt(n - 1);
-			bot.heuristics.winningShots.Insert(0, lastShot);
+			bool iWonAPoint = !iAmPlayer1 ^ game.player1WonAPoint;
+
+			if (iWonAPoint)
+			{
+				Debug.Log(":) I won a point, let's update heuristics!");
+				UpdateHeuristicsAfterWin();
+			}
+			else
+			{
+				Debug.Log(":( I lost a point, let's update heuristics!");
+				UpdateHeuristicsAfterLoss();
+			}
 		}
 		lastShot = Vector3.zero;
 	}
 
+	private bool shotIsToTheLeft(Vector3 shot)
+	{
+		return invertXZ ^ (shot.x < 0f);
+	}
 
+	private int shotHeight(Vector3 shot)
+	{
+		if (shot.y < (lowHeight + medHeight) / 2f)
+			return 0; // LOW
 
+		if (shot.y < (medHeight + highHeight) / 2f)
+			return 1; // MEDIUM
+
+		return 2; // HIGH
+	}
+
+	// Update heuristics after a won point, based on the three last shots: lastShot, lastShot2, lastShot3.
+	private void UpdateHeuristicsAfterWin()
+	{
+		// Add a winning shot to the winning shots list.
+		int n = Statics.bot_winningPlays_listLength();
+		while (bot.heuristics.winningShots.Count >= n)
+			bot.heuristics.winningShots.RemoveAt(n - 1);
+		bot.heuristics.winningShots.Insert(0, lastShot);
+
+		if (!lastShot.Equals(Vector3.zero)) // -------------- lastShot
+		{
+			if (shotIsToTheLeft(lastShot))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+
+		if (!lastShot2.Equals(Vector3.zero)) // -------------- lastShot2
+		{
+			if (shotIsToTheLeft(lastShot2))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot2);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+
+		if (!lastShot3.Equals(Vector3.zero)) // -------------- lastShot3
+		{
+			if (shotIsToTheLeft(lastShot3))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+	}
+
+	// Update heuristics after a lost point, based on the three last shots: lastShot, lastShot2, lastShot3.
+	private void UpdateHeuristicsAfterLoss()
+	{
+
+		if (!lastShot.Equals(Vector3.zero)) // -------------- lastShot
+		{
+			if (shotIsToTheLeft(lastShot))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+
+		if (!lastShot2.Equals(Vector3.zero)) // -------------- lastShot2
+		{
+			if (shotIsToTheLeft(lastShot2))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot2);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+
+		if (!lastShot3.Equals(Vector3.zero)) // -------------- lastShot3
+		{
+			if (shotIsToTheLeft(lastShot3))
+			{
+
+			}
+			else // to the right
+			{
+
+			}
+			int shotHeight = shotHeight(lastShot);
+			if (shotHeight == 0) // shot was low
+			{
+
+			}
+			else if (shotHeight == 1) // shot was medium
+			{
+
+			}
+			else if (shotHeight == 2) // shot was high
+			{
+
+			}
+
+			// Alter error rates and reaction time...
+		}
+	}
 
 
 

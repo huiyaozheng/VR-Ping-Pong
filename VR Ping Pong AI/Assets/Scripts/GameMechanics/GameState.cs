@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour {
 
-	public Player player0, player1;
+	public GameObject player0, player1;
 	public Rigidbody racket0, racket1;
 	public Collider table0, table1, floor;
 	public Rigidbody ball;
@@ -13,6 +13,8 @@ public class GameState : MonoBehaviour {
 	public int winningScore = 11;
 
 	private bool player1StartedGame;
+
+	/// Guaranteed to be set before the rallyEnded event is called!
 	public bool player1WonAPoint;
 	private int score0, score1;
 

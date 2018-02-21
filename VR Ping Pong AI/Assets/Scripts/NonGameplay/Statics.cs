@@ -17,4 +17,9 @@ public class Statics {
 	{
 		return 6;
 	}
+
+	public static float bot_winningPlays_replayProb()
+	{
+		return 0.05f;
+	}
 }

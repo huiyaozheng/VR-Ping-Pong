@@ -8,12 +8,6 @@ public class CoachableHeuristics : System.Object {
 	public float reactionTime_mean;
 	public float reactionTime_stDev;
 
-//	public float errorRate_tooHigh_mean;
-//	public float errorRate_tooHigh_stDev;
-
-//	public float errorRate_tooLow_mean;
-//	public float errorRate_tooLow_stDev;
-
 	public float errorRate_tooHigh;
 	public float errorRate_tooLow;
 
