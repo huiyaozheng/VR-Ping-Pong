@@ -228,6 +228,7 @@ MonoBehaviour:
   invertXZ: 1
   maxTrajectoryHeight: 0
   trainee: {fileID: 108135237}
+  logger: {fileID: 1992641651}
 --- !u!114 &108135237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
   - 4
   tickRate: 0.99
   multiplier: 1
+  logger: {fileID: 1992641651}
   defaultRacketPos: {x: 0, y: 0, z: 0}
 --- !u!1 &227895638
 GameObject:
@@ -671,6 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game: {fileID: 0}
+  logger: {fileID: 1992641651}
   trainee: {fileID: 108135237}
 --- !u!114 &714634115
 MonoBehaviour:
@@ -1684,6 +1687,46 @@ Transform:
   m_PrefabParentObject: {fileID: 4664356871375300, guid: 82a4186e514ee9a4fb14ea46d7539fe0,
     type: 2}
   m_PrefabInternal: {fileID: 1804233837}
+--- !u!1 &1992641650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1992641652}
+  - component: {fileID: 1992641651}
+  m_Layer: 0
+  m_Name: Logger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1992641651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992641650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aeb7f11e1fdb044cba9f20f68ddfd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1992641652
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992641650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.0775, z: -1.1225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2013646812
 MonoBehaviour:
   m_ObjectHideFlags: 0
