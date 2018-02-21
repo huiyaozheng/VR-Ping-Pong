@@ -11,6 +11,7 @@ public class RallyState : MonoBehaviour {
 	 * OUT is the event of the ball going out of play (hitting the floor or walls).
 	 */
 	public GameState game;
+    public Logger logger;
 
 	public enum eRallyStateMachineAction{ RSMA_ATT_RACK, RSMA_ATT_TABLE, RSMA_DEF_RACK, RSMA_DEF_TABLE, RSMA_OUT };
 
@@ -30,6 +31,11 @@ public class RallyState : MonoBehaviour {
     private void Reward(float reward)
     {
         //Debug.Log("I was rewarded " + trainee.multiplier*reward);
+
+        logger.AppendLog(trainee.gameObject.transform.position,
+                         trainee.opponentRacket.transform.position,
+                         trainee.ball.transform.position,
+                         trainee.multiplier*reward);
         trainee.reward += trainee.multiplier*reward;
         trainee.multiplier = 1f;
 
@@ -37,6 +43,10 @@ public class RallyState : MonoBehaviour {
     private void Reward(float reward, bool reset)
     {
         //Debug.Log("I was rewarded " + reward);
+        logger.AppendLog(trainee.gameObject.transform.position,
+                         trainee.opponentRacket.transform.position,
+                         trainee.ball.transform.position,
+                         reward-trainee.reward);
         trainee.reward = reward;
         trainee.multiplier = 1f;
     }

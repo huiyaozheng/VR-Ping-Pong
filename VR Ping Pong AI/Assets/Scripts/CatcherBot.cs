@@ -6,6 +6,7 @@ public class CatcherBot : Catcher
 {
     public PPAimAgent trainee;
     public const float mult = 10.0f;
+    public Logger logger;
     
     private float expo(float x)
     {
@@ -24,8 +25,16 @@ public class CatcherBot : Catcher
         //Debug.Log("Reward for DISTANCE TO OPP. " + (Mathf.Exp(dist-6f)/(1+Mathf.Exp(dist-6f)))*0.20f);
         //Debug.Log("max height " + maxTrajectoryHeight);
         trainee.reward += expo(dist - 7f) * 0.35f * trainee.multiplier;
+        logger.AppendLog(gameObject.transform.position,
+                         opponentRacket.transform.position,
+                         ball.transform.position,
+                         expo(dist - 7f) * 0.01f * trainee.multiplier);
         //Debug.Log(expo((dist - 7f)) * 0.40f * trainee.multiplier);
         trainee.reward += expo(mult * (3f - maxTrajectoryHeight)) * 0.15f * trainee.multiplier;
+        logger.AppendLog(gameObject.transform.position,
+                         opponentRacket.transform.position,
+                         ball.transform.position,
+                         expo(mult * (3f - maxTrajectoryHeight)) * 0.15f * trainee.multiplier);
         //Debug.Log(expo(mult*(3f-maxTrajectoryHeight)));
         //Debug.Assert(!System.Double.IsNaN(trainee.reward));
     }

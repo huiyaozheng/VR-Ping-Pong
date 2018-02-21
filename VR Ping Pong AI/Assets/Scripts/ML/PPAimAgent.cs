@@ -18,6 +18,7 @@ public class PPAimAgent : Agent
     public float[] max = new float[3];
     public float tickRate=0.99f;
     public float multiplier = 1.0f;
+    public Logger logger;
    
     //public float minX, maxX, minY, maxY, minZ, maxZ;
     //private Queue<Collision> lastCollisions;
@@ -75,10 +76,11 @@ public class PPAimAgent : Agent
 
     // to be implemented by the developer
     public override void AgentStep(float[] act)
-   {
+    {
         //Debug.Log("AGENT STEPS");
         //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
         //Debug.Log("Reward = " + reward);
+        Vector3 actionTaken = new Vector3(act[0], act[1], act[2]);
         for(int i = 0; i < 3; i++)
         {
             act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
@@ -87,6 +89,11 @@ public class PPAimAgent : Agent
         gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),act[2]);
         float dist = Mathf.Abs(act[0]-opponentRacket.transform.position.x);
         reward += expo(dist - 7f) * 0.01f * multiplier;
+        logger.AppendLog(gameObject.transform.position,
+                         opponentRacket.transform.position,
+                         ball.transform.position,
+                         actionTaken,
+                         expo(dist - 7f) * 0.01f * multiplier);
         //Vector3 lp = new Vector3(act[0], 0, act[1]);
         //lp -= opponentRacket.transform.position;
         //float dist = (lp.sqrMagnitude - 90.0f) / 10.0f;
