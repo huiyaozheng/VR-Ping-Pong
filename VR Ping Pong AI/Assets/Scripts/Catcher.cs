@@ -46,7 +46,7 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// Z-axis distance between the ball and myRacket. Used to detect whether the ball is flying towards us.
     /// </summary>
-    private float prevZDistance;
+    protected float prevZDistance;
 
     /// <summary>
     /// Max height of the returned ball's trajectory.
@@ -61,7 +61,7 @@ public class Catcher : MonoBehaviour
     /// <summary>
     /// The ball will tell the racket to start to move towards it when it bounces on the closer table.
     /// </summary>
-    public void startTracking()
+    public virtual void startTracking()
     {
         tracking = true;
     }
@@ -119,14 +119,14 @@ public class Catcher : MonoBehaviour
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
-    protected void Start()
+    private void Start()
     {
         myDefPos = myRacket.transform.position;
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
         tracking = false;
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         //Debug.Log("maxTrajH " + maxTrajectoryHeight);
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
