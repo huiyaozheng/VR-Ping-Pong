@@ -17,15 +17,12 @@ public class CheatingBot : MonoBehaviour {
 
 	private Rigidbody ball;
 
-	private float g;
-
 	private Collider ballCollider;
 
 	void Start()
 	{
 		ball = game.ball;
 		ballCollider = ball.GetComponent<Collider>();
-		g = Physics.gravity.magnitude;
 	}
 
 	// Move towards the ball...

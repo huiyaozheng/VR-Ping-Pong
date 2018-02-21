@@ -18,8 +18,6 @@ public class GameState : MonoBehaviour {
 	public bool player1WonAPoint;
 	private int score0, score1;
 
-	private Vector3 defaultBallPos;
-
 	public bool DoesPlayer1Serve()
 	{
 		int n = (score0 + score1) % 4;
@@ -68,7 +66,6 @@ public class GameState : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		defaultBallPos = ball.position;
 		InitGame();
 	}
 	
