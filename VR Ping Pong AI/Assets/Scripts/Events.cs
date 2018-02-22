@@ -34,6 +34,16 @@ public class Events : MonoBehaviour {
 			Debug.LogError("Event is null: setEnded");
 	}
 
-	// TODO: Bad ball event. For bad serves, double hits with racket, and so on.
-
+	public delegate void VoidGO(GameObject go);
+	public static event VoidGO racketHitBall;
+	public static void eRacketHitBall(GameObject go)
+	{
+		if (racketHitBall != null)
+		{
+			Debug.Log("Run event: racketHitBall");
+			racketHitBall(go);
+		} 
+		else
+			Debug.LogError("Event is null: racketHitBall");
+	}
 }

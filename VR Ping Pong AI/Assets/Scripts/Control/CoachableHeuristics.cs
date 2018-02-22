@@ -17,8 +17,8 @@ public class CoachableHeuristics : System.Object {
 	/// output will be changed to hit to that side.
 	/// Will probably want to keep the sum of the numbers not too high!
 	/// </summary>
-	public float sidePreference_left_max05;
-	public float sidePreference_right_max05;
+	public float sidePreference_left;
+	public float sidePreference_right;
 
 
 	/// <summary>
@@ -27,9 +27,9 @@ public class CoachableHeuristics : System.Object {
 	/// output will be changed to hit to that side.
 	/// Will probably want to keep the sum of the numbers not too high!
 	/// </summary>
-	public float heightPreference_high_max033;
-	public float heightPreference_medium_max033;
-	public float heightPreference_low_max033;
+	public float heightPreference_high;
+	public float heightPreference_medium;
+	public float heightPreference_low;
 
 	/// <summary>
 	/// Has some fixed maximum length.
@@ -49,13 +49,48 @@ public class CoachableHeuristics : System.Object {
 		errorRate_tooHigh = 0.05f;
 		errorRate_tooLow = 0.05f;
 
-		sidePreference_left_max05 = 0f;
-		sidePreference_right_max05 = 0f;
+		sidePreference_left = 0f;
+		sidePreference_right = 0f;
 
-		heightPreference_high_max033 = 0f;
-		heightPreference_medium_max033 = 0f;
-		heightPreference_low_max033 = 0f;
+		heightPreference_high = 0f;
+		heightPreference_medium = 0f;
+		heightPreference_low = 0f;
 
 		winningShots = new List<Vector3>();
+	}
+
+	public float GetLeftShotOverrideProbability()
+	{
+		// a function from [0, infty) to [0, c] for some c < 0.5
+		// a function of sidePreference_left
+
+		// c = 0.3
+		// plot: https://www.wolframalpha.com/input/?i=Plot+0.3-0.5*(e%5E(-x+*+0.1))+for+x+from+0+to+30
+
+		return Mathf.Max(0f, 0.3f - 0.5f * Mathf.Exp(-1 * sidePreference_left * 0.1f));
+	}
+	public float GetRightShotOverrideProbability()
+	{
+		return Mathf.Max(0f, 0.3f - 0.5f * Mathf.Exp(-1 * sidePreference_right * 0.1f));
+	}
+
+
+	public float GetLowShotOverrideProbability()
+	{
+		// a function from [0, infty) to [0, c] for some c < 0.5
+		// a function of sidePreference_left
+
+		// c = 0.1
+		// plot: https://www.wolframalpha.com/input/?i=Plot+0.1-0.1*(e%5E(-x+*+0.1))+for+x+from+0+to+30
+
+		return Mathf.Max(0f, 0.1f - 0.1f * Mathf.Exp(-1 * heightPreference_low * 0.1f));
+	}
+	public float GetMediumShotOverrideProbability()
+	{
+		return Mathf.Max(0f, 0.1f - 0.1f * Mathf.Exp(-1 * heightPreference_medium * 0.1f));
+	}
+	public float GetHighShotOverrideProbability()
+	{
+		return Mathf.Max(0f, 0.1f - 0.1f * Mathf.Exp(-1 * heightPreference_high * 0.1f));
 	}
 }

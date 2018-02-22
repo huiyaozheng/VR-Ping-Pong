@@ -35,14 +35,17 @@ public class GameCollisionTracker : MonoBehaviour {
         {
 			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE : RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE);
         }
+
         if (col.collider == racket0)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_RACK : RallyState.eRallyStateMachineAction.RSMA_ATT_RACK);
+			Events.eRacketHitBall(racket0.gameObject);
         }
 
 		if (col.collider == racket1)
         {
 			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_ATT_RACK : RallyState.eRallyStateMachineAction.RSMA_DEF_RACK);
+			Events.eRacketHitBall(racket1.gameObject);
         }
 
 		if (col.collider == floor)

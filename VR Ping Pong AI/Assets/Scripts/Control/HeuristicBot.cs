@@ -8,6 +8,7 @@ public class HeuristicBot : CatcherBot {
 
 	public BotPersonality bot; // Needs to be set dynamically
 	public float lowHeight = 2.2f, medHeight=3.8f, highHeight=5.6f;
+	public float shotIsNotCentral = 2.75f;
 
 	private Vector3 lastShot = Vector3.zero;
 	private Vector3 lastShot2 = Vector3.zero; // Second-to-last shot
@@ -15,13 +16,16 @@ public class HeuristicBot : CatcherBot {
 
 	// Overrides:
 
-	public override void startTracking()
+	private void OnEvent_racketHitBall(GameObject racketThatHitTheBall)
 	{
-		reactionTimeTimer = 0.001f;
-		reactionTimeDuration = OurMath.sampleNormalDistribution(bot.heuristics.reactionTime_mean, bot.heuristics.reactionTime_stDev);
+		if (racketThatHitTheBall == gameObject)
+		{
+			reactionTimeTimer = 0.001f;
+			reactionTimeDuration = OurMath.sampleNormalDistribution(bot.heuristics.reactionTime_mean, bot.heuristics.reactionTime_stDev);
+		}
 	}
 	private float reactionTimeTimer = 0f;
-	private float reactionTimeDuration = 0f;
+	private float reactionTimeDuration = -1f;
 
 	protected override void Update()
 	{
@@ -31,30 +35,12 @@ public class HeuristicBot : CatcherBot {
 			if (reactionTimeTimer > reactionTimeDuration)
 			{
 				reactionTimeTimer = 0f;
-				tracking = true;
 			}
 		}
 
 		else
 		{
-			//Debug.Log("maxTrajH " + maxTrajectoryHeight);
-			float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
-
-			// Move if the ball is incoming.
-			if (currentZDistance < prevZDistance)
-			{
-				move(currentZDistance);
-			}
-			else
-			{
-				// If the racket is close to the default position, stop moving.
-				if ((myDefPos - myRacket.transform.position).magnitude < 2)
-				{
-					myRacket.velocity = new Vector3(0,0,0);
-				}
-			}
-
-			prevZDistance = currentZDistance;
+			base.Update();
 		}
 	}
 
@@ -101,9 +87,9 @@ public class HeuristicBot : CatcherBot {
 		bool goRight = false;
 
 		float r = Random.value;
-		if (r < bot.heuristics.sidePreference_left_max05)
+		if (r < bot.heuristics.GetLeftShotOverrideProbability())
 			goLeft = true;
-		else if (r < bot.heuristics.sidePreference_left_max05 + bot.heuristics.sidePreference_right_max05)
+		else if (r < bot.heuristics.GetLeftShotOverrideProbability() + bot.heuristics.GetRightShotOverrideProbability())
 			goRight = true;
 
 		if (goLeft)
@@ -120,11 +106,11 @@ public class HeuristicBot : CatcherBot {
 		bool goMedium = false;
 		bool goHigh = false;
 		float r2 = Random.value;
-		if (r2 < bot.heuristics.heightPreference_low_max033)
+		if (r2 < bot.heuristics.GetLowShotOverrideProbability())
 			goLow = true;
-		else if (r2 < bot.heuristics.heightPreference_low_max033 + bot.heuristics.heightPreference_medium_max033)
+		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability())
 			goMedium = true;
-		else if (r2 < bot.heuristics.heightPreference_low_max033 + bot.heuristics.heightPreference_medium_max033 + bot.heuristics.heightPreference_high_max033)
+		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability() + bot.heuristics.GetHighShotOverrideProbability)
 			goHigh = true;
 
 		if (goLow)
@@ -178,7 +164,12 @@ public class HeuristicBot : CatcherBot {
 
 	private bool shotIsToTheLeft(Vector3 shot)
 	{
-		return invertXZ ^ (shot.x < 0f);
+		return (invertXZ ^ (shot.x < 0f)) && (Mathf.Abs(shot.x) > shotIsNotCentral);
+	}
+
+	private bool shotIsToTheRight(Vector3 shot)
+	{
+		return (invertXZ ^ (shot.x > 0f)) && (Mathf.Abs(shot.x) > shotIsNotCentral);
 	}
 
 	private int shotHeight(Vector3 shot)
@@ -201,181 +192,139 @@ public class HeuristicBot : CatcherBot {
 			bot.heuristics.winningShots.RemoveAt(n - 1);
 		bot.heuristics.winningShots.Insert(0, lastShot);
 
-		if (!lastShot.Equals(Vector3.zero)) // -------------- lastShot
-		{
-			if (shotIsToTheLeft(lastShot))
-			{
+		// Alter error rates and reaction time.
+		// They (bot) won the point, so they won't learn too much. They are supposed to be coached by player, so they learn when player plays well.
+		// Could add some random walk like this, but not really necessary, could comment it out:
+		bot.heuristics.errorRate_tooHigh += Random.Range(-0.0005f, 0.0005f);
+		bot.heuristics.errorRate_tooLow += Random.Range(-0.0005f, 0.0005f);
+		bot.heuristics.reactionTime_mean += Random.Range(-0.0005f, 0.0005f);
+		bot.heuristics.errorRate_tooHigh = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.2f);
+		bot.heuristics.errorRate_tooLow = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.2f);
+		bot.heuristics.reactionTime_mean = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.5f);
 
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
-
-		if (!lastShot2.Equals(Vector3.zero)) // -------------- lastShot2
-		{
-			if (shotIsToTheLeft(lastShot2))
-			{
-
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot2);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
-
-		if (!lastShot3.Equals(Vector3.zero)) // -------------- lastShot3
-		{
-			if (shotIsToTheLeft(lastShot3))
-			{
-
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
+		UpdateHeuristicsAfterWin_HelperFunction(weight: 1f, shot: lastShot);
+		UpdateHeuristicsAfterWin_HelperFunction(weight: 0.5f, shot: lastShot2);
+		UpdateHeuristicsAfterWin_HelperFunction(weight: 0.25f, shot: lastShot3);
 	}
 
 	// Update heuristics after a lost point, based on the three last shots: lastShot, lastShot2, lastShot3.
 	private void UpdateHeuristicsAfterLoss()
 	{
+		// Alter error rates and reaction time.
+		// They (bot) lost the point, so they will learn from the player. They are supposed to be coached by player, so they learn when player plays well.
+		bot.heuristics.errorRate_tooHigh += Random.Range(-0.002f, 0.001f);
+		bot.heuristics.errorRate_tooLow += Random.Range(-0.002f, 0.001f);
+		bot.heuristics.reactionTime_mean += Random.Range(-0.002f, 0.001f);
 
-		if (!lastShot.Equals(Vector3.zero)) // -------------- lastShot
-		{
-			if (shotIsToTheLeft(lastShot))
-			{
-
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
-
-		if (!lastShot2.Equals(Vector3.zero)) // -------------- lastShot2
-		{
-			if (shotIsToTheLeft(lastShot2))
-			{
-
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot2);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
-
-		if (!lastShot3.Equals(Vector3.zero)) // -------------- lastShot3
-		{
-			if (shotIsToTheLeft(lastShot3))
-			{
-
-			}
-			else // to the right
-			{
-
-			}
-			int sh = shotHeight(lastShot);
-			if (sh == 0) // shot was low
-			{
-
-			}
-			else if (sh == 1) // shot was medium
-			{
-
-			}
-			else if (sh == 2) // shot was high
-			{
-
-			}
-
-			// Alter error rates and reaction time...
-		}
+		UpdateHeuristicsAfterLoss_HelperFunction(weight: 1f, shot: lastShot);
+		UpdateHeuristicsAfterLoss_HelperFunction(weight: 0.5f, shot: lastShot2);
+		UpdateHeuristicsAfterLoss_HelperFunction(weight: 0.25f, shot: lastShot3);
 	}
 
 
 
 
+	private void UpdateHeuristicsAfterLoss_HelperFunction(float weight, Vector3 shot)
+	{
+		if (!shot.Equals(Vector3.zero)) // -------------- lastShot
+		{
+			if (shotIsToTheLeft(shot))
+			{
+				bot.heuristics.sidePreference_left -= weight * 1f;
+			}
+			else if (shotIsToTheRight(shot)) // to the right
+			{
+				bot.heuristics.sidePreference_right -= weight *  1f;
+			}
+			else // neither right or left, shot was centred
+			{
+				bot.heuristics.sidePreference_right += weight * 0.5f;
+				bot.heuristics.sidePreference_right = Mathf.Max(0f, bot.heuristics.sidePreference_right);
+				bot.heuristics.sidePreference_left += weight * 0.5f;
+				bot.heuristics.sidePreference_left = Mathf.Max(0f, bot.heuristics.sidePreference_left);
+			}
+			int sh = shotHeight(shot);
+			if (sh == 0) // shot was low
+			{
+				bot.heuristics.heightPreference_low -= weight * 1f;
+				bot.heuristics.heightPreference_medium += weight * 0.5f;
+				bot.heuristics.heightPreference_medium = Mathf.Max(0f, bot.heuristics.heightPreference_medium);
+				bot.heuristics.heightPreference_high += weight * 0.5f;
+				bot.heuristics.heightPreference_high = Mathf.Max(0f, bot.heuristics.heightPreference_high);
+			}
+			else if (sh == 1) // shot was medium
+			{
+				bot.heuristics.heightPreference_low += weight * 0.5f;
+				bot.heuristics.heightPreference_low = Mathf.Max(0f, bot.heuristics.heightPreference_low);
+				bot.heuristics.heightPreference_medium -= weight * 1f;
+				bot.heuristics.heightPreference_high += weight * 0.5f;
+				bot.heuristics.heightPreference_high = Mathf.Max(0f, bot.heuristics.heightPreference_high);
+			}
+			else if (sh == 2) // shot was high
+			{
+				bot.heuristics.heightPreference_low += weight * 0.5f;
+				bot.heuristics.heightPreference_low = Mathf.Max(0f, bot.heuristics.heightPreference_low);
+				bot.heuristics.heightPreference_medium += weight * 0.5f;
+				bot.heuristics.heightPreference_medium = Mathf.Max(0f, bot.heuristics.heightPreference_medium);
+				bot.heuristics.heightPreference_high -= weight * 1f;
+			}
+		}
+	}
 
+	private void UpdateHeuristicsAfterWin_HelperFunction(float weight, Vector3 shot)
+	{
+		if (!shot.Equals(Vector3.zero)) // -------------- lastShot
+		{
+			if (shotIsToTheLeft(shot))
+			{
+				bot.heuristics.sidePreference_left += weight * 1f;
+			}
+			else if (shotIsToTheRight(shot)) // to the right
+			{
+				bot.heuristics.sidePreference_right += weight *  1f;
+			}
+			else // neither right or left, shot was centred
+			{
+				bot.heuristics.sidePreference_right -= weight * 0.5f;
+				bot.heuristics.sidePreference_right = Mathf.Max(0f, bot.heuristics.sidePreference_right);
+				bot.heuristics.sidePreference_left -= weight * 0.5f;
+				bot.heuristics.sidePreference_left = Mathf.Max(0f, bot.heuristics.sidePreference_left);
+			}
+			int sh = shotHeight(shot);
+			if (sh == 0) // shot was low
+			{
+				bot.heuristics.heightPreference_low += weight * 1f;
+				bot.heuristics.heightPreference_medium -= weight * 0.5f;
+				bot.heuristics.heightPreference_medium = Mathf.Max(0f, bot.heuristics.heightPreference_medium);
+				bot.heuristics.heightPreference_high -= weight * 0.5f;
+				bot.heuristics.heightPreference_high = Mathf.Max(0f, bot.heuristics.heightPreference_high);
+			}
+			else if (sh == 1) // shot was medium
+			{
+				bot.heuristics.heightPreference_low -= weight * 0.5f;
+				bot.heuristics.heightPreference_low = Mathf.Max(0f, bot.heuristics.heightPreference_low);
+				bot.heuristics.heightPreference_medium += weight * 1f;
+				bot.heuristics.heightPreference_high -= weight * 0.5f;
+				bot.heuristics.heightPreference_high = Mathf.Max(0f, bot.heuristics.heightPreference_high);
+			}
+			else if (sh == 2) // shot was high
+			{
+				bot.heuristics.heightPreference_low -= weight * 0.5f;
+				bot.heuristics.heightPreference_low = Mathf.Max(0f, bot.heuristics.heightPreference_low);
+				bot.heuristics.heightPreference_medium -= weight * 0.5f;
+				bot.heuristics.heightPreference_medium = Mathf.Max(0f, bot.heuristics.heightPreference_medium);
+				bot.heuristics.heightPreference_high += weight * 1f;
+			}
+		}
+	}
 
-
-
-
+	private void OnEnable()
+	{
+		Events.racketHitBall += OnEvent_racketHitBall;
+	}
+	private void OnDisable()
+	{
+		Events.racketHitBall -= OnEvent_racketHitBall;
+	}
 
 }
