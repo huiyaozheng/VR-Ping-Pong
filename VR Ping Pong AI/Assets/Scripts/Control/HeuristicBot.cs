@@ -83,7 +83,7 @@ public class HeuristicBot : CatcherBot {
 			return;
 		}
 
-		bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb();
+		bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb;
 		if (replayWinningShot && bot.heuristics.winningShots.Count > 0)
 		{
 			int rand_ind = Random.Range(0, bot.heuristics.winningShots.Count - 1);
@@ -196,7 +196,7 @@ public class HeuristicBot : CatcherBot {
 	private void UpdateHeuristicsAfterWin()
 	{
 		// Add a winning shot to the winning shots list.
-		int n = Statics.bot_winningPlays_listLength();
+		int n = Statics.bot_winningPlays_listLength;
 		while (bot.heuristics.winningShots.Count >= n)
 			bot.heuristics.winningShots.RemoveAt(n - 1);
 		bot.heuristics.winningShots.Insert(0, lastShot);

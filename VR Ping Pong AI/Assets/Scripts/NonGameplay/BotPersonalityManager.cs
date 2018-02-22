@@ -25,7 +25,7 @@ public class BotPersonalityManager : MonoBehaviour {
 		botPreset03 = _botPreset03;
 
 		// Deserialize botPersonalities:
-		string filePath = Statics.path_botPersonalities();
+		string filePath = Statics.path_botPersonalities;
 
 		if(File.Exists(filePath))
 		{
@@ -44,7 +44,7 @@ public class BotPersonalityManager : MonoBehaviour {
 	private static void SaveBotPersonalities()
 	{
 		string dataAsJson = JsonUtility.ToJson (botPersonalities);
-		string filePath = Statics.path_botPersonalities();
+		string filePath = Statics.path_botPersonalities;
 		File.WriteAllText (filePath, dataAsJson);
 	}
 

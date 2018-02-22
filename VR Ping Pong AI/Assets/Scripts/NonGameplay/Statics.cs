@@ -8,18 +8,18 @@ using System.IO;
 /// </summary>
 public class Statics {
 
-	public static string path_botPersonalities()
+	public static string path_botPersonalities
 	{
-		return Path.Combine(Application.streamingAssetsPath, "botPersonalities.json");
+		get{ return Path.Combine(Application.streamingAssetsPath, "botPersonalities.json"); }
 	}
 
-	public static int bot_winningPlays_listLength()
+	public static int bot_winningPlays_listLength
 	{
-		return 6;
+		get{ return 6; }
 	}
 
-	public static float bot_winningPlays_replayProb()
+	public static float bot_winningPlays_replayProb
 	{
-		return 0.05f;
+		get{ return 0.05f; }
 	}
 }
