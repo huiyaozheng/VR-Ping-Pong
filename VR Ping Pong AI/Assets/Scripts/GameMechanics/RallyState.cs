@@ -47,6 +47,7 @@ public class RallyState : MonoBehaviour {
                          trainee.opponentRacket.transform.position,
                          trainee.ball.transform.position,
                          reward-trainee.reward);
+        Debug.Log("reward " + reward + " trainee reward " + trainee.reward);
         trainee.reward = reward;
         trainee.multiplier = 1f;
     }
@@ -55,93 +56,131 @@ public class RallyState : MonoBehaviour {
 	public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
 	{
         trainee.multiplier *= trainee.tickRate;
-		// Debug:
-		//switch (rsma)
-		//{
-		//case eRallyStateMachineAction.RSMA_ATT_RACK:
-		//	Debug.Log("Attacker racket.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_DEF_RACK:
-		//	Debug.Log("Defender racket.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_ATT_TABLE:
-		//	Debug.Log("Attacker's half of the table.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_DEF_TABLE:
-		//	Debug.Log("Defender's half of the table.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_OUT:
-		//	Debug.Log("Ball went out.");
-		//	break;
-		//}
+        // Debug:
+        //switch (rsma)
+        //{
+        //case eRallyStateMachineAction.RSMA_ATT_RACK:
+        //	Debug.Log("Attacker racket.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_DEF_RACK:
+        //	Debug.Log("Defender racket.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_ATT_TABLE:
+        //	Debug.Log("Attacker's half of the table.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_DEF_TABLE:
+        //	Debug.Log("Defender's half of the table.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_OUT:
+        //	Debug.Log("Ball went out.");
+        //	break;
+        //}
+        bool botIsAttacker = game.DoesPlayer1Serve();
 
 
 		switch(currState)
 		{
-		case eRallyState.S0:
-			switch (rsma)
-			{
-			case eRallyStateMachineAction.RSMA_ATT_TABLE:
-				currState = eRallyState.S1;
-				return eRallyOutcome.RO_NONE;
-			case eRallyStateMachineAction.RSMA_DEF_RACK:
-				return eRallyOutcome.RO_ATT_WINS;
-			default:
-                Reward(0.6f);
-				return eRallyOutcome.RO_DEF_WINS;
-			}
-		case eRallyState.S1:
-			switch (rsma)
-			{
-			case eRallyStateMachineAction.RSMA_DEF_TABLE:
-				currState = eRallyState.S2;
-				return eRallyOutcome.RO_NONE;
-			case eRallyStateMachineAction.RSMA_DEF_RACK:
-				return eRallyOutcome.RO_ATT_WINS;
-			default:
-                Reward(0.6f);
-				return eRallyOutcome.RO_DEF_WINS;
-			}
-		case eRallyState.S2:
-			switch (rsma)
-			{
-			case eRallyStateMachineAction.RSMA_DEF_RACK:
-				currState = eRallyState.S3;
-				return eRallyOutcome.RO_NONE;
-			case eRallyStateMachineAction.RSMA_ATT_RACK:
-                Reward(0.6f);
-				return eRallyOutcome.RO_DEF_WINS;
-			default:
-				return eRallyOutcome.RO_ATT_WINS;
-			}
-		case eRallyState.S3:
-			switch (rsma)
-			{
-			case eRallyStateMachineAction.RSMA_ATT_TABLE:
-				currState = eRallyState.S4;
-                //Reward(0.05f);
-				return eRallyOutcome.RO_NONE;
-			case eRallyStateMachineAction.RSMA_ATT_RACK:
-                Reward(0.6f);
-				return eRallyOutcome.RO_DEF_WINS;
-			default:
-                Reward(-0.3f,true);
-				return eRallyOutcome.RO_ATT_WINS;
-			}
-		case eRallyState.S4:
-			switch (rsma)
-			{
-			case eRallyStateMachineAction.RSMA_ATT_RACK:
-				currState = eRallyState.S1;
-				return eRallyOutcome.RO_NONE;
-			case eRallyStateMachineAction.RSMA_DEF_RACK:
-				return eRallyOutcome.RO_ATT_WINS;
-			default:
-                Reward(1.0f);Debug.Log("I WON");
-				return eRallyOutcome.RO_DEF_WINS;
-			}
-		default:
-			return eRallyOutcome.RO_NONE; // this code should not be reached
+            case eRallyState.S0:
+                switch (rsma)
+                {
+                    case eRallyStateMachineAction.RSMA_ATT_TABLE:
+                        currState = eRallyState.S1;
+                        return eRallyOutcome.RO_NONE;
+                    case eRallyStateMachineAction.RSMA_DEF_RACK:
+                        if (botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_ATT_WINS;
+                    default:
+                        if (!botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_DEF_WINS;
+                }
+            case eRallyState.S1:
+                switch (rsma)
+                {
+                    case eRallyStateMachineAction.RSMA_DEF_TABLE:
+                        currState = eRallyState.S2;
+                        return eRallyOutcome.RO_NONE;
+                    case eRallyStateMachineAction.RSMA_DEF_RACK:
+                        if (botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_ATT_WINS;
+                    default:
+                        if (botIsAttacker)
+                        {
+                            Reward(-0.3f,true);
+                        }
+                        if (!botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_DEF_WINS;
+                }
+            case eRallyState.S2:
+                switch (rsma)
+                {
+                    case eRallyStateMachineAction.RSMA_DEF_RACK:
+                        currState = eRallyState.S3;
+                        return eRallyOutcome.RO_NONE;
+                    case eRallyStateMachineAction.RSMA_ATT_RACK:
+                        if (!botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_DEF_WINS;
+                    default:
+                        if (botIsAttacker)
+                        {
+                            Reward(1.0f);
+                        }
+                        return eRallyOutcome.RO_ATT_WINS;
+                }
+            case eRallyState.S3:
+                switch (rsma)
+                {
+                    case eRallyStateMachineAction.RSMA_ATT_TABLE:
+                        currState = eRallyState.S4;
+                        return eRallyOutcome.RO_NONE;
+                    case eRallyStateMachineAction.RSMA_ATT_RACK:
+                        if (!botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_DEF_WINS;
+                    default:
+                        if (!botIsAttacker)
+                        {
+                            Reward(-0.3f, true);
+                        }
+                        return eRallyOutcome.RO_ATT_WINS;
+                }
+            case eRallyState.S4:
+                switch (rsma)
+                {
+                    case eRallyStateMachineAction.RSMA_ATT_RACK:
+                        currState = eRallyState.S1;
+                        return eRallyOutcome.RO_NONE;
+                    case eRallyStateMachineAction.RSMA_DEF_RACK:
+                        if (botIsAttacker)
+                        {
+                            Reward(0.6f);
+                        }
+                        return eRallyOutcome.RO_ATT_WINS;
+                    default:
+                        if (!botIsAttacker)
+                        {
+                            Reward(1.0f);
+                        }
+                        return eRallyOutcome.RO_DEF_WINS;
+                }
+            default:
+                return eRallyOutcome.RO_NONE; // this code should not be reached
 		}
 	}
 
