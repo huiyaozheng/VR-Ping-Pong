@@ -294,14 +294,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player0: {fileID: 0}
-  player1: {fileID: 0}
+  player1: {fileID: 1263184340}
   racket0: {fileID: 0}
   racket1: {fileID: 0}
   table0: {fileID: 0}
   table1: {fileID: 0}
   floor: {fileID: 0}
   ball: {fileID: 945404623}
-  acad: {fileID: 0}
+  acad: {fileID: 783437189}
   winningScore: 11
   player1WonAPoint: 0
 --- !u!4 &88711586
@@ -379,6 +379,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &172154543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 172154544}
+  - component: {fileID: 172154545}
+  m_Layer: 9
+  m_Name: ML_Brain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172154544
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 172154543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 783437190}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172154545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 172154543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c676a8ddf5a5f4f64b35e9ed5028679d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brainParameters:
+    stateSize: 9
+    actionSize: 3
+    memorySize: 0
+    cameraResolutions: []
+    actionDescriptions:
+    - 
+    - 
+    - 
+    actionSpaceType: 1
+    stateSpaceType: 1
+  brainType: 3
+  CoreBrains:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  instanceID: 12174
 --- !u!1 &259934484
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +917,73 @@ Transform:
   m_PrefabParentObject: {fileID: 4000011401111930, guid: be540b97364be0a4890e39e62ac89ed1,
     type: 2}
   m_PrefabInternal: {fileID: 1134900065}
+--- !u!1 &783437188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 783437190}
+  - component: {fileID: 783437189}
+  m_Layer: 9
+  m_Name: ML_Academy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &783437189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783437188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067d4b784b0fa5f45980fe50fafa83b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSteps: 50
+  frameToSkip: 0
+  waitTime: 0.7
+  isInference: 1
+  trainingConfiguration:
+    width: 250
+    height: 250
+    qualityLevel: 1
+    timeScale: 3
+    targetFrameRate: -1
+  inferenceConfiguration:
+    width: 1280
+    height: 720
+    qualityLevel: 5
+    timeScale: 1
+    targetFrameRate: 60
+  defaultResetParameters:
+  - key: MaxRacketSpeed
+    value: 20
+  - key: IncMySpeed
+    value: 20
+  done: 0
+  episodeCount: 1
+  currentStep: 0
+  enemyRacket: {fileID: 0}
+  myRacket: {fileID: 0}
+--- !u!4 &783437190
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783437188}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 172154544}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827363443 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1391022766006510, guid: be540b97364be0a4890e39e62ac89ed1,
@@ -1632,15 +1757,16 @@ MonoBehaviour:
       reactionTime_stDev: 0.05
       errorRate_tooHigh: 0.05
       errorRate_tooLow: 0.05
-      sidePreference_left_max05: 0
-      sidePreference_right_max05: 0
-      heightPreference_high_max033: 0
-      heightPreference_medium_max033: 0
-      heightPreference_low_max033: 0
+      sidePreference_left: 0
+      sidePreference_right: 0
+      heightPreference_high: 0
+      heightPreference_medium: 0
+      heightPreference_low: 0
       winningShots: []
   lowHeight: 2.2
   medHeight: 3.8
   highHeight: 5.6
+  shotIsNotCentral: 2.75
 --- !u!114 &1263184342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,7 +2487,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: e55905379f1604e019bffdaca0a9cca4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.516
+      value: 3.8795
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: e55905379f1604e019bffdaca0a9cca4, type: 3}
       propertyPath: m_LocalPosition.z
