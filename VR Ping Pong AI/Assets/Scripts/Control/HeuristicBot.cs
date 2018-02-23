@@ -21,7 +21,7 @@ public class HeuristicBot : CatcherBot {
 		if (racketThatHitTheBall == gameObject)
 		{
 			reactionTimeTimer = 0.001f;
-			reactionTimeDuration = OurMath.sampleNormalDistribution(bot.heuristics.reactionTime_mean, bot.heuristics.reactionTime_stDev);
+			reactionTimeDuration = Mathf.Max(0f, OurMath.sampleNormalDistribution(bot.heuristics.reactionTime_mean, bot.heuristics.reactionTime_stDev));
 		}
 	}
 	private float reactionTimeTimer = 0f;
@@ -32,10 +32,17 @@ public class HeuristicBot : CatcherBot {
 		if (reactionTimeTimer > 0f)
 		{
 			reactionTimeTimer += Time.deltaTime;
+
+			// Lack of reaction MEANS going back to default position, not just freezing in place anywhere
+			if (IsRacketCloseToDefaultPos())
+				myRacket.velocity = Vector3.zero;
+			else
+				myRacket.velocity = (myDefPos - myRacket.transform.position).normalized * maxRacketMovingSpeed * 0.2f;
+
 			if (reactionTimeTimer > reactionTimeDuration)
 			{
 				reactionTimeTimer = 0f;
-				Debug.Log("<HEURISTIC_BOT>: I am allowed to react now! reactionTimeDuration was " + reactionTimeDuration.ToString());
+				Debug.Log("<HEURISTIC_BOT>: I am allowed to react now! reactionTimeDuration was " + reactionTimeDuration.ToString() + ", ... " + bot.heuristics.reactionTime_mean.ToString());
 			}
 		}
 
@@ -207,9 +214,10 @@ public class HeuristicBot : CatcherBot {
 		bot.heuristics.errorRate_tooHigh += Random.Range(-0.0005f, 0.0005f);
 		bot.heuristics.errorRate_tooLow += Random.Range(-0.0005f, 0.0005f);
 		bot.heuristics.reactionTime_mean += Random.Range(-0.0005f, 0.0005f);
+		// Clamp inside a reasonable range.
 		bot.heuristics.errorRate_tooHigh = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.2f);
-		bot.heuristics.errorRate_tooLow = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.2f);
-		bot.heuristics.reactionTime_mean = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.5f);
+		bot.heuristics.errorRate_tooLow = Mathf.Clamp(bot.heuristics.errorRate_tooLow, 0, 0.2f);
+		bot.heuristics.reactionTime_mean = Mathf.Clamp(bot.heuristics.reactionTime_mean, 0, 0.5f);
 
 		UpdateHeuristicsAfterWin_HelperFunction(weight: 1f, shot: lastShot);
 		UpdateHeuristicsAfterWin_HelperFunction(weight: 0.5f, shot: lastShot2);
@@ -224,6 +232,10 @@ public class HeuristicBot : CatcherBot {
 		bot.heuristics.errorRate_tooHigh += Random.Range(-0.002f, 0.001f);
 		bot.heuristics.errorRate_tooLow += Random.Range(-0.002f, 0.001f);
 		bot.heuristics.reactionTime_mean += Random.Range(-0.002f, 0.001f);
+		// Clamp inside a reasonable range.
+		bot.heuristics.errorRate_tooHigh = Mathf.Clamp(bot.heuristics.errorRate_tooHigh, 0, 0.2f);
+		bot.heuristics.errorRate_tooLow = Mathf.Clamp(bot.heuristics.errorRate_tooLow, 0, 0.2f);
+		bot.heuristics.reactionTime_mean = Mathf.Clamp(bot.heuristics.reactionTime_mean, 0, 0.5f);
 
 		UpdateHeuristicsAfterLoss_HelperFunction(weight: 1f, shot: lastShot);
 		UpdateHeuristicsAfterLoss_HelperFunction(weight: 0.5f, shot: lastShot2);

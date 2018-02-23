@@ -126,6 +126,11 @@ public class Catcher : MonoBehaviour
         tracking = false;
     }
 
+	protected bool IsRacketCloseToDefaultPos()
+	{
+		return (myDefPos - myRacket.transform.position).sqrMagnitude < 4;
+	}
+
     protected virtual void Update()
     {
         //Debug.Log("maxTrajH " + maxTrajectoryHeight);
@@ -139,7 +144,7 @@ public class Catcher : MonoBehaviour
         else
         {
             // If the racket is close to the default position, stop moving.
-            if ((myDefPos - myRacket.transform.position).magnitude < 2)
+			if (IsRacketCloseToDefaultPos())
             {
                 myRacket.velocity = new Vector3(0,0,0);
             }
