@@ -36,7 +36,7 @@ public class BotPersonalityManager : MonoBehaviour {
 		}
 		else
 		{
-			Debug.LogWarning("Cannot load bot personalities from " + filePath + "\n Creating a new BotPersonalities object.");
+			Debug.LogWarning("Cannot load bot personalities from " + filePath + "\nCreating a new BotPersonalities object.");
 			botPersonalities = new BotPersonalities();
 		}
 	}

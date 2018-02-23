@@ -35,6 +35,7 @@ public class HeuristicBot : CatcherBot {
 			if (reactionTimeTimer > reactionTimeDuration)
 			{
 				reactionTimeTimer = 0f;
+				Debug.Log("<HEURISTIC_BOT>: I am allowed to react now! reactionTimeDuration was " + reactionTimeDuration.ToString());
 			}
 		}
 
@@ -56,6 +57,7 @@ public class HeuristicBot : CatcherBot {
 
 		if(tooHigh)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot too high! My error rate for that was " + bot.heuristics.errorRate_tooHigh.ToString());
 			aimPos *= 2;
 			aimHeight *= 2;
 			HitAndSaveShot(aimPos, aimHeight);
@@ -63,6 +65,7 @@ public class HeuristicBot : CatcherBot {
 		}
 		if(tooLow)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot too low! My error rate for that was " + bot.heuristics.errorRate_tooLow.ToString());
 			aimPos.z *= 0.1f;
 			aimHeight /= 2;
 			HitAndSaveShot(aimPos, aimHeight);
@@ -72,6 +75,7 @@ public class HeuristicBot : CatcherBot {
 		bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb();
 		if (replayWinningShot && bot.heuristics.winningShots.Count > 0)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will replay a winning shot now! I have that many winning shots stored: " + bot.heuristics.winningShots.Count.ToString() + ". That should be less or equal to " + Statics.bot_winningPlays_listLength().ToString());
 			int rand_ind = Random.Range(0, bot.heuristics.winningShots.Count - 1);
 			aimPos.x = bot.heuristics.winningShots[rand_ind].x;
 			aimPos.z = bot.heuristics.winningShots[rand_ind].z;
@@ -94,10 +98,12 @@ public class HeuristicBot : CatcherBot {
 
 		if (goLeft)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot to the left half of the table! My probability for that override was " + bot.heuristics.GetLeftShotOverrideProbability().ToString());
 			aimPos.x = (invertXZ ? 1 : -1) * Mathf.Abs(aimPos.x);
 		}
 		if (goRight)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot to the right half of the table! My probability for that override was " + bot.heuristics.GetRightShotOverrideProbability().ToString());
 			aimPos.x = (invertXZ ? -1 : 1) * Mathf.Abs(aimPos.x);
 		}
 
@@ -110,19 +116,22 @@ public class HeuristicBot : CatcherBot {
 			goLow = true;
 		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability())
 			goMedium = true;
-		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability() + bot.heuristics.GetHighShotOverrideProbability)
+		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability() + bot.heuristics.GetHighShotOverrideProbability())
 			goHigh = true;
 
 		if (goLow)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot a low ball now! My probability for that override was " + bot.heuristics.GetLowShotOverrideProbability().ToString());
 			aimHeight = Random.Range(lowHeight - 0.2f, lowHeight + 1.0f);
 		}
 		if (goMedium)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot a medium-height ball now! My probability for that override was " + bot.heuristics.GetMediumShotOverrideProbability().ToString());
 			aimHeight = Random.Range(medHeight - 1.0f, medHeight + 1.0f);
 		}
 		if (goHigh)
 		{
+			Debug.Log("<HEURISTIC_BOT>: I will shoot a high ball now! My probability for that override was " + bot.heuristics.GetHighShotOverrideProbability().ToString());
 			aimHeight = Random.Range(highHeight - 1.0f, highHeight + 1.0f);
 		}
 
@@ -150,12 +159,12 @@ public class HeuristicBot : CatcherBot {
 
 			if (iWonAPoint)
 			{
-				Debug.Log(":) I (" + bot.botGivenName + ") won a point, let's update heuristics!");
+				Debug.Log("<HEURISTIC_BOT>: I (" + bot.botGivenName + ") won a point, let's update heuristics!");
 				UpdateHeuristicsAfterWin();
 			}
 			else
 			{
-				Debug.Log(":( I (" + bot.botGivenName + ") lost a point, let's update heuristics!");
+				Debug.Log("<HEURISTIC_BOT>: I (" + bot.botGivenName + ") lost a point, let's update heuristics!");
 				UpdateHeuristicsAfterLoss();
 			}
 		}
@@ -321,10 +330,12 @@ public class HeuristicBot : CatcherBot {
 	private void OnEnable()
 	{
 		Events.racketHitBall += OnEvent_racketHitBall;
+		Events.rallyEnded += OnEvent_rallyEnded;
 	}
 	private void OnDisable()
 	{
 		Events.racketHitBall -= OnEvent_racketHitBall;
+		Events.rallyEnded -= OnEvent_rallyEnded;
 	}
 
 }

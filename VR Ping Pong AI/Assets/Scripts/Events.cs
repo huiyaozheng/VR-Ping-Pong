@@ -40,7 +40,7 @@ public class Events : MonoBehaviour {
 	{
 		if (racketHitBall != null)
 		{
-			Debug.Log("Run event: racketHitBall");
+			//Debug.Log("Run event: racketHitBall");
 			racketHitBall(go);
 		} 
 		else
