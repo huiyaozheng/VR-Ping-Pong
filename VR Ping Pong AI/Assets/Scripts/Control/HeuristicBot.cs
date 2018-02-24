@@ -54,7 +54,8 @@ public class HeuristicBot : CatcherBot {
 
 	protected override void hit()
 	{
-		float aimHeight = Random.Range(2.0f, maxTrajectoryHeight);
+        //DOBO: Use AimAgent's min of the third element please
+		float aimHeight = Random.Range(2.3f, maxTrajectoryHeight);
 		Vector3 aimPos = landPos;
 
 		// Too high or too low - mistakes
