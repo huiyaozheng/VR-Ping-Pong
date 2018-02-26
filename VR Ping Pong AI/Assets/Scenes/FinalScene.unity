@@ -295,8 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player0: {fileID: 0}
   player1: {fileID: 1263184340}
-  racket0: {fileID: 0}
-  racket1: {fileID: 0}
+  racket0: {fileID: 1190743337}
+  racket1: {fileID: 1263184343}
   table0: {fileID: 1525873041}
   table1: {fileID: 1348931159}
   floor: {fileID: 1256116753}
@@ -1748,7 +1748,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100002, guid: e55905379f1604e019bffdaca0a9cca4, type: 3}
+  - {fileID: 2100000, guid: 66766ff0286b83b4eae2799230066f58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 1263184342}
   - component: {fileID: 1263184341}
   m_Layer: 0
-  m_Name: Opponent (heuristic bot)
+  m_Name: OpponentRacket (heuristic bot)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2312,7 +2312,7 @@ MonoBehaviour:
   ball: {fileID: 945404623}
   myRacket: {fileID: 1263184343}
   closerTable: {fileID: 1348931159}
-  opponentRacket: {fileID: 0}
+  opponentRacket: {fileID: 1190743337}
   opponentTable: {fileID: 1525873041}
   maxRacketMovingSpeed: 20
   invertXZ: 1
@@ -2360,8 +2360,8 @@ MonoBehaviour:
   memory: []
   id: 0
   ball: {fileID: 945404623}
-  opponentRacket: {fileID: 0}
-  invertXZ: 0
+  opponentRacket: {fileID: 1190743337}
+  invertXZ: 1
   min:
   - -7
   - -12
