@@ -171,7 +171,6 @@ public class Catcher : MonoBehaviour
     }
 
     public void serve() {
-        Debug.Log("half table length " + (opponentTable.transform.localScale.z / 2).ToString());
         float x = (opponentTable.transform.localScale.x) / 2;
         x = x / 2;
         x = Random.Range(-x, x);
@@ -180,7 +179,6 @@ public class Catcher : MonoBehaviour
         x = (opponentTable.transform.localScale.x) / 2;
         x = x * 0.8f;
         float z = (opponentTable.transform.localScale.z) / 2;
-        Debug.Log(z);
         x = Random.Range(-x, x);
         //z = Random.Range(z * 0.9f, z * 1.1f);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
