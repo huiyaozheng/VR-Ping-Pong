@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5358,7 +5358,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: -0.0000000012123996, y: 0.000000007450581, z: 0}
-    m_Extent: {x: 4.9999995, y: 0.0000023706455, z: 4.9999995}
+    m_Extent: {x: 5.000001, y: 0.000004741526, z: 5.0000014}
   m_DirtyAABB: 0
 --- !u!4 &823816949
 Transform:
@@ -7578,7 +7578,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0.000000007765987, y: -0.000000044703484, z: 0}
-    m_Extent: {x: 4.9999995, y: 0.000002381289, z: 4.9999995}
+    m_Extent: {x: 5.000001, y: 0.0000047441868, z: 5.0000014}
   m_DirtyAABB: 0
 --- !u!4 &1090986120
 Transform:
