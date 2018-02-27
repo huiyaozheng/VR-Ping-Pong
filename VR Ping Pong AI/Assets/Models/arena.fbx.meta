@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5dc1dcc87eb773148b0aafffce267a2b
-timeCreated: 1518714721
+guid: 0a145db169cae4e96bcbe28705a0c392
+timeCreated: 1519742438
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,24 +10,35 @@ ModelImporter:
     100004: boundaryDoors
     100006: floor
     100008: playBoundary
+    100010: Seats1
+    100012: Seats2
     400000: //RootNode
     400002: bleachers
     400004: boundaryDoors
     400006: floor
     400008: playBoundary
+    400010: Seats1
+    400012: Seats2
     2100000: No Name
+    2100002: Red Plastic
     2300000: bleachers
     2300002: boundaryDoors
     2300004: floor
     2300006: playBoundary
+    2300008: Seats1
+    2300010: Seats2
     3300000: bleachers
     3300002: boundaryDoors
     3300004: floor
     3300006: playBoundary
+    3300008: Seats1
+    3300010: Seats2
     4300000: bleachers
     4300002: boundaryDoors
     4300004: playBoundary
     4300006: floor
+    4300008: Seats2
+    4300010: Seats1
   externalObjects: {}
   materials:
     importMaterials: 1
