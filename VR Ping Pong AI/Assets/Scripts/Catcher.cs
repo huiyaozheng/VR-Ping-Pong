@@ -172,16 +172,17 @@ public class Catcher : MonoBehaviour
 
     public void serve() {
         Debug.Log((opponentTable.transform.parent.gameObject.transform.localScale.x) / 2);
-        float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 2.6f;
+        float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2;
+        x = x / 2;
         x = Random.Range(-x, x);
         myRacket.transform.position = new Vector3(x, myRacket.transform.position.y, myRacket.transform.position.z);
-        ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.5f) * (invertXZ ? -1f : 1f);
-        x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 2.5f;
+        ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.05f) * (invertXZ ? -1f : 1f);
+        x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2;
+        x = x * 0.8f;
         float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 4;
         x = Random.Range(-x, x);
-        z = Random.Range(-z + 0.2f, z + 0.2f);
-        Debug.Log("z=" + z);
+        z = Random.Range(-z * 1.1f, z * 1.1f);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
-        ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y + 1f, Physics.gravity.magnitude, true);
+        ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y, Physics.gravity.magnitude, true);
     }
 }
