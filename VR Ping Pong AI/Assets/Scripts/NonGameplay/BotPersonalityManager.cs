@@ -89,19 +89,8 @@ public class BotPersonalityManager : MonoBehaviour {
 	{
 		// game.player1 should always be set to a bot object, we will just change its personality, and the brain in control...
 		game.player1.GetComponent<HeuristicBot>().bot = bot;
-
-		CoreBrain coreBrain = game.racket1.gameObject.GetComponent<PPAimAgent>().brain.coreBrain;
-
-		if (coreBrain is CoreBrainInternal)
-		{
-			CoreBrainInternal cbi = (CoreBrainInternal)coreBrain;
-			cbi.graphModel = bot.bytesFile;
-			cbi.InitializeCoreBrain();
-		}
-		else
-		{
-			Debug.LogError("Error: BRAIN IS NOT INTERNAL AAAAAAAAAAAAAH :(");
-		}
+		game.racket1.gameObject.GetComponent<PPAimAgent>().brain.GetComponent<CoreBrainInternal>().graphModel = bot.bytesFile;
+		game.racket1.gameObject.GetComponent<PPAimAgent>().brain.GetComponent<CoreBrainInternal>().InitializeCoreBrain();
 	}
 
 }
