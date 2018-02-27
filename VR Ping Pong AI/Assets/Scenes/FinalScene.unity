@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1979,10 +1979,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d65b22df39ccb498aa1e24917ed1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToSetInactive:
-  - {fileID: 2125473467}
-  objectsToSetActive:
-  - {fileID: 1549812531}
+  parent_mainMenu: {fileID: 0}
+  parent_opponentSelection1: {fileID: 0}
+  parent_scoreDisplay: {fileID: 0}
+  opponentName0: {fileID: 0}
+  opponentName1: {fileID: 0}
+  opponentName2: {fileID: 0}
+  opponentName3: {fileID: 0}
 --- !u!4 &928477681
 Transform:
   m_ObjectHideFlags: 0
@@ -2993,7 +2996,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 347c67546ffadbe45bd2ca3943ec235a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 872060ed95c930248ad90b6feaf909a9, type: 3}
 --- !u!23 &1190743339
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3038,7 +3041,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1190743333}
-  m_Mesh: {fileID: 4300000, guid: 8d738546f0f1689478fcb535c03721bc, type: 3}
+  m_Mesh: {fileID: 4300004, guid: 872060ed95c930248ad90b6feaf909a9, type: 3}
 --- !u!114 &1190743341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3422,7 +3425,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 347c67546ffadbe45bd2ca3943ec235a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 872060ed95c930248ad90b6feaf909a9, type: 3}
 --- !u!23 &1263184345
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3467,7 +3470,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263184340}
-  m_Mesh: {fileID: 4300000, guid: 8d738546f0f1689478fcb535c03721bc, type: 3}
+  m_Mesh: {fileID: 4300004, guid: 872060ed95c930248ad90b6feaf909a9, type: 3}
 --- !u!4 &1263184347
 Transform:
   m_ObjectHideFlags: 0
