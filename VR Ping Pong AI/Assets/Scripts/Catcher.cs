@@ -158,8 +158,8 @@ public class Catcher : MonoBehaviour
         if (col.gameObject == ball.gameObject)
         {
             // Return the ball to a random location.
-            float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 0.5f;
-            float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 2 - 0.5f;
+            float x = (opponentTable.transform.localScale.x) / 2 - 0.5f;
+            float z = (opponentTable.transform.localScale.z) / 2 - 0.5f;
             x = Random.Range(-x, x);
             z = Random.Range(3, z);
             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
@@ -171,17 +171,21 @@ public class Catcher : MonoBehaviour
     }
 
     public void serve() {
-        float x = (opponentTable.transform.localScale.x) / 2;
-        x = x / 2;
-        x = Random.Range(-x, x);
-        myRacket.transform.position = new Vector3(x, myRacket.transform.position.y, myRacket.transform.position.z);
+        // float x = (opponentTable.transform.localScale.x) / 2;
+        // x = x / 2;
+        // x = Random.Range(-x, x);
+        // Debug.Log(myRacket.transform.position);
+        // myRacket.transform.position = new Vector3(x, myRacket.transform.position.y, myRacket.transform.position.z);
         ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.05f) * (invertXZ ? -1f : 1f);
-        x = (opponentTable.transform.localScale.x) / 2;
-        x = x * 0.8f;
+        float x = (opponentTable.transform.localScale.x) / 2;
+        x = x * 0.3f;
         float z = (opponentTable.transform.localScale.z) / 2;
         x = Random.Range(-x, x);
-        //z = Random.Range(z * 0.9f, z * 1.1f);
+        z = Random.Range(z * 1.2f, z * 1.3f);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
+        Debug.Log(target);
+        Debug.Log(ball.transform.position);
+        Debug.Log(myRacket.transform.position);
         ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y, Physics.gravity.magnitude, true);
     }
 }
