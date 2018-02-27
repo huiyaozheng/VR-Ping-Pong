@@ -15,7 +15,7 @@ public class GameState : MonoBehaviour {
 	private bool player1StartedGame;
 
 	[HideInInspector]
-	public int score0, score1;
+	public int score0 = 0, score1 = 0;
 
 	[HideInInspector]
 	/// Guaranteed to be set before the rallyEnded event is called!

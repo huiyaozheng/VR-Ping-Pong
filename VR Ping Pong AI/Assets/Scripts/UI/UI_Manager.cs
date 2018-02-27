@@ -6,13 +6,15 @@ using TMPro;
 public class UI_Manager : MonoBehaviour {
 
 	public GameState game;
-	BotPersonality opponentBot = null;
+	BotPersonality opponentBot = null; // this field is read during TransitionToGame().
 
 	public GameObject 
 		parent_mainMenu,
 		parent_opponentSelection,
 		parent_opponentCreation,
-		parent_scoreDisplay;
+		parent_scoreDisplay,
+		parent_credits,
+		parent_settings;
 
 	public TextMeshProUGUI 
 		opponentName0,
@@ -24,6 +26,16 @@ public class UI_Manager : MonoBehaviour {
 		creation_botName,
 		scores_botName;
 
+	void Start()
+	{
+		parent_mainMenu.SetActive(true);
+
+		parent_credits.SetActive(false);
+		parent_opponentCreation.SetActive(false);
+		parent_scoreDisplay.SetActive(false);
+		parent_credits.SetActive(false);
+		parent_settings.SetActive(false);
+	}
 
 	public void OnClick_MainMenu_NewGame()
 	{
@@ -73,7 +85,7 @@ public class UI_Manager : MonoBehaviour {
 
 	void TransitionToOpponentCreation()
 	{
-		parent_opponentCreation.SetActive(false);
+		parent_opponentSelection.SetActive(false);
 		parent_opponentCreation.SetActive(true);
 		opponentBot = null; // should be the case anyway, right?
 
@@ -84,18 +96,21 @@ public class UI_Manager : MonoBehaviour {
 	{
 		BotPersonalityManager.CreateBotPersonality(creation_botName.text, BotPersonalityManager.eBotPreset.BP_00);
 		opponentBot = BotPersonalityManager.GetBotPersonalities().bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
+		TransitionToGame();
 	}
 
 	public void OnClick_CreationPreset1()
 	{
 		BotPersonalityManager.CreateBotPersonality(creation_botName.text, BotPersonalityManager.eBotPreset.BP_01);
 		opponentBot = BotPersonalityManager.GetBotPersonalities().bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
+		TransitionToGame();
 	}
 
 	void TransitionToGame()
 	{
 		// Start the game!
 		parent_opponentSelection.SetActive(false);
+		parent_opponentCreation.SetActive(false);
 		parent_scoreDisplay.SetActive(true);
 
 		score0.text = "0";
@@ -158,11 +173,24 @@ public class UI_Manager : MonoBehaviour {
 		}
 	}
 
+	public void OnClick_MainMenu_Settings()
+	{
+		parent_mainMenu.SetActive(false);
+		parent_settings.SetActive(true);
+	}
+
+	public void OnClick_MainMenu_Credits()
+	{
+		parent_mainMenu.SetActive(false);
+		parent_credits.SetActive(true);
+	}
 
 	void OnEvent_rallyEnded()
 	{
-		score0.text = game.score0.ToString();
-		score1.text = game.score1.ToString();
+		if (score0 != null) // Don't remove those.
+			score0.text = game.score0.ToString();
+		if (score1 != null)
+			score1.text = game.score1.ToString();
 	}
 
 	void OnEnable()
