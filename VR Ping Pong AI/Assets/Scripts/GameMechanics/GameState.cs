@@ -13,15 +13,12 @@ public class GameState : MonoBehaviour {
 	public int winningScore = 11;
 
 	private bool player1StartedGame;
-
-	[HideInInspector]
-	public int score0, score1;
+	private int score0, score1;
 
 	[HideInInspector]
 	/// Guaranteed to be set before the rallyEnded event is called!
 	public bool player1WonAPoint;
 
-	private bool veryFirstServe;
 
 	public bool DoesPlayer1Serve()
 	{
@@ -37,12 +34,12 @@ public class GameState : MonoBehaviour {
         acad.AcademyReset();
 		score0 = 0;
 		score1 = 0;
-		player1StartedGame = true;
+		player1StartedGame = false;
 	}
 
 	public void ResetBall()
 	{
-		ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
+		ball.GetComponent<Shooter_no_reward>().ShootBall();
 	}
 
 	public void OnEvent_rallyEnded()
@@ -66,21 +63,17 @@ public class GameState : MonoBehaviour {
 			}
 		}
 
-	    ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
+	    ball.GetComponent<Shooter_no_reward>().ShootBall();
     }
 
 	// Use this for initialization
 	void Start () {
 		InitGame();
-		veryFirstServe = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (veryFirstServe) {
-			veryFirstServe = false;
-			ResetBall();
-		}
+		
 	}
 
 	void OnEnable()

@@ -107,7 +107,7 @@ public class Shooter_no_reward : MonoBehaviour
     /// <summary>
     /// Reset the ball to the default position and add a random velocity to the ball.
     /// </summary>
-    public void ShootBall(bool player1Serve)
+    public void ShootBall()
     {
         racket0.gameObject.transform.rotation = racket0DefaultRotation;
         racket0.gameObject.transform.position = racket0DefaultPosition;
@@ -118,29 +118,29 @@ public class Shooter_no_reward : MonoBehaviour
         racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         racket1.gameObject.GetComponent<Catcher>().stopTracking();
 
-        if (player1Serve) {
-        racket1.gameObject.GetComponent<Catcher>().serve();}
-        else {
-            // TODO handle the case when the player is serving
-        }
+        //TODO: let the rackets serve in turn.
+        racket0.gameObject.GetComponent<Catcher>().serve();
 
         firstBounce = true;
     }
 
-void Awake(){
-defaultBallPos = gameObject.transform.position;
+    void Start()
+    {
+        defaultBallPos = gameObject.transform.position;
         racket0DefaultPosition = racket0.gameObject.transform.position;
         racket0DefaultRotation = racket0.gameObject.transform.rotation;
         racket1DefaultPosition = racket1.gameObject.transform.position;
         racket1DefaultRotation = racket1.gameObject.transform.rotation;
         ballBody = gameObject.GetComponent<Rigidbody>();
-}
-    void Start()
-    {
-        
+
+        ShootBall();
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShootBall();
+        }
     }
 }
