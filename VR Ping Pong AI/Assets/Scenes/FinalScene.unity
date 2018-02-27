@@ -1437,7 +1437,7 @@ Transform:
   m_GameObject: {fileID: 1190743333}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.05934668, y: 0.05934662, z: 0.05934662}
+  m_LocalScale: {x: 338.1777, y: 338.1777, z: 338.1777}
   m_Children: []
   m_Father: {fileID: 1562467355}
   m_RootOrder: 1
@@ -2198,6 +2198,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 50c1ca1961df09c4fa2f346e0235455b, type: 2}
+  - {fileID: 2100000, guid: 50c1ca1961df09c4fa2f346e0235455b, type: 2}
+  - {fileID: 2100000, guid: 50c1ca1961df09c4fa2f346e0235455b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2566,6 +2568,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: a973bf3a86397874e9ec037361c94ec5, type: 2}
+  - {fileID: 2100000, guid: a973bf3a86397874e9ec037361c94ec5, type: 2}
+  - {fileID: 2100000, guid: a973bf3a86397874e9ec037361c94ec5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2601,8 +2605,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263184340}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.79, z: 5.07}
-  m_LocalScale: {x: 0.059346676, y: 0.059346616, z: 0.059346616}
+  m_LocalPosition: {x: 0.00025926, y: 0.483, z: 5.168}
+  m_LocalScale: {x: 338.1777, y: 338.17773, z: 338.17773}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
@@ -3331,7 +3335,7 @@ GameObject:
   - component: {fileID: 1562467353}
   - component: {fileID: 1562467356}
   m_Layer: 0
-  m_Name: PlayerCamera
+  m_Name: PlayerCamera (PlayerRacket inside)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
