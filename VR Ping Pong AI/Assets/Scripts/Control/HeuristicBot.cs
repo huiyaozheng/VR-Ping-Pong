@@ -55,93 +55,93 @@ public class HeuristicBot : CatcherBot {
 	protected override void hit()
 	{
         //DOBO: Use AimAgent's min of the third element please
-		float aimHeight = Random.Range(2.3f, maxTrajectoryHeight);
+		float aimHeight = maxTrajectoryHeight;
 		Vector3 aimPos = landPos;
 
 		// Too high or too low - mistakes
 
-		bool tooHigh = Random.value < bot.heuristics.errorRate_tooHigh;
-		bool tooLow = Random.value < bot.heuristics.errorRate_tooLow;
+		//bool tooHigh = Random.value < bot.heuristics.errorRate_tooHigh;
+		//bool tooLow = Random.value < bot.heuristics.errorRate_tooLow;
 
-		if(tooHigh)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot too high! My error rate for that was " + bot.heuristics.errorRate_tooHigh.ToString());
-			aimPos *= 2;
-			aimHeight *= 2;
-			HitAndSaveShot(aimPos, aimHeight);
-			return;
-		}
-		if(tooLow)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot too low! My error rate for that was " + bot.heuristics.errorRate_tooLow.ToString());
-			aimPos.z *= 0.1f;
-			aimHeight /= 2;
-			HitAndSaveShot(aimPos, aimHeight);
-			return;
-		}
+		//if(tooHigh)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot too high! My error rate for that was " + bot.heuristics.errorRate_tooHigh.ToString());
+		//	aimPos *= 2;
+		//	aimHeight *= 2;
+		//	HitAndSaveShot(aimPos, aimHeight);
+		//	return;
+		//}
+		//if(tooLow)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot too low! My error rate for that was " + bot.heuristics.errorRate_tooLow.ToString());
+		//	aimPos.z *= 0.1f;
+		//	aimHeight /= 2;
+		//	HitAndSaveShot(aimPos, aimHeight);
+		//	return;
+		//}
 
-		bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb();
-		if (replayWinningShot && bot.heuristics.winningShots.Count > 0)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will replay a winning shot now! I have that many winning shots stored: " + bot.heuristics.winningShots.Count.ToString() + ". That should be less or equal to " + Statics.bot_winningPlays_listLength().ToString());
-			int rand_ind = Random.Range(0, bot.heuristics.winningShots.Count - 1);
-			aimPos.x = bot.heuristics.winningShots[rand_ind].x;
-			aimPos.z = bot.heuristics.winningShots[rand_ind].z;
-			aimHeight = bot.heuristics.winningShots[rand_ind].y;
+		//bool replayWinningShot = Random.value < Statics.bot_winningPlays_replayProb();
+		//if (replayWinningShot && bot.heuristics.winningShots.Count > 0)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will replay a winning shot now! I have that many winning shots stored: " + bot.heuristics.winningShots.Count.ToString() + ". That should be less or equal to " + Statics.bot_winningPlays_listLength().ToString());
+		//	int rand_ind = Random.Range(0, bot.heuristics.winningShots.Count - 1);
+		//	aimPos.x = bot.heuristics.winningShots[rand_ind].x;
+		//	aimPos.z = bot.heuristics.winningShots[rand_ind].z;
+		//	aimHeight = bot.heuristics.winningShots[rand_ind].y;
 
-			HitAndSaveShot(aimPos, aimHeight);
-			return;
-		}
+		//	HitAndSaveShot(aimPos, aimHeight);
+		//	return;
+		//}
 
-		// Left/right preference
+		//// Left/right preference
 
-		bool goLeft = false;
-		bool goRight = false;
+		//bool goLeft = false;
+		//bool goRight = false;
 
-		float r = Random.value;
-		if (r < bot.heuristics.GetLeftShotOverrideProbability())
-			goLeft = true;
-		else if (r < bot.heuristics.GetLeftShotOverrideProbability() + bot.heuristics.GetRightShotOverrideProbability())
-			goRight = true;
+		//float r = Random.value;
+		//if (r < bot.heuristics.GetLeftShotOverrideProbability())
+		//	goLeft = true;
+		//else if (r < bot.heuristics.GetLeftShotOverrideProbability() + bot.heuristics.GetRightShotOverrideProbability())
+		//	goRight = true;
 
-		if (goLeft)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot to the left half of the table! My probability for that override was " + bot.heuristics.GetLeftShotOverrideProbability().ToString());
-			aimPos.x = (invertXZ ? 1 : -1) * Mathf.Abs(aimPos.x);
-		}
-		if (goRight)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot to the right half of the table! My probability for that override was " + bot.heuristics.GetRightShotOverrideProbability().ToString());
-			aimPos.x = (invertXZ ? -1 : 1) * Mathf.Abs(aimPos.x);
-		}
+		//if (goLeft)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot to the left half of the table! My probability for that override was " + bot.heuristics.GetLeftShotOverrideProbability().ToString());
+		//	aimPos.x = (invertXZ ? 1 : -1) * Mathf.Abs(aimPos.x);
+		//}
+		//if (goRight)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot to the right half of the table! My probability for that override was " + bot.heuristics.GetRightShotOverrideProbability().ToString());
+		//	aimPos.x = (invertXZ ? -1 : 1) * Mathf.Abs(aimPos.x);
+		//}
 
-		// Max height preference
-		bool goLow = false;
-		bool goMedium = false;
-		bool goHigh = false;
-		float r2 = Random.value;
-		if (r2 < bot.heuristics.GetLowShotOverrideProbability())
-			goLow = true;
-		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability())
-			goMedium = true;
-		else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability() + bot.heuristics.GetHighShotOverrideProbability())
-			goHigh = true;
+		//// Max height preference
+		//bool goLow = false;
+		//bool goMedium = false;
+		//bool goHigh = false;
+		//float r2 = Random.value;
+		//if (r2 < bot.heuristics.GetLowShotOverrideProbability())
+		//	goLow = true;
+		//else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability())
+		//	goMedium = true;
+		//else if (r2 < bot.heuristics.GetLowShotOverrideProbability() + bot.heuristics.GetMediumShotOverrideProbability() + bot.heuristics.GetHighShotOverrideProbability())
+		//	goHigh = true;
 
-		if (goLow)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot a low ball now! My probability for that override was " + bot.heuristics.GetLowShotOverrideProbability().ToString());
-			aimHeight = Random.Range(lowHeight - 0.2f, lowHeight + 1.0f);
-		}
-		if (goMedium)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot a medium-height ball now! My probability for that override was " + bot.heuristics.GetMediumShotOverrideProbability().ToString());
-			aimHeight = Random.Range(medHeight - 1.0f, medHeight + 1.0f);
-		}
-		if (goHigh)
-		{
-			Debug.Log("<HEURISTIC_BOT>: I will shoot a high ball now! My probability for that override was " + bot.heuristics.GetHighShotOverrideProbability().ToString());
-			aimHeight = Random.Range(highHeight - 1.0f, highHeight + 1.0f);
-		}
+		//if (goLow)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot a low ball now! My probability for that override was " + bot.heuristics.GetLowShotOverrideProbability().ToString());
+		//	aimHeight = Random.Range(lowHeight - 0.2f, lowHeight + 1.0f);
+		//}
+		//if (goMedium)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot a medium-height ball now! My probability for that override was " + bot.heuristics.GetMediumShotOverrideProbability().ToString());
+		//	aimHeight = Random.Range(medHeight - 1.0f, medHeight + 1.0f);
+		//}
+		//if (goHigh)
+		//{
+		//	Debug.Log("<HEURISTIC_BOT>: I will shoot a high ball now! My probability for that override was " + bot.heuristics.GetHighShotOverrideProbability().ToString());
+		//	aimHeight = Random.Range(highHeight - 1.0f, highHeight + 1.0f);
+		//}
 
 		HitAndSaveShot(aimPos, aimHeight);
 		return;
