@@ -171,14 +171,16 @@ public class Catcher : MonoBehaviour
     }
 
     public void serve() {
-        float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 7f;
+        Debug.Log((opponentTable.transform.parent.gameObject.transform.localScale.x) / 2);
+        float x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 2.6f;
         x = Random.Range(-x, x);
         myRacket.transform.position = new Vector3(x, myRacket.transform.position.y, myRacket.transform.position.z);
         ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.5f) * (invertXZ ? -1f : 1f);
-        x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 6f;
+        x = (opponentTable.transform.parent.gameObject.transform.localScale.x) / 2 - 2.5f;
         float z = (opponentTable.transform.parent.gameObject.transform.localScale.z) / 4;
         x = Random.Range(-x, x);
-        z = Random.Range(z + 2, z + 2);
+        z = Random.Range(-z + 0.2f, z + 0.2f);
+        Debug.Log("z=" + z);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
         ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y + 1f, Physics.gravity.magnitude, true);
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -451,8 +451,8 @@ MonoBehaviour:
   player1: {fileID: 1263184340}
   racket0: {fileID: 1190743337}
   racket1: {fileID: 1263184343}
-  table0: {fileID: 0}
-  table1: {fileID: 0}
+  table0: {fileID: 467995177}
+  table1: {fileID: 1191392987}
   floor: {fileID: 1256116753}
   ball: {fileID: 945404623}
   acad: {fileID: 783437189}
@@ -633,11 +633,11 @@ MonoBehaviour:
     stateSpaceType: 1
   brainType: 3
   CoreBrains:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  instanceID: 12174
+  - {fileID: 1805656335}
+  - {fileID: 1699999515}
+  - {fileID: 371774719}
+  - {fileID: 1901529373}
+  instanceID: 14964
 --- !u!1 &259934484
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +967,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 345427080}
+--- !u!114 &371774719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  brain: {fileID: 0}
 --- !u!1 &380279401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,8 +1604,8 @@ MonoBehaviour:
   done: 0
   episodeCount: 1
   currentStep: 0
-  enemyRacket: {fileID: 0}
-  myRacket: {fileID: 0}
+  enemyRacket: {fileID: 1190743341}
+  myRacket: {fileID: 1263184341}
 --- !u!4 &783437190
 Transform:
   m_ObjectHideFlags: 0
@@ -2203,7 +2215,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 945404619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 4.78}
   m_LocalScale: {x: 0.13731147, y: 0.1373115, z: 0.1373115}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2858,7 +2870,7 @@ MeshRenderer:
     type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1151493497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2910,6 +2922,7 @@ GameObject:
   - component: {fileID: 1190743334}
   - component: {fileID: 1190743335}
   - component: {fileID: 1190743336}
+  - component: {fileID: 1190743341}
   m_Layer: 9
   m_Name: PlayerRacket
   m_TagString: Untagged
@@ -3026,6 +3039,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1190743333}
   m_Mesh: {fileID: 4300000, guid: 8d738546f0f1689478fcb535c03721bc, type: 3}
+--- !u!114 &1190743341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1190743333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4913dcfed1cad4fa37432111365673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 88711585}
+  ball: {fileID: 945404623}
+  myRacket: {fileID: 1190743337}
+  closerTable: {fileID: 467995177}
+  opponentRacket: {fileID: 1263184343}
+  opponentTable: {fileID: 1191392987}
+  maxRacketMovingSpeed: 0
+  invertXZ: 0
+  maxTrajectoryHeight: 0
 --- !u!1 &1191392985
 GameObject:
   m_ObjectHideFlags: 0
@@ -4674,15 +4707,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562467352}
-  m_LocalRotation: {x: -0.1201011, y: -0.4173026, z: -0.056012746, w: 0.8990534}
-  m_LocalPosition: {x: 0, y: 1, z: -6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 1.3, z: -9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 104367784}
   - {fileID: 928477681}
   m_Father: {fileID: 0}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: -15.231001, y: -49.794003, z: -0.028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1562467356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4849,6 +4882,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1651751717}
+--- !u!114 &1699999515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  brain: {fileID: 0}
 --- !u!1 &1761961201 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1384746914293964, guid: be540b97364be0a4890e39e62ac89ed1,
@@ -5007,6 +5053,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1802487316}
+--- !u!114 &1805656335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  continuousPlayerActions: []
+  discretePlayerActions: []
+  defaultAction: 0
+  brain: {fileID: 0}
 --- !u!1 &1843474162
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,6 +5197,32 @@ GameObject:
   m_PrefabParentObject: {fileID: 1587602180963074, guid: be540b97364be0a4890e39e62ac89ed1,
     type: 2}
   m_PrefabInternal: {fileID: 1134900065}
+--- !u!114 &1901529373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
+  m_Name: (Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  graphModel: {fileID: 4900000, guid: 6c0e7508d707c5449878803df85cfcf1, type: 3}
+  graphScope: 
+  graphPlaceholders:
+  - name: epsilon
+    valueType: 1
+    minValue: 0
+    maxValue: 0
+  BatchSizePlaceholderName: batch_size
+  StatePlacholderName: state
+  RecurrentInPlaceholderName: recurrent_in
+  RecurrentOutPlaceholderName: recurrent_out
+  ObservationPlaceholderName: []
+  ActionPlaceholderName: action
+  brain: {fileID: 172154545}
 --- !u!1 &2034152144
 GameObject:
   m_ObjectHideFlags: 0
