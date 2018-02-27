@@ -8,21 +8,21 @@ public class BotPersonalityManager : MonoBehaviour {
 
 	private static BotPersonalities botPersonalities = null;
 
+	private static TextAsset botPreset00 = null;
 	private static TextAsset botPreset01 = null;
 	private static TextAsset botPreset02 = null;
-	private static TextAsset botPreset03 = null;
 
 	// Static fields can't be assigned to from the inspector, so we assign to these and then copy them over to the static fields immediately on Start.
+	public TextAsset _botPreset00 = null;
 	public TextAsset _botPreset01 = null;
 	public TextAsset _botPreset02 = null;
-	public TextAsset _botPreset03 = null;
 
 	void Start () {
 
 		// Assign to static variables:
+		botPreset00 = _botPreset00;
 		botPreset01 = _botPreset01;
 		botPreset02 = _botPreset02;
-		botPreset03 = _botPreset03;
 
 		// Deserialize botPersonalities:
 		string filePath = Statics.path_botPersonalities();
@@ -61,20 +61,20 @@ public class BotPersonalityManager : MonoBehaviour {
 	private static void AddBotPersonality(BotPersonality bot) { botPersonalities.bots.Add(bot); }
 
 	// Create a new bot personality from name and preset (neural net model)
-	public enum eBotPreset { BP_01, BP_02, BP_03 };
+	public enum eBotPreset { BP_00, BP_01, BP_02 };
 	public static void CreateBotPersonality(string botGivenName, eBotPreset botPreset)
 	{
 		TextAsset botBytesFile = null;
 		switch(botPreset)
 		{
+		case eBotPreset.BP_00:
+			botBytesFile = botPreset00;
+			break;
 		case eBotPreset.BP_01:
 			botBytesFile = botPreset01;
 			break;
 		case eBotPreset.BP_02:
 			botBytesFile = botPreset02;
-			break;
-		case eBotPreset.BP_03:
-			botBytesFile = botPreset03;
 			break;
 		}
 
@@ -89,8 +89,19 @@ public class BotPersonalityManager : MonoBehaviour {
 	{
 		// game.player1 should always be set to a bot object, we will just change its personality, and the brain in control...
 		game.player1.GetComponent<HeuristicBot>().bot = bot;
-		game.racket1.gameObject.GetComponent<PPAimAgent>().brain.GetComponent<CoreBrainInternal>().graphModel = bot.bytesFile;
-		game.racket1.gameObject.GetComponent<PPAimAgent>().brain.GetComponent<CoreBrainInternal>().InitializeCoreBrain();
+
+		CoreBrain coreBrain = game.racket1.gameObject.GetComponent<PPAimAgent>().brain.coreBrain;
+
+		if (coreBrain is CoreBrainInternal)
+		{
+			CoreBrainInternal cbi = (CoreBrainInternal)coreBrain;
+			cbi.graphModel = bot.bytesFile;
+			cbi.InitializeCoreBrain();
+		}
+		else
+		{
+			Debug.LogError("Error: BRAIN IS NOT INTERNAL AAAAAAAAAAAAAH :(");
+		}
 	}
 
 }

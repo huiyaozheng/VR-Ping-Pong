@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: d02d41b2335e4d443903b8a2c679efa9
-timeCreated: 1519742451
+guid: 872060ed95c930248ad90b6feaf909a9
+timeCreated: 1519751400
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Plane
+    100002: //RootNode
+    100004: RacketCollider
+    100006: RacketHiRes
+    400000: Plane
+    400002: //RootNode
+    400004: RacketCollider
+    400006: RacketHiRes
     2100000: No Name
-    2100002: Handle + Middle
-    2100004: Bottom Face
-    2100006: Top Face
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Plane
+    2100002: Handle + Middle.002
+    2100004: Bottom Face.002
+    2100006: Top Face.002
+    2300000: Plane
+    2300002: RacketCollider
+    2300004: RacketHiRes
+    3300000: Plane
+    3300002: RacketCollider
+    3300004: RacketHiRes
+    4300000: RacketCollider
+    4300002: Plane
+    4300004: RacketHiRes
   externalObjects: {}
   materials:
     importMaterials: 1

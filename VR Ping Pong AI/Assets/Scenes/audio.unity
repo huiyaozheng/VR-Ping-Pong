@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -262,8 +262,6 @@ MonoBehaviour:
   - 7
   - -2
   - 4
-  tickRate: 0.99
-  multiplier: 1
   defaultRacketPos: {x: 0, y: 0, z: 0}
 --- !u!1 &227895638
 GameObject:
@@ -1177,14 +1175,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1370734855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03596e1bd038f7c49a1c7d9620067b1e, type: 3}
+  m_Script: {fileID: 11500000, guid: ca5c94ac5f4afcc41b0dba025dc0c6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  minVolume: 0
-  maxVolume: 0
-  minVolumeSpeed: 0
-  maxVolumeSpeed: 0
+  audioSource: {fileID: 1841193211}
+  minVolume: 0.5
+  maxVolume: 1
+  minVolumeSpeed: 10
+  maxVolumeSpeed: 30
 --- !u!114 &1370734864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,8 +1242,7 @@ MonoBehaviour:
   done: 0
   episodeCount: 1
   currentStep: 0
-  enemyRacket: {fileID: 0}
-  myRacket: {fileID: 0}
+  trainee: {fileID: 108135237}
 --- !u!4 &1462528026
 Transform:
   m_ObjectHideFlags: 0
