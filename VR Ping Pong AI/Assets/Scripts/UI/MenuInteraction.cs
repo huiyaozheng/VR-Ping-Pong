@@ -8,7 +8,7 @@ public class MenuInteraction : MonoBehaviour {
 
 
     public GameObject MainMenu;
-    public GameObject NewGameMenu;
+    //public GameObject NewGameMenu;
     public GameObject SettingsMenu;
 
     private GameObject CurrentObject;
@@ -24,9 +24,9 @@ public class MenuInteraction : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (MainMenu.active)
+		if (MainMenu.activeSelf)
             MainMenuInteraction();
-        else if (SettingsMenu.active)
+		else if (SettingsMenu.activeSelf)
             SettingsMenuInteraction();
     }
 
