@@ -120,15 +120,23 @@ public class MenuInteraction : MonoBehaviour {
                 if (CurrentObject == null)
                 {
                     CurrentObject = ObjectHit;
-                    CurrentObject.GetComponent<Image>().color = SelectedButtonColor;
+					Image imageHit = CurrentObject.GetComponent<Image>();
+					if (imageHit != null)
+                    	imageHit.color = SelectedButtonColor;
                 }
                 else
                 {
                     if (!(CurrentObject.Equals(ObjectHit)))
                     {
-                        CurrentObject.GetComponent<Image>().color = DefaultButtonColor;
-                        CurrentObject = ObjectHit;
-                        CurrentObject.GetComponent<Image>().color = SelectedButtonColor;
+						Image currentImage = CurrentObject.GetComponent<Image>();
+						if (currentImage != null)
+							currentImage.color = DefaultButtonColor;
+
+						CurrentObject = ObjectHit;
+
+						Image imageHit = CurrentObject.GetComponent<Image>();
+						if (imageHit != null)
+							imageHit.color = SelectedButtonColor;
                     }
                 }
 
