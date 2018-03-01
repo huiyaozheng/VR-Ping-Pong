@@ -36,5 +36,19 @@ namespace PhysicsLibrary
             vel.z *= v_x;
             return vel;
         }
+
+		/**
+		 * @param: batNorm -> normalised normal of the bat surface
+		 */
+		public static Vector3 batHit(Vector3 ballVel, Vector3 batVel, Vector3 batNorm)
+		{
+			/*			Vector3 v_ball_primed = ballVel - batVel;
+			batNorm = batNorm.normalized;
+			Vector3 vel = v_ball_primed - 2 * Vector3.Dot (v_ball_primed, batNorm) * batNorm;
+			vel += batVel;*/
+			Vector3 vel = batVel + batNorm;
+			//	vel.y *= 2;
+			return vel;
+		}
     }
 }

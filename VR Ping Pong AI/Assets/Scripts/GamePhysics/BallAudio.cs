@@ -7,6 +7,7 @@ using UnityEngine;
 public class BallAudio : MonoBehaviour {
 
 	public AudioSource audioSource;
+	public AudioSource highPitch;
 	public float minVolume;
 	public float maxVolume;
 	public float minVolumeSpeed;
@@ -23,12 +24,18 @@ public class BallAudio : MonoBehaviour {
 			otherVel = otherBody.velocity;
 		}
 
-		float loudnessFactor = (ballVel - otherVel).magnitude;
-		Debug.Log(loudnessFactor);
-		loudnessFactor = Mathf.Clamp(loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
-		float volume = (maxVolume - minVolume) * (loudnessFactor - minVolumeSpeed) / (maxVolumeSpeed - minVolumeSpeed) + minVolume;
+		if (otherVel.magnitude >= 10) { // if we hit the ball hard - hardcode the value
+			Debug.Log("True");
+			highPitch.volume = maxVolume;
+			highPitch.Play ();
+		} else {
+			float loudnessFactor = (ballVel - otherVel).magnitude;
+			//	Debug.Log(loudnessFactor);
+			loudnessFactor = Mathf.Clamp (loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
+			float volume = (maxVolume - minVolume) * (loudnessFactor - minVolumeSpeed) / (maxVolumeSpeed - minVolumeSpeed) + minVolume;
 
-		audioSource.volume = volume;
-		audioSource.Play();
+			audioSource.volume = volume;
+			audioSource.Play ();
+		}
 	}
 }
