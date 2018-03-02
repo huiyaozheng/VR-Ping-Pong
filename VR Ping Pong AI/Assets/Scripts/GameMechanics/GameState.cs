@@ -47,16 +47,16 @@ public class GameState : MonoBehaviour {
 
 	public void OnEvent_rallyEnded()
 	{
-        acad.AcademyReset();
+		acad.AcademyReset();
         if (player1WonAPoint)
-        {
-            Debug.Log("P1WAP");
-            //score1++;
+		{
+			Debug.Log("P1WAP, current score: " + score0.ToString() + " - " + score1.ToString());
+            score1++;
         }
         else
         {
-            Debug.Log("P0WAP");
-            //score0++;
+			Debug.Log("P0WAP, current score: " + score0.ToString() + " - " + score1.ToString());
+            score0++;
         }
 		if(score0 >= winningScore || score1 >= winningScore)
 		{

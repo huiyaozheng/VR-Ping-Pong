@@ -127,7 +127,8 @@ public class RallyState : MonoBehaviour {
 			case eRallyStateMachineAction.RSMA_DEF_RACK:
 				return eRallyOutcome.RO_ATT_WINS;
 			default:
-                Reward(1.0f);Debug.Log("I WON");
+                Reward(1.0f);
+				//Debug.Log("I WON");
 				return eRallyOutcome.RO_DEF_WINS;
 			}
 		default:

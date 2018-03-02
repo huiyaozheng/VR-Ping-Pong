@@ -178,9 +178,9 @@ public class Catcher : MonoBehaviour
         x = Random.Range(-x, x);
         z = Random.Range(z, z * 1.2f);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
-        Debug.Log(target);
-        Debug.Log(ball.transform.position);
-        Debug.Log(myRacket.transform.position);
+        //Debug.Log(target);
+        //Debug.Log(ball.transform.position);
+        //Debug.Log(myRacket.transform.position);
         ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y, Physics.gravity.magnitude, true);
     }
 }
