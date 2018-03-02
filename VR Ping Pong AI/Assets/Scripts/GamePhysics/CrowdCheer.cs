@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CrowdCheer : MonoBehaviour {
-	public AudioSource crowdCheer;
-	public float maxVolume;
-
+	public AudioSource[] crowdCheer;
 	private void OnEvent_cheer ()
 	{
-		crowdCheer.volume = maxVolume;
-		crowdCheer.Play ();
+		int play = Random.Range (0, crowdCheer.Length);
+		crowdCheer[play].volume = 1;
+		crowdCheer[play].Play ();
 	}
 
 	void OnEnable()

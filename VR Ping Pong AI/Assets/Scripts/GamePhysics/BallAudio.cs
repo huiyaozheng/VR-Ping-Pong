@@ -25,17 +25,15 @@ public class BallAudio : MonoBehaviour {
 		}
 
 		float loudnessFactor = (ballVel - otherVel).magnitude;
+		loudnessFactor = Mathf.Clamp (loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
 
-		if (false && loudnessFactor > maxVolumeSpeed)
+		if (loudnessFactor >= 17)
 		{
 			highPitch.volume = 1;
 			highPitch.Play();
 		}
 		else
 		{
-			//Debug.Log("loudnessFactor = " + loudnessFactor.ToString());
-			loudnessFactor = Mathf.Clamp (loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
-
 			float volume = (maxVolume - minVolume) * (loudnessFactor - minVolumeSpeed) / (maxVolumeSpeed - minVolumeSpeed) + minVolume;
 
 			audioSource.volume = volume;
