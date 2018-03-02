@@ -57,9 +57,7 @@ public class GameState : MonoBehaviour {
 	    racket1.gameObject.GetComponent<Catcher>().stopTracking();
 	    if (DoesPlayer1Serve())
 	    {
-	        racket1.GetComponent<Collider>().isTrigger = false;
 	        racket1.gameObject.GetComponent<Catcher>().Serve();
-	        racket1.GetComponent<Collider>().isTrigger = true;
         }
 	    else
 	    {
