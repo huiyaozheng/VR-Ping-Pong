@@ -176,7 +176,7 @@ public class Catcher : MonoBehaviour
     public void Serve()
     {
         tracking = false;
-        ball.transform.position = myRacket.transform.position + new Vector3(0, 0, 0.05f) * (invertXZ ? -1f : 1f);
+        ball.transform.position = myRacket.transform.position + new Vector3(0, 0, 0.15f) * (invertXZ ? -1f : 1f);
         float x = (opponentTable.transform.localScale.x) / 2;
         x = x * 0.3f;
         float z = (opponentTable.transform.localScale.z) / 2;
