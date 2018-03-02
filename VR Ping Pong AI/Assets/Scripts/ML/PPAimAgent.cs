@@ -63,7 +63,6 @@ public class PPAimAgent : Agent
         state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.x);
 		state.Add(                     opponentRacket.transform.position.y);
 		state.Add((invertXZ ? -1 : 1 )*opponentRacket.transform.position.z);
-        //Debug.Log("AGENT COLLECTS");
 
         //ball's position
         state.Add(ball.transform.position.x);
@@ -73,30 +72,19 @@ public class PPAimAgent : Agent
         return state;
     }
 
-    // to be implemented by the developer
     public override void AgentStep(float[] act)
    {
-        //Debug.Log("AGENT STEPS");
-        //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
-        //Debug.Log("Reward = " + reward);
         for(int i = 0; i < 3; i++)
         {
             act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
         }
-        //Debug.Log("act0122 " + act[0] + " " + act[1]+ " " + act[2]);
         gameObject.GetComponent<Catcher>().setTargets(new Vector3(act[0], 0, act[1]),act[2]);
         float dist = Mathf.Abs(act[0]-opponentRacket.transform.position.x);
-        reward += expo(dist - 7f) * 0.01f * multiplier;
-        //Vector3 lp = new Vector3(act[0], 0, act[1]);
-        //lp -= opponentRacket.transform.position;
-        //float dist = (lp.sqrMagnitude - 90.0f) / 10.0f;
-        //reward += (Mathf.Exp(dist) / (1 + Mathf.Exp(dist)))*0.02f;
+        reward += expo(dist - 2.40f) * 0.02f * multiplier;
     }
 
-    // to be implemented by the developer
     public override void AgentReset()
     {
-        //Debug.Log("RESETTTT");
-        //reward = 0.0f;
+
     }
 }
