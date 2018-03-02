@@ -76,13 +76,13 @@ public class GameState : MonoBehaviour {
 		acad.AcademyReset();
         if (player1WonAPoint)
 		{
-			Debug.Log("P1WAP, current score: " + score0.ToString() + " - " + score1.ToString());
             score1++;
+			Debug.Log("P1WAP, current score: " + score0.ToString() + " - " + score1.ToString());
         }
         else
         {
-			Debug.Log("P0WAP, current score: " + score0.ToString() + " - " + score1.ToString());
             score0++;
+			Debug.Log("P0WAP, current score: " + score0.ToString() + " - " + score1.ToString());
         }
 
 		if(score0 >= winningScore || score1 >= winningScore)
