@@ -7,10 +7,11 @@ public class CatcherBot : Catcher
     public PPAimAgent trainee;
     public const float mult = 10.0f;
     
-    private float expo(float x)
+    protected float expo(float x)
     {
         return Mathf.Exp(x) / (1 + Mathf.Exp(x));
     }
+
     protected override void hit()
     {
 

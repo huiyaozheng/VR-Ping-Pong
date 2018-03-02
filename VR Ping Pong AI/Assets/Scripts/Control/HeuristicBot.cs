@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeuristicBot : CatcherBot {
+public class HeuristicBotOld : CatcherBot {
 
 	//TODO: Save a successful shot's trajectory, sometimes replay it with slight noise.
 
