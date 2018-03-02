@@ -52,11 +52,6 @@ public class Shooter_no_reward : MonoBehaviour
     /// </summary>
     public Collider racket1;
 
-    private Vector3 racket0DefaultPosition;
-    private Vector3 racket1DefaultPosition;
-    private Quaternion racket0DefaultRotation;
-    private Quaternion racket1DefaultRotation;
-
     /// <summary>
     /// Default starting position of the ball.
     /// </summary>
@@ -80,7 +75,7 @@ public class Shooter_no_reward : MonoBehaviour
     /// <summary>
     /// The ball first bounces on the serving side's table. Do not notify the racket in this case.
     /// </summary>
-    private bool firstBounce = true;
+    public bool firstBounce = true;
 
     void OnCollisionEnter(Collision col)
     {
@@ -104,40 +99,8 @@ public class Shooter_no_reward : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Reset the ball to the default position and add a random velocity to the ball.
-    /// </summary>
-    public void ShootBall(bool player1Serve)
-    {
-        racket0.gameObject.transform.rotation = racket0DefaultRotation;
-        racket0.gameObject.transform.position = racket0DefaultPosition;
-        racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        racket0.gameObject.GetComponent<Catcher>().stopTracking();
-        racket1.gameObject.transform.rotation = racket1DefaultRotation;
-        racket1.gameObject.transform.position = racket1DefaultPosition;
-        racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        racket1.gameObject.GetComponent<Catcher>().stopTracking();
-
-        if (player1Serve) {
-        racket1.gameObject.GetComponent<Catcher>().serve();}
-        else {
-            // TODO handle the case when the player is serving
-        }
-
-        firstBounce = true;
-    }
-
-void Awake(){
-defaultBallPos = gameObject.transform.position;
-        racket0DefaultPosition = racket0.gameObject.transform.position;
-        racket0DefaultRotation = racket0.gameObject.transform.rotation;
-        racket1DefaultPosition = racket1.gameObject.transform.position;
-        racket1DefaultRotation = racket1.gameObject.transform.rotation;
-        ballBody = gameObject.GetComponent<Rigidbody>();
-}
     void Start()
     {
-        
     }
 
     void Update()

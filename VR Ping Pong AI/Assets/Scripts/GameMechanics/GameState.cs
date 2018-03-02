@@ -10,7 +10,12 @@ public class GameState : MonoBehaviour {
 	public Rigidbody ball;
     public PPAcademy acad;
 
-	public int winningScore = 11;
+    private Vector3 racket0DefaultPosition;
+    private Vector3 racket1DefaultPosition;
+    private Quaternion racket0DefaultRotation;
+    private Quaternion racket1DefaultRotation;
+
+    public int winningScore = 11;
 
 	private bool player1StartedGame;
 
@@ -21,7 +26,6 @@ public class GameState : MonoBehaviour {
 	/// Guaranteed to be set before the rallyEnded event is called!
 	public bool player1WonAPoint;
 
-//	private bool veryFirstServe;
 
 	public bool DoesPlayer1Serve()
 	{
@@ -43,25 +47,26 @@ public class GameState : MonoBehaviour {
 
 	public void ResetBall()
 	{
-		//ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve()); // Dobrik, note this.
-	
-		if (DoesPlayer1Serve())
-		{
-			// Bot serves.
-			player1.GetComponent<HeuristicBot>().serve(); 	// TODO Fix serve() to work with new table dimensions (if it doesn't already).
-															// TODO Move bot racket to the middle of the table!
-		}
-		else
-		{
-			// Player serves.
-
-
-			// For now use bot serving:
-			player0.GetComponent<Catcher>().serve();
-
-			//TODO - Replace with human serving, via something like:
-			// PlayerServe.ServeAllowed();
-		}
+	    racket0.gameObject.transform.rotation = racket0DefaultRotation;
+	    racket0.gameObject.transform.position = racket0DefaultPosition;
+	    racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+	    racket0.gameObject.GetComponent<Catcher>().stopTracking();
+	    racket1.gameObject.transform.rotation = racket1DefaultRotation;
+	    racket1.gameObject.transform.position = racket1DefaultPosition;
+	    racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+	    racket1.gameObject.GetComponent<Catcher>().stopTracking();
+	    if (DoesPlayer1Serve())
+	    {
+	        racket1.GetComponent<Collider>().isTrigger = false;
+	        racket1.gameObject.GetComponent<Catcher>().Serve();
+	        racket1.GetComponent<Collider>().isTrigger = true;
+        }
+	    else
+	    {
+	        // TODO handle the case when the player is serving
+	        racket0.gameObject.GetComponent<Catcher>().Serve();
+	    }
+        ball.GetComponent<Shooter_no_reward>().firstBounce = true;
 	}
 
 	public void OnEvent_rallyEnded()
@@ -89,22 +94,20 @@ public class GameState : MonoBehaviour {
 		{
 			ResetBall();
 		}
-
-		//ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());  // Dobrik, note this.
     }
 
 	// Use this for initialization
 	void Start () {
-		InitGame();
-//		veryFirstServe = true;
+	    racket0DefaultPosition = racket0.gameObject.transform.position;
+	    racket0DefaultRotation = racket0.gameObject.transform.rotation;
+	    racket1DefaultPosition = racket1.gameObject.transform.position;
+	    racket1DefaultRotation = racket1.gameObject.transform.rotation;
+        InitGame();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		if (veryFirstServe) {
-//			veryFirstServe = false;
-//			ResetBall();
-//		}
+
 	}
 
 	void OnEnable()

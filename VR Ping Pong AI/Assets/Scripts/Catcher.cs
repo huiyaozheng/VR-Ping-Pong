@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using PhysicsLibrary;
 
 
@@ -11,6 +12,7 @@ public class Catcher : MonoBehaviour
     /// The racket controlled by this script.
     /// </summary>
     public Rigidbody myRacket;
+
     protected Vector3 myDefPos;
 
     /// <summary>
@@ -90,7 +92,8 @@ public class Catcher : MonoBehaviour
             // Otherwise, just track the ball in X-direction.
             Vector3 direction = new Vector3(ball.transform.position.x - myRacket.transform.position.x, 0, 0).normalized;
             float xPos =
-                maxRacketMovingSpeed * Time.fixedDeltaTime > Mathf.Abs(ball.transform.position.x - myRacket.transform.position.x)
+                maxRacketMovingSpeed * Time.fixedDeltaTime >
+                Mathf.Abs(ball.transform.position.x - myRacket.transform.position.x)
                     ? ball.transform.position.x
                     : (myRacket.position + direction * maxRacketMovingSpeed * Time.fixedDeltaTime).x;
             myRacket.transform.position = new Vector3(xPos, myRacket.transform.position.y,
@@ -119,21 +122,20 @@ public class Catcher : MonoBehaviour
         ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
-	protected virtual void Start()
+    protected virtual void Awake()
     {
         myDefPos = myRacket.transform.position;
         prevZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
         tracking = false;
     }
 
-	protected bool IsRacketCloseToDefaultPos()
-	{
-		return (myDefPos - myRacket.transform.position).sqrMagnitude < 2;
-	}
+    protected bool IsRacketCloseToDefaultPos()
+    {
+        return (myDefPos - myRacket.transform.position).sqrMagnitude < 2;
+    }
 
     protected virtual void Update()
     {
-        //Debug.Log("maxTrajH " + maxTrajectoryHeight);
         float currentZDistance = Mathf.Abs(ball.transform.position.z - myRacket.transform.position.z);
 
         // Move if the ball is incoming.
@@ -144,12 +146,12 @@ public class Catcher : MonoBehaviour
         else
         {
             // If the racket is close to the default position, stop moving.
-			if (IsRacketCloseToDefaultPos())
+            if (IsRacketCloseToDefaultPos())
             {
-                myRacket.velocity = new Vector3(0,0,0);
+                myRacket.velocity = new Vector3(0, 0, 0);
             }
         }
-        
+
         prevZDistance = currentZDistance;
     }
 
@@ -170,18 +172,19 @@ public class Catcher : MonoBehaviour
         }
     }
 
-    public void serve() {
-		// TODO Fix, I think this code was for old table dimensions.
-        ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.05f) * (invertXZ ? -1f : 1f);
+    public void Serve()
+    {
+        tracking = false;
+        ball.transform.position = myRacket.transform.position + new Vector3(0, 0, 0.05f) * (invertXZ ? -1f : 1f);
         float x = (opponentTable.transform.localScale.x) / 2;
         x = x * 0.3f;
         float z = (opponentTable.transform.localScale.z) / 2;
         x = Random.Range(-x, x);
-        z = Random.Range(z, z * 1.2f);
+        z = Random.Range(z, z * 1.1f);
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
-        //Debug.Log(target);
-        //Debug.Log(ball.transform.position);
-        //Debug.Log(myRacket.transform.position);
-        ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y, Physics.gravity.magnitude, true);
+        Debug.Log(invertXZ);
+        Debug.Log("Serve target: " + target.ToString());
+        ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y,
+            Physics.gravity.magnitude, true);
     }
 }
