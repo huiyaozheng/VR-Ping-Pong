@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3234,7 +3234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crowdCheer: {fileID: 1898698744}
-  maxVolume: 5
+  maxVolume: 1
 --- !u!4 &752788860
 Transform:
   m_ObjectHideFlags: 0
@@ -7977,7 +7977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7f6535dd0f1224489ec8a89e38560f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI_manager: {fileID: 0}
+  UI_manager: {fileID: 1413007861}
 --- !u!114 &1413007860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7989,7 +7989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c96eab3dfab4f4ab5b372f5b06e4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botPreset00: {fileID: 0}
+  _botPreset00: {fileID: 4900000, guid: c57fff98c17c1f14cb9410241ffe5691, type: 3}
   _botPreset01: {fileID: 4900000, guid: 6f0b75e18f48abb498b281e81135bf42, type: 3}
 --- !u!114 &1413007861
 MonoBehaviour:
@@ -8002,22 +8002,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d65b22df39ccb498aa1e24917ed1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 0}
-  parent_mainMenu: {fileID: 0}
-  parent_opponentSelection: {fileID: 0}
-  parent_opponentCreation: {fileID: 0}
-  parent_scoreDisplay: {fileID: 0}
-  parent_credits: {fileID: 0}
-  parent_settings: {fileID: 0}
-  opponentName0: {fileID: 0}
-  opponentName1: {fileID: 0}
-  opponentName2: {fileID: 0}
-  opponentName3: {fileID: 0}
-  score0: {fileID: 0}
-  score1: {fileID: 0}
-  creation_botName: {fileID: 0}
-  scores_botName: {fileID: 0}
-  gameStarter: {fileID: 0}
+  game: {fileID: 88711585}
+  parent_mainMenu: {fileID: 2009210126}
+  parent_opponentSelection: {fileID: 1022837153}
+  parent_opponentCreation: {fileID: 1381286447}
+  parent_scoreDisplay: {fileID: 961584779}
+  parent_credits: {fileID: 2077627652}
+  parent_settings: {fileID: 7193600}
+  opponentName0: {fileID: 1895271020}
+  opponentName1: {fileID: 1574326216}
+  opponentName2: {fileID: 1181596947}
+  opponentName3: {fileID: 586510423}
+  score0: {fileID: 1260053698}
+  score1: {fileID: 969425163}
+  creation_botName: {fileID: 1086699328}
+  scores_botName: {fileID: 385384449}
+  gameStarter: {fileID: 88711590}
 --- !u!4 &1413007862
 Transform:
   m_ObjectHideFlags: 0
