@@ -171,6 +171,7 @@ public class Catcher : MonoBehaviour
     }
 
     public void serve() {
+		// TODO Fix, I think this code was for old table dimensions.
         ball.transform.position = myRacket.transform.position + new Vector3(0,0,0.05f) * (invertXZ ? -1f : 1f);
         float x = (opponentTable.transform.localScale.x) / 2;
         x = x * 0.3f;

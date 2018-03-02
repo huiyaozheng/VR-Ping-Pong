@@ -106,6 +106,8 @@ public class UI_Manager : MonoBehaviour {
 		TransitionToGame();
 	}
 
+	public GameStarter gameStarter;
+
 	void TransitionToGame()
 	{
 		// Start the game!
@@ -117,6 +119,7 @@ public class UI_Manager : MonoBehaviour {
 		score1.text = "0";
 
 		scores_botName.text = opponentBot.botGivenName;
+		gameStarter.StartGame();
 		BotPersonalityManager.ChooseOpponent(opponentBot, game);
 	}
 

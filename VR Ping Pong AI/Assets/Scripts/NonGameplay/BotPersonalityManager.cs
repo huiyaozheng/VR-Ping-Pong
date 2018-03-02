@@ -10,19 +10,19 @@ public class BotPersonalityManager : MonoBehaviour {
 
 	private static TextAsset botPreset00 = null;
 	private static TextAsset botPreset01 = null;
-	private static TextAsset botPreset02 = null;
+	//private static TextAsset botPreset02 = null;
 
 	// Static fields can't be assigned to from the inspector, so we assign to these and then copy them over to the static fields immediately on Start.
 	public TextAsset _botPreset00 = null;
 	public TextAsset _botPreset01 = null;
-	public TextAsset _botPreset02 = null;
+	//public TextAsset _botPreset02 = null;
 
 	void Start () {
 
 		// Assign to static variables:
 		botPreset00 = _botPreset00;
 		botPreset01 = _botPreset01;
-		botPreset02 = _botPreset02;
+		//botPreset02 = _botPreset02;
 
 		// Deserialize botPersonalities:
 		string filePath = Statics.path_botPersonalities();
@@ -73,9 +73,9 @@ public class BotPersonalityManager : MonoBehaviour {
 		case eBotPreset.BP_01:
 			botBytesFile = botPreset01;
 			break;
-		case eBotPreset.BP_02:
-			botBytesFile = botPreset02;
-			break;
+		//case eBotPreset.BP_02:
+		//	botBytesFile = botPreset02;
+		//	break;
 		}
 
 		BotPersonality newBotPersonality = new BotPersonality(botGivenName, botBytesFile);
