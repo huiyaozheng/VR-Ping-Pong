@@ -48,13 +48,18 @@ public class GameState : MonoBehaviour {
 		if (DoesPlayer1Serve())
 		{
 			// Bot serves.
-			player1.GetComponent<HeuristicBot>().serve();
+			player1.GetComponent<HeuristicBot>().serve(); 	// TODO Fix serve() to work with new table dimensions (if it doesn't already).
+															// TODO Move bot racket to the middle of the table!
 		}
 		else
 		{
 			// Player serves.
 
-			//TODO.
+
+			// For now use bot serving:
+			player0.GetComponent<Catcher>().serve();
+
+			//TODO - Replace with human serving, via something like:
 			// PlayerServe.ServeAllowed();
 		}
 	}

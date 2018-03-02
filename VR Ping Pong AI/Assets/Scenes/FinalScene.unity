@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188aecb5741bffd40aee500d2dff17a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player0: {fileID: 0}
+  player0: {fileID: 1190743333}
   player1: {fileID: 1263184340}
   racket0: {fileID: 1190743337}
   racket1: {fileID: 1263184343}

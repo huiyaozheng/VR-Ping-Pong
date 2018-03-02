@@ -41,7 +41,7 @@ public class GameStarter : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.P)) // For debugging purposes.
+		if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Space)) // For debugging purposes.
 		{
 			StartGame();
 		}
