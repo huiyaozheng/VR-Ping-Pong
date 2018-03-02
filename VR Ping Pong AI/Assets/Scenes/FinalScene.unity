@@ -4474,6 +4474,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 919048372}
+  - component: {fileID: 919048375}
+  - component: {fileID: 919048374}
+  - component: {fileID: 919048373}
   m_Layer: 0
   m_Name: Scoreboard (Canvas inside)
   m_TagString: Untagged
@@ -4496,6 +4499,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
+--- !u!114 &919048373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919048371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7f6535dd0f1224489ec8a89e38560f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI_manager: {fileID: 919048375}
+--- !u!114 &919048374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919048371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c96eab3dfab4f4ab5b372f5b06e4d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _botPreset00: {fileID: 4900000, guid: 4a5dafb795241344baa7d51cf61b08e3, type: 3}
+  _botPreset01: {fileID: 4900000, guid: 4a5dafb795241344baa7d51cf61b08e3, type: 3}
+  _botPreset02: {fileID: 4900000, guid: 4a5dafb795241344baa7d51cf61b08e3, type: 3}
+--- !u!114 &919048375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919048371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d65b22df39ccb498aa1e24917ed1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 88711585}
+  parent_mainMenu: {fileID: 1916217414}
+  parent_opponentSelection: {fileID: 310611549}
+  parent_opponentCreation: {fileID: 91382720}
+  parent_scoreDisplay: {fileID: 1605685346}
+  parent_credits: {fileID: 1242980858}
+  parent_settings: {fileID: 483119085}
+  opponentName0: {fileID: 1832868649}
+  opponentName1: {fileID: 467329742}
+  opponentName2: {fileID: 1891878187}
+  opponentName3: {fileID: 1070671594}
+  score0: {fileID: 1179875562}
+  score1: {fileID: 959766214}
+  creation_botName: {fileID: 13241004}
+  scores_botName: {fileID: 2043676024}
 --- !u!4 &928477681
 Transform:
   m_ObjectHideFlags: 0

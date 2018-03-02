@@ -34,7 +34,7 @@ public class GameState : MonoBehaviour {
 
 	public void InitGame()
 	{
-        acad.AcademyReset();
+        //acad.AcademyReset(); // Dobo Dobrik look what I'm doing 
 		score0 = 0;
 		score1 = 0;
 		player1StartedGame = true;
@@ -42,7 +42,18 @@ public class GameState : MonoBehaviour {
 
 	public void ResetBall()
 	{
-		ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
+		//ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());  // Dobo Dobrik look what I'm doing 
+	
+		if (DoesPlayer1Serve())
+		{
+			// Bot serves.
+			player1.GetComponent<HeuristicBot>().serve();
+		}
+		else
+		{
+			// Player serves.
+
+		}
 	}
 
 	public void OnEvent_rallyEnded()
@@ -58,6 +69,7 @@ public class GameState : MonoBehaviour {
 			Debug.Log("P0WAP, current score: " + score0.ToString() + " - " + score1.ToString());
             score0++;
         }
+
 		if(score0 >= winningScore || score1 >= winningScore)
 		{
 			if (Mathf.Abs(score0-score1) > 1)
@@ -65,8 +77,12 @@ public class GameState : MonoBehaviour {
 				Events.eSetEnded();
 			}
 		}
+		else
+		{
+			ResetBall();
+		}
 
-	    ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());
+		//ball.GetComponent<Shooter_no_reward>().ShootBall(DoesPlayer1Serve());  // Dobo Dobrik look what I'm doing 
     }
 
 	// Use this for initialization
