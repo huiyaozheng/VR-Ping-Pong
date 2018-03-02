@@ -10,12 +10,14 @@ public class GameStarter : MonoBehaviour {
 	public Transform objectToRotateAsAJokeAfterSetEnds;
 	public float rotationSpeed = 180f;
 	private float rotX = 0f;
+    private Quaternion defaultRotation;
 
-	void Awake()
+    void Awake()
 	{
 		// deactivate ball and opponent
 		game.ball.gameObject.SetActive(false);
 		game.player1.SetActive(false);
+	    defaultRotation = objectToRotateAsAJokeAfterSetEnds.rotation;
 	}
 
 	public void StartGame () {
@@ -29,6 +31,7 @@ public class GameStarter : MonoBehaviour {
 
 		// stop rotating table:
 		rotX = 0f;
+	    objectToRotateAsAJokeAfterSetEnds.rotation = defaultRotation;
 	}
 		
 	public void EndGame () {
