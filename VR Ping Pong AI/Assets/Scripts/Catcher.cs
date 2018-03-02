@@ -131,7 +131,7 @@ public class Catcher : MonoBehaviour
 
     protected bool IsRacketCloseToDefaultPos()
     {
-        return (myDefPos - myRacket.transform.position).sqrMagnitude < 2;
+        return (myDefPos - myRacket.transform.position).sqrMagnitude < 0.2;
     }
 
     protected virtual void Update()
