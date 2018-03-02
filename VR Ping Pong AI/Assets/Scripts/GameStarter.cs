@@ -21,13 +21,14 @@ public class GameStarter : MonoBehaviour {
 	}
 
 	public void StartGame () {
-		// activate ball and opponent
-		game.ball.gameObject.SetActive(true);
+	    Debug.Log("START GAME() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        // activate ball and opponent
+        game.ball.gameObject.SetActive(true);
 		game.player1.SetActive(true);
 
 		// initialize game
 		game.InitGame();
-		Debug.Log("START GAME() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		
 
 		// stop rotating table:
 		rotX = 0f;

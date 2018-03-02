@@ -24,6 +24,7 @@ public class GameCollisionTracker : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col)
 	{
+	    if (!game.hasGameStarted) return;
 		RallyState.eRallyOutcome outcome = RallyState.eRallyOutcome.RO_NONE;
 
         if (col.collider == table0)

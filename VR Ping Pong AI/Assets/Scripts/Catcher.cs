@@ -157,6 +157,7 @@ public class Catcher : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision col)
     {
+        if (!game.GetComponent<GameState>().hasGameStarted) return;
         if (col.gameObject == ball.gameObject)
         {
             // Return the ball to a random location.
@@ -186,5 +187,6 @@ public class Catcher : MonoBehaviour
         Debug.Log("Serve target: " + target.ToString());
         ball.velocity = PhysicsCalculations.velFromTraj(target, ball.transform.position, myRacket.transform.position.y,
             Physics.gravity.magnitude, true);
+        Debug.Log(ball.velocity);
     }
 }

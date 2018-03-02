@@ -19,6 +19,8 @@ public class GameState : MonoBehaviour {
 
 	private bool player1StartedGame;
 
+    public bool hasGameStarted = false;
+
 	[HideInInspector]
 	public int score0 = 0, score1 = 0;
 
@@ -47,6 +49,7 @@ public class GameState : MonoBehaviour {
 
 	public void ResetBall()
 	{
+	    hasGameStarted = false;
 	    racket0.gameObject.transform.rotation = racket0DefaultRotation;
 	    racket0.gameObject.transform.position = racket0DefaultPosition;
 	    racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
@@ -64,6 +67,7 @@ public class GameState : MonoBehaviour {
 	        // TODO handle the case when the player is serving
 	        racket0.gameObject.GetComponent<Catcher>().Serve();
 	    }
+	    hasGameStarted = true;
         ball.GetComponent<Shooter_no_reward>().firstBounce = true;
 	}
 
@@ -100,7 +104,6 @@ public class GameState : MonoBehaviour {
 	    racket0DefaultRotation = racket0.gameObject.transform.rotation;
 	    racket1DefaultPosition = racket1.gameObject.transform.position;
 	    racket1DefaultRotation = racket1.gameObject.transform.rotation;
-        InitGame();
 	}
 	
 	// Update is called once per frame
