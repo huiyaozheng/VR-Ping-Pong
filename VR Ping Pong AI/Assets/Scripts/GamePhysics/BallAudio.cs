@@ -24,15 +24,18 @@ public class BallAudio : MonoBehaviour {
 			otherVel = otherBody.velocity;
 		}
 
-		if (false && otherVel.magnitude >= 10) { // if we hit the ball hard - hardcode the value
-			Debug.Log("True");
-			highPitch.volume = maxVolume;
-			highPitch.Play ();
-		} else {
-			float loudnessFactor = (ballVel - otherVel).magnitude;
-			//Debug.LogError ("loudness" + loudnessFactor.ToString ());
-			//	Debug.Log(loudnessFactor);
+		float loudnessFactor = (ballVel - otherVel).magnitude;
+
+		if (loudnessFactor > maxVolumeSpeed)
+		{
+			highPitch.volume = 1;
+			highPitch.Play();
+		}
+		else
+		{
+			Debug.Log("loudnessFactor = " + loudnessFactor.ToString());
 			loudnessFactor = Mathf.Clamp (loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
+
 			float volume = (maxVolume - minVolume) * (loudnessFactor - minVolumeSpeed) / (maxVolumeSpeed - minVolumeSpeed) + minVolume;
 
 			audioSource.volume = volume;

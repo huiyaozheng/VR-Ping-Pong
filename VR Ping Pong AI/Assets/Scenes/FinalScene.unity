@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4753,8 +4753,8 @@ MonoBehaviour:
   highPitch: {fileID: 198174509}
   minVolume: 0.3
   maxVolume: 1
-  minVolumeSpeed: 12
-  maxVolumeSpeed: 30
+  minVolumeSpeed: 5
+  maxVolumeSpeed: 10
 --- !u!1 &953137649
 GameObject:
   m_ObjectHideFlags: 0
