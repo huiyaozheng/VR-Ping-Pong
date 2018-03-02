@@ -3304,9 +3304,9 @@ MonoBehaviour:
     targetFrameRate: 60
   defaultResetParameters:
   - key: MaxRacketSpeed
-    value: 40
+    value: 20
   - key: IncMySpeed
-    value: 40
+    value: 20
   done: 0
   episodeCount: 1
   currentStep: 0
@@ -4553,7 +4553,7 @@ MonoBehaviour:
   racket0: {fileID: 1190743338}
   racket1: {fileID: 1263184344}
   firstBounce: 1
-  game: {fileID: 0}
+  game: {fileID: 88711585}
 --- !u!54 &945404623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5470,7 +5470,7 @@ MonoBehaviour:
   m_Name: (Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   broadcast: 1
-  graphModel: {fileID: 4900000, guid: 6f0b75e18f48abb498b281e81135bf42, type: 3}
+  graphModel: {fileID: 4900000, guid: c57fff98c17c1f14cb9410241ffe5691, type: 3}
   graphScope: 
   graphPlaceholders:
   - name: epsilon
@@ -7331,12 +7331,12 @@ MonoBehaviour:
   opponentRacket: {fileID: 1190743337}
   invertXZ: 1
   min:
-  - -2.65
-  - -4.7
+  - -2.63
+  - -4.5
   - 0.8
   max:
-  - 2.65
-  - 0
+  - 2.63
+  - -1.2
   - 1
   tickRate: 0.99
   multiplier: 1
@@ -8409,8 +8409,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562467352}
-  m_LocalRotation: {x: -0.08731657, y: -0.2020125, z: -0.018085474, w: 0.9753152}
-  m_LocalPosition: {x: 0, y: 1.74, z: -8.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.9, z: -8.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 104367784}
@@ -8418,7 +8418,7 @@ Transform:
   - {fileID: 752788860}
   m_Father: {fileID: 0}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: -10.232, y: -23.404001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1562467356
 MonoBehaviour:
   m_ObjectHideFlags: 0
