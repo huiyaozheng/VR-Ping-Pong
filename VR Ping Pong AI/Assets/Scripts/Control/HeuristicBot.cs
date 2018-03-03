@@ -150,6 +150,10 @@ public class HeuristicBotOld : CatcherBot {
 	// Perform a hit with the specified trajectory, and save into the 'lastShot' field.
 	private void HitAndSaveShot(Vector3 aimPos, float aimHeight)
 	{
+        float dist = Mathf.Abs(landPos.x-opponentRacket.transform.position.x);
+        trainee.reward += expo((dist - 2.40f)) * 0.40f * trainee.multiplier;
+        trainee.reward += expo(mult * (1.00f - maxTrajectoryHeight)) * 0.25f * trainee.multiplier;
+
 		ball.velocity = PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude, false);
 		lastShot3 = lastShot2;
 		lastShot2 = lastShot;
