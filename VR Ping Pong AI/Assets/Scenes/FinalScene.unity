@@ -3272,8 +3272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce0523043c839345a599bada7ce94c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crowdCheer: {fileID: 1898698744}
-  maxVolume: 5
+  crowdCheer:
+  - {fileID: 0}
 --- !u!4 &752788860
 Transform:
   m_ObjectHideFlags: 0
@@ -7700,9 +7700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bfb2f4de90926489813f0aa9e0fc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainMenu: {fileID: 2009210126}
   SettingsMenu: {fileID: 7193600}
-  LeftHandButton: {fileID: 2112256710}
-  RightHandButton: {fileID: 839227621}
 --- !u!114 &1327109114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8134,6 +8133,7 @@ MonoBehaviour:
   score1: {fileID: 969425163}
   creation_botName: {fileID: 1086699328}
   scores_botName: {fileID: 385384449}
+  gameStarter: {fileID: 88711590}
 --- !u!4 &1413007862
 Transform:
   m_ObjectHideFlags: 0
@@ -8622,7 +8622,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562467352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.17031513, y: -0.29866686, z: -0.054260496, w: 0.93746823}
   m_LocalPosition: {x: 0, y: 1.9, z: -7.5}
   m_LocalScale: {x: 3.4, y: 3.4, z: 3.4}
   m_Children:
@@ -8631,7 +8631,7 @@ Transform:
   - {fileID: 752788860}
   m_Father: {fileID: 0}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20.594002, y: -35.343002, z: 0}
 --- !u!114 &1562467356
 MonoBehaviour:
   m_ObjectHideFlags: 0
