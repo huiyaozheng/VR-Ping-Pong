@@ -1964,6 +1964,7 @@ GameObject:
   - component: {fileID: 462666263}
   - component: {fileID: 462666262}
   - component: {fileID: 462666261}
+  - component: {fileID: 462666264}
   m_Layer: 0
   m_Name: PresetButton0
   m_TagString: Untagged
@@ -2075,6 +2076,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 462666259}
+--- !u!65 &462666264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 462666259}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &467995175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,6 +2664,7 @@ GameObject:
   - component: {fileID: 560581779}
   - component: {fileID: 560581778}
   - component: {fileID: 560581777}
+  - component: {fileID: 560581780}
   m_Layer: 0
   m_Name: CreditsBackButton
   m_TagString: Untagged
@@ -2762,6 +2776,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 560581775}
+--- !u!65 &560581780
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 560581775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &574722366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2773,6 +2799,7 @@ GameObject:
   - component: {fileID: 574722370}
   - component: {fileID: 574722369}
   - component: {fileID: 574722368}
+  - component: {fileID: 574722371}
   m_Layer: 0
   m_Name: PresetButton1
   m_TagString: Untagged
@@ -2884,6 +2911,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574722366}
+--- !u!65 &574722371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574722366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &586510420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,7 +3273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crowdCheer: {fileID: 1898698744}
-  maxVolume: 1
+  maxVolume: 5
 --- !u!4 &752788860
 Transform:
   m_ObjectHideFlags: 0
@@ -4076,7 +4115,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 839227625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1413007863}
+        m_MethodName: OnClick_Settings_Right
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &839227625
@@ -4409,7 +4459,7 @@ Transform:
   m_GameObject: {fileID: 1190743333}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.38, y: -0.91, z: 2.83}
-  m_LocalScale: {x: 338.1777, y: 338.1777, z: 338.1777}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 1562467355}
   m_RootOrder: 1
@@ -4430,6 +4480,7 @@ GameObject:
   - component: {fileID: 945404621}
   - component: {fileID: 945404620}
   - component: {fileID: 945404628}
+  - component: {fileID: 945404629}
   m_Layer: 10
   m_Name: Ball
   m_TagString: Untagged
@@ -4654,6 +4705,19 @@ MonoBehaviour:
   maxVolume: 1
   minVolumeSpeed: 5
   maxVolumeSpeed: 10
+--- !u!114 &945404629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945404619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c98e4c24340ce48ab80bb9e073d74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHandAnchor: {fileID: 1125207893}
+  RightHandAnchor: {fileID: 1329950652}
 --- !u!1 &951944514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5495,6 +5559,7 @@ GameObject:
   - component: {fileID: 1084806200}
   - component: {fileID: 1084806199}
   - component: {fileID: 1084806198}
+  - component: {fileID: 1084806201}
   m_Layer: 0
   m_Name: OpponentButton3
   m_TagString: Untagged
@@ -5606,6 +5671,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1084806196}
+--- !u!65 &1084806201
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1084806196}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1086699325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6527,7 +6604,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1190743333}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5eb63d124d14fa48a0416f27b04194d, type: 3}
   m_Name: 
@@ -6614,7 +6691,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1190743333}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca4913dcfed1cad4fa37432111365673, type: 3}
   m_Name: 
@@ -7555,6 +7632,7 @@ GameObject:
   - component: {fileID: 1327109111}
   - component: {fileID: 1327109112}
   - component: {fileID: 1327109113}
+  - component: {fileID: 1327109114}
   m_Layer: 0
   m_Name: LeftEyeAnchor
   m_TagString: MainCamera
@@ -7622,8 +7700,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bfb2f4de90926489813f0aa9e0fc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenu: {fileID: 2009210126}
   SettingsMenu: {fileID: 7193600}
+  LeftHandButton: {fileID: 2112256710}
+  RightHandButton: {fileID: 839227621}
+--- !u!114 &1327109114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1327109110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8edeb1a2e67534981caa33a0f6bb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cursor: {fileID: 1472245774}
+  Canvas: {fileID: 1768398768}
 --- !u!1 &1329950652
 GameObject:
   m_ObjectHideFlags: 0
@@ -7790,7 +7882,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1391959745}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1413007861}
+        m_MethodName: OnClick_MainMenu_Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1391959745
@@ -7837,6 +7940,7 @@ GameObject:
   - component: {fileID: 1411965640}
   - component: {fileID: 1411965639}
   - component: {fileID: 1411965638}
+  - component: {fileID: 1411965641}
   m_Layer: 0
   m_Name: OpponentButton2
   m_TagString: Untagged
@@ -7948,6 +8052,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411965636}
+--- !u!65 &1411965641
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411965636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1413007858
 GameObject:
   m_ObjectHideFlags: 0
@@ -7959,6 +8075,7 @@ GameObject:
   - component: {fileID: 1413007861}
   - component: {fileID: 1413007860}
   - component: {fileID: 1413007859}
+  - component: {fileID: 1413007863}
   m_Layer: 0
   m_Name: Scoreboard (Canvas inside) (1)
   m_TagString: Untagged
@@ -8017,7 +8134,6 @@ MonoBehaviour:
   score1: {fileID: 969425163}
   creation_botName: {fileID: 1086699328}
   scores_botName: {fileID: 385384449}
-  gameStarter: {fileID: 88711590}
 --- !u!4 &1413007862
 Transform:
   m_ObjectHideFlags: 0
@@ -8033,6 +8149,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -45.000004, z: 0}
+--- !u!114 &1413007863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1413007858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b76b20c98da614e82877adb6cf227c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHandButtonText: {fileID: 846102437}
+  RightHandButtonText: {fileID: 2088500710}
 --- !u!1 &1438710153
 GameObject:
   m_ObjectHideFlags: 0
@@ -8065,6 +8194,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1472245774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1472245778}
+  - component: {fileID: 1472245777}
+  - component: {fileID: 1472245775}
+  m_Layer: 0
+  m_Name: Cursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!23 &1472245775
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472245774}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1472245777
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472245774}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1472245778
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472245774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1493364832
 GameObject:
   m_ObjectHideFlags: 0
@@ -8140,6 +8340,7 @@ GameObject:
   - component: {fileID: 1540958531}
   - component: {fileID: 1540958530}
   - component: {fileID: 1540958529}
+  - component: {fileID: 1540958532}
   m_Layer: 0
   m_Name: OpponentButton1
   m_TagString: Untagged
@@ -8251,6 +8452,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1540958527}
+--- !u!65 &1540958532
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540958527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1552597684
 GameObject:
   m_ObjectHideFlags: 0
@@ -8410,8 +8623,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562467352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: -8.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.9, z: -7.5}
+  m_LocalScale: {x: 3.4, y: 3.4, z: 3.4}
   m_Children:
   - {fileID: 104367784}
   - {fileID: 928477681}
@@ -8907,6 +9120,7 @@ GameObject:
   - component: {fileID: 1675262069}
   - component: {fileID: 1675262068}
   - component: {fileID: 1675262067}
+  - component: {fileID: 1675262070}
   m_Layer: 0
   m_Name: OpponentButton0
   m_TagString: Untagged
@@ -9018,6 +9232,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675262065}
+--- !u!65 &1675262070
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675262065}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 140, y: 50, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1690491976
 GameObject:
   m_ObjectHideFlags: 0
@@ -9169,6 +9395,7 @@ GameObject:
   - component: {fileID: 1768398772}
   - component: {fileID: 1768398771}
   - component: {fileID: 1768398770}
+  - component: {fileID: 1768398773}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -9257,6 +9484,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!65 &1768398773
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1768398768}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 2, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!1 &1801941687
 GameObject:
   m_ObjectHideFlags: 0
@@ -10767,7 +11006,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2112256714}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1413007863}
+        m_MethodName: OnClick_Settings_Left
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2112256714
