@@ -82,8 +82,4 @@ public class GameCollisionTracker : MonoBehaviour
         game.player1WonAPoint = game.DoesPlayer1Serve() ^ (outcome == RallyState.eRallyOutcome.RO_DEF_WINS);
         Events.eRallyEnded();
     }
-
-    void OnEvent_rallyEnded()
-    {
-    }
 }
