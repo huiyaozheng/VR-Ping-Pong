@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerSettings : MonoBehaviour {
-
+public class ControllerSettings : MonoBehaviour
+{
     private static OVRInput.Controller PrimaryController;
 
     private static OVRInput.Controller SecondaryController;
@@ -15,7 +15,8 @@ public class ControllerSettings : MonoBehaviour {
 
     public static void SetPrimaryController(OVRInput.Controller C)
     {
-        if (C.Equals(OVRInput.Controller.LTouch)) {
+        if (C.Equals(OVRInput.Controller.LTouch))
+        {
             PrimaryController = OVRInput.Controller.LTouch;
             SecondaryController = OVRInput.Controller.RTouch;
         }
@@ -33,15 +34,14 @@ public class ControllerSettings : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         PrimaryController = OVRInput.Controller.LTouch;
         SecondaryController = OVRInput.Controller.RTouch;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+    }
 }

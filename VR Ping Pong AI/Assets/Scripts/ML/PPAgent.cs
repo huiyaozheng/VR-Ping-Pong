@@ -5,52 +5,51 @@ using UnityEngine.UI;
 
 public class PPAgent : Agent
 {
-    [Header("Specific to Ping Pong")]
-	public Rigidbody ball;
+    [Header("Specific to Ping Pong")] public Rigidbody ball;
     public bool invertXZ;
     public float[] min = new float[3];
     public float[] max = new float[3];
-	public float minX, maxX, minY, maxY, minZ, maxZ;
+    public float minX, maxX, minY, maxY, minZ, maxZ;
 
-	public Vector3 defaultRacketPos;
-	public Quaternion defaultRacketRot;
+    public Vector3 defaultRacketPos;
+    public Quaternion defaultRacketRot;
 
-	private float invertXZMult;
+    private float invertXZMult;
     //private float midX, midY, midZ;
 
-	void Start()
-	{
-		invertXZMult = invertXZ ? -1 : 1;
-		defaultRacketPos = gameObject.transform.position;
-		defaultRacketRot = gameObject.transform.rotation;
+    void Start()
+    {
+        invertXZMult = invertXZ ? -1 : 1;
+        defaultRacketPos = gameObject.transform.position;
+        defaultRacketRot = gameObject.transform.rotation;
         //midX = (maxX - minX) / 2.0f + minX;
         //midY = (maxY - minY) / 2.0f + minY;
         //midZ = (maxZ - minZ) / 2.0f + minZ;
-	}
+    }
 
     public override List<float> CollectState()
     {
         List<float> state = new List<float>();
 
-		// Racket pos:
+        // Racket pos:
         state.Add(invertXZMult * gameObject.transform.position.x);
-		state.Add(               gameObject.transform.position.y);
-		state.Add(invertXZMult * gameObject.transform.position.z);
+        state.Add(gameObject.transform.position.y);
+        state.Add(invertXZMult * gameObject.transform.position.z);
 
-		// Racket rot:
-		state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.x);
-		state.Add(               gameObject.transform.rotation.eulerAngles.y);
-		state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.z);
+        // Racket rot:
+        state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.x);
+        state.Add(gameObject.transform.rotation.eulerAngles.y);
+        state.Add(invertXZMult * gameObject.transform.rotation.eulerAngles.z);
 
-		// Ball pos:
-		state.Add(invertXZMult * ball.transform.position.x);
-		state.Add(               ball.transform.position.y);
-		state.Add(invertXZMult * ball.transform.position.z);
+        // Ball pos:
+        state.Add(invertXZMult * ball.transform.position.x);
+        state.Add(ball.transform.position.y);
+        state.Add(invertXZMult * ball.transform.position.z);
 
-		// Ball vel:
-		state.Add(invertXZMult * ball.velocity.x);
-		state.Add(               ball.velocity.y);
-		state.Add(invertXZMult * ball.velocity.z);
+        // Ball vel:
+        state.Add(invertXZMult * ball.velocity.x);
+        state.Add(ball.velocity.y);
+        state.Add(invertXZMult * ball.velocity.z);
 
         return state;
     }
@@ -65,7 +64,7 @@ public class PPAgent : Agent
         //exp(x)/(1+exp(x)) always gives number between 0 and 1 and 0.5 at x=0
         //1*(maxX-minX)+minX=maxX
         //0*byTheSameThingIs=minX
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             act[i] = (Mathf.Exp(act[i]) / (1 + Mathf.Exp(act[i]))) * (max[i] - min[i]) + min[i];
         }
@@ -76,9 +75,9 @@ public class PPAgent : Agent
         //Debug.Assert(act[0] >= minX && act[0] <= maxX);
 
 
-        Debug.Log("act012: " + act[0] + " " + act[1] + " "+act[2]);
-		Vector3 requestedPos = new Vector3(act[0], act[1], act[2]);
-		//Vector3 requestedRot = new Vector3(act[3], act[4], act[5]);
+        Debug.Log("act012: " + act[0] + " " + act[1] + " " + act[2]);
+        Vector3 requestedPos = new Vector3(act[0], act[1], act[2]);
+        //Vector3 requestedRot = new Vector3(act[3], act[4], act[5]);
 
         // TODO: 
         // Make public variables maxRacketMovingSpeed and maxAngularSpeed so that you can set them from editor.
@@ -101,11 +100,11 @@ public class PPAgent : Agent
     // to be implemented by the developer
     public override void AgentReset()
     {
-		// TODO:
-		// Figure out where this is called from and when.
-		// Modify this method if necessary.
+        // TODO:
+        // Figure out where this is called from and when.
+        // Modify this method if necessary.
 
-		gameObject.transform.position = defaultRacketPos;
-		gameObject.transform.rotation = defaultRacketRot;
+        gameObject.transform.position = defaultRacketPos;
+        gameObject.transform.rotation = defaultRacketRot;
     }
 }

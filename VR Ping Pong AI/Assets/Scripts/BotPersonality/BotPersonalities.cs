@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class BotPersonalities : System.Object {
+public class BotPersonalities : System.Object
+{
+    public List<BotPersonality> bots;
 
-	public List<BotPersonality> bots;
-
-	public BotPersonalities()
-	{
-		bots = new List<BotPersonality>();
-	}
-
+    public BotPersonalities()
+    {
+        bots = new List<BotPersonality>();
+    }
 }

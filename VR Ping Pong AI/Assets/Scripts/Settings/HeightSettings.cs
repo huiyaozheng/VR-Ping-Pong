@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeightSettings : MonoBehaviour {
-
+public class HeightSettings : MonoBehaviour
+{
     private static int Height;
 
     public static int GetHeight()

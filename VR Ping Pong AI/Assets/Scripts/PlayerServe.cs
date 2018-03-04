@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerServe : MonoBehaviour
 {
-
     public GameObject LeftHandAnchor;
     public GameObject RightHandAnchor;
 
@@ -28,7 +27,6 @@ public class PlayerServe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         SecondaryController = ControllerSettings.GetSecondaryController();
         OVRInput.Button ServeButton = OVRInput.Button.One;
 
@@ -42,7 +40,7 @@ public class PlayerServe : MonoBehaviour
             {
                 transform.position = RightHandAnchor.transform.position;
             }
-                ServeInProgress = true;
+            ServeInProgress = true;
         }
         else
         {
@@ -56,4 +54,3 @@ public class PlayerServe : MonoBehaviour
         }
     }
 }
-

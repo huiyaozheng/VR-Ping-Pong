@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class VRCursor : MonoBehaviour
 {
-
     public GameObject Cursor;
     public GameObject Canvas;
 
@@ -26,4 +25,3 @@ public class VRCursor : MonoBehaviour
         }
     }
 }
-

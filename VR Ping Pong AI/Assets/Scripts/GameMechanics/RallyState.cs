@@ -2,73 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RallyState : MonoBehaviour {
+public class RallyState : MonoBehaviour
+{
+    /*
+     * Attacker is the player who served in this rally.
+     * ATT_RACK is the event of his racket hitting the ball.
+     * ATT_TAB is the event of his half of the table hitting the ball.
+     * OUT is the event of the ball going out of play (hitting the floor or walls).
+     */
+    public GameState game;
 
-	/*
-	 * Attacker is the player who served in this rally.
-	 * ATT_RACK is the event of his racket hitting the ball.
-	 * ATT_TAB is the event of his half of the table hitting the ball.
-	 * OUT is the event of the ball going out of play (hitting the floor or walls).
-	 */
-	public GameState game;
+    public enum eRallyStateMachineAction
+    {
+        RSMA_ATT_RACK,
+        RSMA_ATT_TABLE,
+        RSMA_DEF_RACK,
+        RSMA_DEF_TABLE,
+        RSMA_OUT
+    };
 
-	public enum eRallyStateMachineAction{ RSMA_ATT_RACK, RSMA_ATT_TABLE, RSMA_DEF_RACK, RSMA_DEF_TABLE, RSMA_OUT };
+    public enum eRallyOutcome
+    {
+        RO_ATT_WINS,
+        RO_DEF_WINS,
+        RO_NONE
+    };
 
-	public enum eRallyOutcome{ RO_ATT_WINS, RO_DEF_WINS, RO_NONE };
+    private enum eRallyState
+    {
+        S0,
+        S1,
+        S2,
+        S3,
+        S4
+    };
 
-	private enum eRallyState{ S0, S1, S2, S3, S4 };
+    private eRallyState currState = eRallyState.S0;
 
-	private eRallyState currState = eRallyState.S0; 
-
-	private void OnEvent_rallyEnded()
-	{
+    private void OnEvent_rallyEnded()
+    {
         // Ignore serving for now.
-		currState = eRallyState.S0;
-	}
+        currState = eRallyState.S0;
+    }
 
     public PPAimAgent trainee;
+
     private void Reward(float reward)
     {
         //Debug.Log("I was rewarded " + trainee.multiplier*reward);
-        trainee.reward += trainee.multiplier*reward;
+        trainee.reward += trainee.multiplier * reward;
         trainee.multiplier = 1f;
-
     }
+
     private void Reward(float reward, bool reset)
     {
         //Debug.Log("I was rewardead " + reward);
         trainee.reward = reward;
         trainee.multiplier = 1f;
     }
-	// I drew out a state machine to control a game, including serves, and implemented it below:
+    // I drew out a state machine to control a game, including serves, and implemented it below:
 
-	public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
-	{
+    public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
+    {
         trainee.multiplier *= trainee.tickRate;
-		// Debug:
-		//switch (rsma)
-		//{
-		//case eRallyStateMachineAction.RSMA_ATT_RACK:
-		//	Debug.Log("Attacker racket.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_DEF_RACK:
-		//	Debug.Log("Defender racket.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_ATT_TABLE:
-		//	Debug.Log("Attacker's half of the table.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_DEF_TABLE:
-		//	Debug.Log("Defender's half of the table.");
-		//	break;
-		//case eRallyStateMachineAction.RSMA_OUT:
-		//	Debug.Log("Ball went out.");
-		//	break;
-		//}
+        // Debug:
+        //switch (rsma)
+        //{
+        //case eRallyStateMachineAction.RSMA_ATT_RACK:
+        //	Debug.Log("Attacker racket.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_DEF_RACK:
+        //	Debug.Log("Defender racket.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_ATT_TABLE:
+        //	Debug.Log("Attacker's half of the table.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_DEF_TABLE:
+        //	Debug.Log("Defender's half of the table.");
+        //	break;
+        //case eRallyStateMachineAction.RSMA_OUT:
+        //	Debug.Log("Ball went out.");
+        //	break;
+        //}
 
 
         bool botIsAttacker = game.DoesPlayer1Serve();
 
-        switch(currState)
+        switch (currState)
         {
             case eRallyState.S0:
                 switch (rsma)
@@ -105,7 +125,7 @@ public class RallyState : MonoBehaviour {
                     default:
                         if (botIsAttacker)
                         {
-                            Reward(-0.3f,true);
+                            Reward(-0.3f, true);
                         }
                         if (!botIsAttacker)
                         {
@@ -173,20 +193,20 @@ public class RallyState : MonoBehaviour {
                         }
                         return eRallyOutcome.RO_DEF_WINS;
                 }
-                
+
             default:
                 return eRallyOutcome.RO_NONE; // this code should not be reached
         }
-	}
+    }
 
 
-	void OnEnable()
-	{
-		Events.rallyEnded += OnEvent_rallyEnded;
-	}
+    void OnEnable()
+    {
+        Events.rallyEnded += OnEvent_rallyEnded;
+    }
 
-	void OnDisable()
-	{
-		Events.rallyEnded -= OnEvent_rallyEnded;
-	}
+    void OnDisable()
+    {
+        Events.rallyEnded -= OnEvent_rallyEnded;
+    }
 }

@@ -7,6 +7,7 @@ public class PPAcademy : Academy
 {
     public Catcher enemyRacket;
     public Catcher myRacket;
+
     public override void AcademyReset()
     {
         enemyRacket.maxRacketMovingSpeed = resetParameters["MaxRacketSpeed"];
@@ -15,7 +16,5 @@ public class PPAcademy : Academy
 
     public override void AcademyStep()
     {
-
     }
-
 }

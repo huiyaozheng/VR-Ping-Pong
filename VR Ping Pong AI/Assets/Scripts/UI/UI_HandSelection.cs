@@ -5,7 +5,6 @@ using TMPro;
 
 public class UI_HandSelection : MonoBehaviour
 {
-
     public GameObject LeftHandButtonText;
     public GameObject RightHandButtonText;
 
@@ -23,4 +22,3 @@ public class UI_HandSelection : MonoBehaviour
         RightHandButtonText.GetComponent<TextMeshProUGUI>().text = "Right (active)";
     }
 }
-

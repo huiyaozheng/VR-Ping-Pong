@@ -5,7 +5,6 @@ using TMPro;
 
 public class UI_Manager : MonoBehaviour
 {
-
     public GameState game;
     BotPersonality opponentBot = null; // this field is read during TransitionToGame().
 
@@ -79,7 +78,23 @@ public class UI_Manager : MonoBehaviour
 
     string GenerateName()
     {
-        string[] names = new string[] { "Adelina", "Annett", "Kristin", "Cherelle", "Vernon", "Ardath", "Ivey", "Lakeisha", "Alejandra", "Verdell", "Aisha", "Jettie", "Susan", "Victoria", "Lily", "Sergio", "Haley", "Nola", "Artie", "Sylvia", "Ciara", "Sherice", "Brandee", "Chelsey", "Laronda", "Thomasena", "Korey", "Mable", "Benjamin", "Christy", "Albert", "Shizuko", "Jeanene", "Karlene", "Rocky", "Fredia", "Maude", "Cole", "Forrest", "Luigi", "Queenie", "Earleen", "Charmain", "Lulu", "Ted", "Coleman", "Thersa", "Elina", "Fanny", "Pamala", "Claud", "Tennie", "Lenard", "Shin", "Berniece", "Wade", "Treasa", "Ryan", "Stephania", "Kenia", "Denisse", "Moshe", "Frida", "Raphael", "Morton", "Bernardine", "Roosevelt", "Zoila", "Susann", "Waylon", "Ken", "William", "Seymour", "Dion", "Danyell", "Clark", "Todd", "Maudie", "Tish", "Fatima", "Kera", "Huey", "Kimbra", "Daniela", "Thomasina", "Adelle", "Kellie", "Farah", "Kelle", "Linwood", "Ian", "Sally", "Vinnie", "Kaley", "Mickie", "Alita", "Jay", "Otelia", "Shaunna", "Manda", "Letha", "Jay", "Arianne", "Athena", "Rufus", "Evalyn", "Brandie", "Yasmin", "Vergie", "Asa", "Vincenza", "Jeanetta", "Fleta", "Odis", "Marlys", "Kyung", "Lilly", "Bud", "Dot", "Mike", "Yvette", "Natosha", "Danielle", "Ricardo", "Sandy", "Elenor", "Deedra", "Fredrick", "Vernia", "Pat", "Lesia", "Christiana", "Gabriella", "Sarai", "Loma", "Donita", "Yong", "Adela", "Ernie", "Moriah", "Alyson", "Hanna", "Mila", "Fidelia", "Shea", "Denna", "Catrina", "Eliana", "Bonnie", "Lavon" };
+        string[] names = new string[]
+        {
+            "Adelina", "Annett", "Kristin", "Cherelle", "Vernon", "Ardath", "Ivey", "Lakeisha", "Alejandra", "Verdell",
+            "Aisha", "Jettie", "Susan", "Victoria", "Lily", "Sergio", "Haley", "Nola", "Artie", "Sylvia", "Ciara",
+            "Sherice", "Brandee", "Chelsey", "Laronda", "Thomasena", "Korey", "Mable", "Benjamin", "Christy", "Albert",
+            "Shizuko", "Jeanene", "Karlene", "Rocky", "Fredia", "Maude", "Cole", "Forrest", "Luigi", "Queenie",
+            "Earleen", "Charmain", "Lulu", "Ted", "Coleman", "Thersa", "Elina", "Fanny", "Pamala", "Claud", "Tennie",
+            "Lenard", "Shin", "Berniece", "Wade", "Treasa", "Ryan", "Stephania", "Kenia", "Denisse", "Moshe", "Frida",
+            "Raphael", "Morton", "Bernardine", "Roosevelt", "Zoila", "Susann", "Waylon", "Ken", "William", "Seymour",
+            "Dion", "Danyell", "Clark", "Todd", "Maudie", "Tish", "Fatima", "Kera", "Huey", "Kimbra", "Daniela",
+            "Thomasina", "Adelle", "Kellie", "Farah", "Kelle", "Linwood", "Ian", "Sally", "Vinnie", "Kaley", "Mickie",
+            "Alita", "Jay", "Otelia", "Shaunna", "Manda", "Letha", "Jay", "Arianne", "Athena", "Rufus", "Evalyn",
+            "Brandie", "Yasmin", "Vergie", "Asa", "Vincenza", "Jeanetta", "Fleta", "Odis", "Marlys", "Kyung", "Lilly",
+            "Bud", "Dot", "Mike", "Yvette", "Natosha", "Danielle", "Ricardo", "Sandy", "Elenor", "Deedra", "Fredrick",
+            "Vernia", "Pat", "Lesia", "Christiana", "Gabriella", "Sarai", "Loma", "Donita", "Yong", "Adela", "Ernie",
+            "Moriah", "Alyson", "Hanna", "Mila", "Fidelia", "Shea", "Denna", "Catrina", "Eliana", "Bonnie", "Lavon"
+        };
         int r = Random.Range(0, names.Length - 1);
         return names[r];
     }
@@ -96,14 +111,16 @@ public class UI_Manager : MonoBehaviour
     public void OnClick_CreationPreset0()
     {
         BotPersonalityManager.CreateBotPersonality(creation_botName.text, BotPersonalityManager.eBotPreset.BP_00);
-        opponentBot = BotPersonalityManager.GetBotPersonalities().bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
+        opponentBot = BotPersonalityManager.GetBotPersonalities()
+            .bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
         TransitionToGame();
     }
 
     public void OnClick_CreationPreset1()
     {
         BotPersonalityManager.CreateBotPersonality(creation_botName.text, BotPersonalityManager.eBotPreset.BP_01);
-        opponentBot = BotPersonalityManager.GetBotPersonalities().bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
+        opponentBot = BotPersonalityManager.GetBotPersonalities()
+            .bots[BotPersonalityManager.GetBotPersonalities().bots.Count - 1];
         TransitionToGame();
     }
 
@@ -134,6 +151,7 @@ public class UI_Manager : MonoBehaviour
                 TransitionToGame();
         }
     }
+
     public void OnClick_OpponentSelection_Opponent1()
     {
         if (BotPersonalityManager.GetBotPersonalities().bots.Count <= 1)
@@ -147,6 +165,7 @@ public class UI_Manager : MonoBehaviour
                 TransitionToGame();
         }
     }
+
     public void OnClick_OpponentSelection_Opponent2()
     {
         if (BotPersonalityManager.GetBotPersonalities().bots.Count <= 2)
@@ -160,6 +179,7 @@ public class UI_Manager : MonoBehaviour
                 TransitionToGame();
         }
     }
+
     public void OnClick_OpponentSelection_Opponent3()
     {
         if (BotPersonalityManager.GetBotPersonalities().bots.Count <= 3)

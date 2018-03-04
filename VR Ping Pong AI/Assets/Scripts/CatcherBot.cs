@@ -6,7 +6,7 @@ public class CatcherBot : Catcher
 {
     public PPAimAgent trainee;
     public const float mult = 10.0f;
-    
+
     protected float expo(float x)
     {
         return Mathf.Exp(x) / (1 + Mathf.Exp(x));
@@ -14,13 +14,13 @@ public class CatcherBot : Catcher
 
     protected override void hit()
     {
-
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight, Physics.gravity.magnitude, false);
+        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight,
+            Physics.gravity.magnitude, false);
         //Vector3 dist = (landPos-opponentRacket.transform.position);
 
 
         ////TODO magic numbers FIXME
-        float dist = Mathf.Abs(landPos.x-opponentRacket.transform.position.x);
+        float dist = Mathf.Abs(landPos.x - opponentRacket.transform.position.x);
         //Debug.Log("DISTANCE TO OPP. " + dist);
         //Debug.Log("Reward for DISTANCE TO OPP. " + (Mathf.Exp(dist-6f)/(1+Mathf.Exp(dist-6f)))*0.20f);
         //Debug.Log("max height " + maxTrajectoryHeight);
@@ -30,6 +30,7 @@ public class CatcherBot : Catcher
         //Debug.Log(expo(mult*(3f-maxTrajectoryHeight)));
         //Debug.Assert(!System.Double.IsNaN(trainee.reward));
     }
+
     protected override void OnCollisionEnter(Collision col)
     {
         if (col.gameObject == ball.gameObject)
@@ -44,7 +45,7 @@ public class CatcherBot : Catcher
 //             x = Random.Range(-x, x);
 //             z = Random.Range(2, z);
 //             setTargets(new Vector3(x, 0, z) * (invertXZ ? -1f : 1f), maxTrajectoryHeight);
-             // end of block
+            // end of block
 
             // Return the ball to the location as specifed by the agent.
             hit();
