@@ -42,7 +42,7 @@ public class GameCollisionTracker : MonoBehaviour
             racket0.gameObject.GetComponent<Catcher>().startTracking();
         }
 
-        if (col.collider == table1)
+        else if (col.collider == table1)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
                 ? RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE
@@ -55,7 +55,7 @@ public class GameCollisionTracker : MonoBehaviour
             racket1.gameObject.GetComponent<Catcher>().startTracking();
         }
 
-        if (col.collider == racket0)
+		else if (col.collider == racket0)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
                 ? RallyState.eRallyStateMachineAction.RSMA_DEF_RACK
@@ -63,7 +63,7 @@ public class GameCollisionTracker : MonoBehaviour
             Events.eRacketHitBall(racket0.gameObject);
         }
 
-        if (col.collider == racket1)
+		else if (col.collider == racket1)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
                 ? RallyState.eRallyStateMachineAction.RSMA_ATT_RACK
@@ -71,10 +71,15 @@ public class GameCollisionTracker : MonoBehaviour
             Events.eRacketHitBall(racket1.gameObject);
         }
 
-        if (col.collider == floor)
+		else if (col.collider == floor)
         {
             outcome = rallyState.MakeStep(RallyState.eRallyStateMachineAction.RSMA_OUT);
         }
+
+		else
+		{
+			return; // ignore collisions with anything else.
+		}
 
         if (outcome == RallyState.eRallyOutcome.RO_NONE)
             return;

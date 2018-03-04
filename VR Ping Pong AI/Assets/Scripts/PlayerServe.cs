@@ -46,10 +46,12 @@ public class PlayerServe : MonoBehaviour
         {
             if (ServeInProgress)
             {
-                Vector3 ServeVelocity = new Vector3(0f, 5f, 0f);
+                Vector3 ServeVelocity = new Vector3(0f, 10f, 0f);
                 GetComponent<Rigidbody>().velocity = ServeVelocity;
                 ServeInProgress = false;
                 serveAllowed = false;
+
+				RallyState.playerWillServeNow = true;
             }
         }
     }

@@ -62,7 +62,8 @@ public class GameState : MonoBehaviour
         else
         {
             // TODO handle the case when the player is serving
-            racket0.gameObject.GetComponent<Catcher>().Serve();
+            //racket0.gameObject.GetComponent<Catcher>().Serve();
+			PlayerServe.ServeAllowed();
         }
         hasGameStarted = true;
         ball.GetComponent<GameCollisionTracker>().firstBounce = true;
