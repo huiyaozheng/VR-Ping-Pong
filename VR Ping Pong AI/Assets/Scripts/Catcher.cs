@@ -2,7 +2,9 @@
 using UnityEngine;
 using PhysicsLibrary;
 
-
+/// <summary>
+/// A simple catcher that tracks the ball and returns the ball to a random position.
+/// </summary>
 public class Catcher : MonoBehaviour
 {
     public GameState game;
@@ -151,7 +153,6 @@ public class Catcher : MonoBehaviour
                 myRacket.velocity = new Vector3(0, 0, 0);
             }
         }
-
         prevZDistance = currentZDistance;
     }
 
@@ -173,6 +174,9 @@ public class Catcher : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hit the ball to a random position on the closer table to serve.
+    /// </summary>
     public void Serve()
     {
         tracking = false;

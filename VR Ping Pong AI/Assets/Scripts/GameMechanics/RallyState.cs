@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A state machine that records the current state of the rally and take appropriate actions.
+/// </summary>
 public class RallyState : MonoBehaviour
 {
     /*
@@ -30,18 +33,17 @@ public class RallyState : MonoBehaviour
 
     private enum eRallyState
     {
-        S0,
-        S1,
-        S2,
-        S3,
-        S4
+        S0, // Bounce on the server's side of table
+        S1, // Bounce on the defender's side of table
+        S2, // Bounce on the defender's racket
+        S3, // Bounce on the server's side of table
+        S4  // Bounce on the server's racket
     };
 
     private eRallyState currState = eRallyState.S0;
 
     private void OnEvent_rallyEnded()
     {
-        // Ignore serving for now.
         currState = eRallyState.S0;
     }
 
@@ -49,42 +51,19 @@ public class RallyState : MonoBehaviour
 
     private void Reward(float reward)
     {
-        //Debug.Log("I was rewarded " + trainee.multiplier*reward);
         trainee.reward += trainee.multiplier * reward;
         trainee.multiplier = 1f;
     }
 
     private void Reward(float reward, bool reset)
     {
-        //Debug.Log("I was rewardead " + reward);
         trainee.reward = reward;
         trainee.multiplier = 1f;
     }
-    // I drew out a state machine to control a game, including serves, and implemented it below:
 
     public eRallyOutcome MakeStep(eRallyStateMachineAction rsma)
     {
         trainee.multiplier *= trainee.tickRate;
-        // Debug:
-        //switch (rsma)
-        //{
-        //case eRallyStateMachineAction.RSMA_ATT_RACK:
-        //	Debug.Log("Attacker racket.");
-        //	break;
-        //case eRallyStateMachineAction.RSMA_DEF_RACK:
-        //	Debug.Log("Defender racket.");
-        //	break;
-        //case eRallyStateMachineAction.RSMA_ATT_TABLE:
-        //	Debug.Log("Attacker's half of the table.");
-        //	break;
-        //case eRallyStateMachineAction.RSMA_DEF_TABLE:
-        //	Debug.Log("Defender's half of the table.");
-        //	break;
-        //case eRallyStateMachineAction.RSMA_OUT:
-        //	Debug.Log("Ball went out.");
-        //	break;
-        //}
-
 
         bool botIsAttacker = game.DoesPlayer1Serve();
 
