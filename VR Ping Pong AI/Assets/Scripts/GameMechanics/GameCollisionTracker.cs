@@ -12,7 +12,9 @@ public class GameCollisionTracker : MonoBehaviour {
 	private RallyState rallyState;
 	private Collider table0, table1, racket0, racket1, floor;
 
-	void Start()
+    public bool firstBounce = true;
+
+    void Start()
 	{
 		rallyState = game.GetComponent<RallyState>();
 		table0 = game.table0;
@@ -30,11 +32,23 @@ public class GameCollisionTracker : MonoBehaviour {
         if (col.collider == table0)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE : RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE);
+            if (firstBounce)
+            {
+                firstBounce = false;
+                return;
+            }
+            racket0.gameObject.GetComponent<Catcher>().startTracking();
         }
 
 		if (col.collider == table1)
         {
 			outcome = rallyState.MakeStep(game.DoesPlayer1Serve() ? RallyState.eRallyStateMachineAction.RSMA_ATT_TABLE : RallyState.eRallyStateMachineAction.RSMA_DEF_TABLE);
+            if (firstBounce)
+            {
+                firstBounce = false;
+                return;
+            }
+            racket1.gameObject.GetComponent<Catcher>().startTracking();
         }
 
         if (col.collider == racket0)

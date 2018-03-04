@@ -68,7 +68,7 @@ public class GameState : MonoBehaviour {
 	        racket0.gameObject.GetComponent<Catcher>().Serve();
 	    }
 	    hasGameStarted = true;
-        ball.GetComponent<Shooter_no_reward>().firstBounce = true;
+        ball.GetComponent<GameCollisionTracker>().firstBounce = true;
 	}
 
 	public void OnEvent_rallyEnded()
