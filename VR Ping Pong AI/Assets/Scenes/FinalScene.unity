@@ -8848,7 +8848,6 @@ GameObject:
   - component: {fileID: 1562467355}
   - component: {fileID: 1562467354}
   - component: {fileID: 1562467353}
-  - component: {fileID: 1562467356}
   - component: {fileID: 1562467357}
   m_Layer: 0
   m_Name: PlayerCamera (PlayerRacket inside)
@@ -8933,17 +8932,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -20.594002, y: -35.343002, z: 0}
---- !u!114 &1562467356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1562467352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1343e1fc316d7544eb1b6486a5b54531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!81 &1562467357
 AudioListener:
   m_ObjectHideFlags: 0
