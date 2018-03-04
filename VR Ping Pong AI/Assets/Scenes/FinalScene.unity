@@ -491,6 +491,7 @@ MonoBehaviour:
   score0: 0
   score1: 0
   player1WonAPoint: 0
+  serveDelayTimerDuration: 2
 --- !u!4 &88711586
 Transform:
   m_ObjectHideFlags: 0
@@ -6051,7 +6052,6 @@ GameObject:
   - component: {fileID: 1090986120}
   - component: {fileID: 1090986119}
   - component: {fileID: 1090986118}
-  - component: {fileID: 1090986117}
   m_Layer: 0
   m_Name: Red net
   m_TagString: Untagged
@@ -6059,20 +6059,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1090986117
-MeshCollider:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1090986116}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!183 &1090986118
 Cloth:
   m_ObjectHideFlags: 0
@@ -8014,8 +8000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bfb2f4de90926489813f0aa9e0fc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenu: {fileID: 2009210126}
   SettingsMenu: {fileID: 7193600}
+  LeftHandButton: {fileID: 2112256710}
+  RightHandButton: {fileID: 839227621}
 --- !u!114 &1327109114
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,7 +57,7 @@ public class GameState : MonoBehaviour
         racket1.gameObject.GetComponent<Catcher>().stopTracking();
         if (DoesPlayer1Serve())
         {
-            racket1.gameObject.GetComponent<Catcher>().Serve();
+			StartServeCountdown();
         }
         else
         {
@@ -94,6 +94,25 @@ public class GameState : MonoBehaviour
             ResetBall();
         }
     }
+
+	private void StartServeCountdown() { serveDelayTimer = 0f; ball.gameObject.SetActive(false);}
+	private float serveDelayTimer = -1f;
+	public float serveDelayTimerDuration = 2f; // in seconds
+	void Update()
+	{
+		if (serveDelayTimer >= 0f)
+		{
+			serveDelayTimer += Time.deltaTime;
+			if (serveDelayTimer > serveDelayTimerDuration)
+			{
+				serveDelayTimer = -1f;
+				// have the bot serve:
+				ball.gameObject.SetActive(true);
+				racket1.gameObject.GetComponent<Catcher>().Serve();
+			}
+		}
+	}
+
 
     // Use this for initialization
     void Start()
