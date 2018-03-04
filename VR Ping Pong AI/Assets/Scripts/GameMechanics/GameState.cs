@@ -27,7 +27,6 @@ public class GameState : MonoBehaviour
     /// Guaranteed to be set before the rallyEnded event is called!
     public bool player1WonAPoint;
 
-
     public bool DoesPlayer1Serve()
     {
         int n = (score0 + score1) % 4;
@@ -39,7 +38,6 @@ public class GameState : MonoBehaviour
 
     public void InitGame()
     {
-        //acad.AcademyReset(); // Dobrik, note this.
         score0 = 0;
         score1 = 0;
         player1StartedGame = true;
@@ -104,11 +102,6 @@ public class GameState : MonoBehaviour
         racket0DefaultRotation = racket0.gameObject.transform.rotation;
         racket1DefaultPosition = racket1.gameObject.transform.position;
         racket1DefaultRotation = racket1.gameObject.transform.rotation;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     void OnEnable()
