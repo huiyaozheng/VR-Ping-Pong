@@ -7,11 +7,11 @@ using UnityEngine;
 public class BallAudio : MonoBehaviour
 {
     public AudioSource audioSource;
-    public AudioSource highPitch;
     public float minVolume;
     public float maxVolume;
     public float minVolumeSpeed;
     public float maxVolumeSpeed;
+	public float highPitch = 1.1f;
 
     void OnCollisionEnter(Collision col)
     {
@@ -27,10 +27,11 @@ public class BallAudio : MonoBehaviour
         float loudnessFactor = (ballVel - otherVel).magnitude;
         loudnessFactor = Mathf.Clamp(loudnessFactor, minVolumeSpeed, maxVolumeSpeed);
 
-        if (loudnessFactor >= 17)
-        {
-            highPitch.volume = 1;
-            highPitch.Play();
+		if (loudnessFactor >= maxVolumeSpeed)
+		{
+			audioSource.volume = 1f;
+			audioSource.pitch = highPitch;
+			audioSource.Play();
         }
         else
         {
@@ -38,7 +39,8 @@ public class BallAudio : MonoBehaviour
                 (maxVolume - minVolume) * (loudnessFactor - minVolumeSpeed) / (maxVolumeSpeed - minVolumeSpeed) +
                 minVolume;
 
-            audioSource.volume = volume;
+			audioSource.volume = volume;
+			audioSource.pitch = 1f;
             audioSource.Play();
         }
     }
