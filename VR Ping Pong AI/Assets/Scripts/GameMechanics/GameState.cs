@@ -29,11 +29,13 @@ public class GameState : MonoBehaviour
 
     public bool DoesPlayer1Serve()
     {
-        int n = (score0 + score1) % 4;
-        if (n < 2)
-            return player1StartedGame;
-        else
-            return !player1StartedGame;
+		return true; // The bot always serves because we haven't made player-serving work well enough.
+
+//        int n = (score0 + score1) % 4;
+//        if (n < 2)
+//            return player1StartedGame;
+//        else
+//            return !player1StartedGame;
     }
 
     public void InitGame()

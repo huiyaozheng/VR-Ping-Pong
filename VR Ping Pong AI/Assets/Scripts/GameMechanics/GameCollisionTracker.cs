@@ -39,7 +39,7 @@ public class GameCollisionTracker : MonoBehaviour
                 firstBounce = false;
                 return;
             }
-            racket0.gameObject.GetComponent<Catcher>().startTracking();
+            //racket0.gameObject.GetComponent<Catcher>().startTracking(); // When playing with a human there is no CATCHER script!!!
         }
 
         else if (col.collider == table1)
