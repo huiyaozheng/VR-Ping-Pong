@@ -6751,8 +6751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racketPositions: []
-  positionTrackingDepthInFrames: 10
-  speedMultiplier: 340
+  positionTrackingDepthInFrames: 5
+  speedMultiplier: 200
   normalInfluence: 0.05
   ball: {fileID: 945404619}
   myRacketBody: {fileID: 1190743337}

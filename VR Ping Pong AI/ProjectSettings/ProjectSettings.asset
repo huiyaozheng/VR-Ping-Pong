@@ -161,6 +161,7 @@ PlayerSettings:
     Android: com.Company.ProductName
     Standalone: unity.Valve.SteamVR
     Tizen: com.Company.ProductName
+    WebGL: com.oculus.UnitySample
     iOS: com.Company.ProductName
     tvOS: com.Company.ProductName
   buildNumber:
@@ -302,7 +303,8 @@ PlayerSettings:
     m_Devices: []
   - m_BuildTarget: Standalone
     m_Enabled: 1
-    m_Devices: []
+    m_Devices:
+    - Oculus
   - m_BuildTarget: Tizen
     m_Enabled: 0
     m_Devices: []

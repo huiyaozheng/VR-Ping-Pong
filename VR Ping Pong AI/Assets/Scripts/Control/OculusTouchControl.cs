@@ -21,7 +21,7 @@ public class OculusTouchControl : MonoBehaviour
         }
         else
         {
-            Vector3 RotationCorrection = new Vector3(0f, 90f, -70f);
+            Vector3 RotationCorrection = new Vector3(0f, 90f, 70f);
             transform.Rotate(RotationCorrection);
         }
     }
