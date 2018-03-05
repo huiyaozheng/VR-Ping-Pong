@@ -4348,7 +4348,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Left Handed
+  m_text: Left (active)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -6750,6 +6750,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067db941d9ae55a4588d7e624244d438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  racketPositions: []
+  positionTrackingDepthInFrames: 10
+  speedMultiplier: 340
+  normalInfluence: 0.05
   ball: {fileID: 945404619}
   myRacketBody: {fileID: 1190743337}
 --- !u!114 &1190743336
@@ -8890,8 +8894,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562467352}
-  m_LocalRotation: {x: -0.17031513, y: -0.29866686, z: -0.054260496, w: 0.93746823}
-  m_LocalPosition: {x: 0, y: 1.9, z: -7.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.05, z: -6.25}
   m_LocalScale: {x: 3.4, y: 3.4, z: 3.4}
   m_Children:
   - {fileID: 104367784}
@@ -8899,7 +8903,7 @@ Transform:
   - {fileID: 752788860}
   m_Father: {fileID: 0}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: -20.594002, y: -35.343002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &1562467357
 AudioListener:
   m_ObjectHideFlags: 0
@@ -10971,7 +10975,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Right Handed
+  m_text: Right
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}

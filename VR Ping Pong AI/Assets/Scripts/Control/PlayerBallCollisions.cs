@@ -7,7 +7,7 @@ public class PlayerBallCollisions : MonoBehaviour {
 	public List<Vector3> racketPositions = new List<Vector3>();
 	public int positionTrackingDepthInFrames = 10; // 5 or 10 seems reasonable but not completely sure!
 	public float speedMultiplier = 340f; // no idea what value will be good here, experiment needed
-	public float normalInfluence = 0.1f; // We multiply the (unit) normal vector by the length of the racket velocity, and then by this number!
+	public float normalInfluence = 0.05f; // We multiply the (unit) normal vector by the length of the racket velocity, and then by this number!
 
 	void Update()
 	{
