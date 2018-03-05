@@ -47,10 +47,10 @@ public class GameState : MonoBehaviour
     public void ResetBall()
     {
         hasGameStarted = false;
-        racket0.gameObject.transform.rotation = racket0DefaultRotation;
-        racket0.gameObject.transform.position = racket0DefaultPosition;
-        racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        racket0.gameObject.GetComponent<Catcher>().stopTracking();
+        //racket0.gameObject.transform.rotation = racket0DefaultRotation;
+        //racket0.gameObject.transform.position = racket0DefaultPosition;
+        //racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        //racket0.gameObject.GetComponent<Catcher>().stopTracking();
         racket1.gameObject.transform.rotation = racket1DefaultRotation;
         racket1.gameObject.transform.position = racket1DefaultPosition;
         racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
@@ -109,6 +109,7 @@ public class GameState : MonoBehaviour
 				serveDelayTimer = -1f;
 				// have the bot serve:
 				ball.gameObject.SetActive(true);
+				Debug.LogWarning("HEY WHAT IS THIS: " + (racket1.gameObject.GetComponent<Catcher>() == null).ToString());
 				racket1.gameObject.GetComponent<Catcher>().Serve();
 			}
 		}

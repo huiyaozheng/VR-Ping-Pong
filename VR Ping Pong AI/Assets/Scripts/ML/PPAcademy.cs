@@ -10,7 +10,7 @@ public class PPAcademy : Academy
 
     public override void AcademyReset()
     {
-        enemyRacket.maxRacketMovingSpeed = resetParameters["MaxRacketSpeed"];
+//        enemyRacket.maxRacketMovingSpeed = resetParameters["MaxRacketSpeed"];
         myRacket.maxRacketMovingSpeed = resetParameters["IncMySpeed"];
     }
 
