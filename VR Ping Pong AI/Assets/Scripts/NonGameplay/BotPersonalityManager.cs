@@ -97,7 +97,7 @@ public class BotPersonalityManager : MonoBehaviour
     public static void ChooseOpponent(BotPersonality bot, GameState game)
     {
         // game.player1 should always be set to a bot object, we will just change its personality, and the brain in control...
-        game.player1.GetComponent<HeuristicBot>().bot = bot;
+		game.player1.GetComponent<HeuristicBot>().bot = bot;
 
         CoreBrain coreBrain = game.racket1.gameObject.GetComponent<PPAimAgent>().brain.coreBrain;
 

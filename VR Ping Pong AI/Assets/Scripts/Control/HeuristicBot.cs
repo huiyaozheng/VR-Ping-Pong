@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeuristicBotOld : CatcherBot
+public class HeuristicBot : CatcherBot
 {
     //TODO: Save a successful shot's trajectory, sometimes replay it with slight noise.
 
@@ -171,7 +171,7 @@ public class HeuristicBotOld : CatcherBot
         trainee.reward += expo(mult * (1.00f - maxTrajectoryHeight)) * 0.25f * trainee.multiplier;
 
         ball.velocity =
-            PhysicsLibrary.PhysicsCalculations.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude,
+			OurPhysics.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude,
                 false);
         lastShot3 = lastShot2;
         lastShot2 = lastShot;

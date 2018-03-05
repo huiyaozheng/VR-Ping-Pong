@@ -109,7 +109,6 @@ public class GameState : MonoBehaviour
 				serveDelayTimer = -1f;
 				// have the bot serve:
 				ball.gameObject.SetActive(true);
-				Debug.LogWarning("HEY WHAT IS THIS: " + (racket1.gameObject.GetComponent<Catcher>() == null).ToString());
 				racket1.gameObject.GetComponent<Catcher>().Serve();
 			}
 		}

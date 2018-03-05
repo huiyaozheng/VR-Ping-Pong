@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using PhysicsLibrary;
 
 /// <summary>
 /// Based on Catcher, the CatcherBot returns the ball to a position chosen by the trained model.
@@ -16,7 +15,7 @@ public class CatcherBot : Catcher
 
     protected override void hit()
     {
-        ball.velocity = PhysicsCalculations.velFromTraj(landPos, ball.position, maxTrajectoryHeight,
+		ball.velocity = OurPhysics.velFromTraj(landPos, ball.position, maxTrajectoryHeight,
             Physics.gravity.magnitude, false);
         float dist = Mathf.Abs(landPos.x - opponentRacket.transform.position.x);
         trainee.reward += expo(dist - 7f) * 0.35f * trainee.multiplier;
