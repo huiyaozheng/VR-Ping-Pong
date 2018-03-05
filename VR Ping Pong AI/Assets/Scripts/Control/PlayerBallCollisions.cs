@@ -14,8 +14,6 @@ public class PlayerBallCollisions : MonoBehaviour {
 		racketPositions.Insert(0, transform.position);
 		if (racketPositions.Count > positionTrackingDepthInFrames)
 			racketPositions.RemoveAt(positionTrackingDepthInFrames);
-
-		Debug.Log(transform.forward);
 	}
 
 	public GameObject ball;
