@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Normal distribution function.
+/// </summary>
 public class OurMath
 {
     public static float sampleNormalDistribution(float mean, float stdDev)

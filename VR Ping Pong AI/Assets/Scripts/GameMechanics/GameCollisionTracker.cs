@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// This script should be attached to the ball.
-
+/// <summary>
+/// Tracks the ball's collision with objects and take appropriate action.
+/// </summary>
 [RequireComponent(typeof(Collider))]
 public class GameCollisionTracker : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameCollisionTracker : MonoBehaviour
     private RallyState rallyState;
     private Collider table0, table1, racket0, racket1, floor;
 
+    /// <summary>
+    /// First bounce on the table after serving. Ignore this bounce.
+    /// </summary>
     public bool firstBounce = true;
 
     void Start()
@@ -39,9 +43,7 @@ public class GameCollisionTracker : MonoBehaviour
                 firstBounce = false;
                 return;
             }
-            //racket0.gameObject.GetComponent<Catcher>().startTracking(); // When playing with a human there is no CATCHER script!!!
         }
-
         else if (col.collider == table1)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
@@ -54,32 +56,28 @@ public class GameCollisionTracker : MonoBehaviour
             }
             racket1.gameObject.GetComponent<Catcher>().startTracking();
         }
-
-		else if (col.collider == racket0)
+        else if (col.collider == racket0)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
                 ? RallyState.eRallyStateMachineAction.RSMA_DEF_RACK
                 : RallyState.eRallyStateMachineAction.RSMA_ATT_RACK);
             Events.eRacketHitBall(racket0.gameObject);
         }
-
-		else if (col.collider == racket1)
+        else if (col.collider == racket1)
         {
             outcome = rallyState.MakeStep(game.DoesPlayer1Serve()
                 ? RallyState.eRallyStateMachineAction.RSMA_ATT_RACK
                 : RallyState.eRallyStateMachineAction.RSMA_DEF_RACK);
             Events.eRacketHitBall(racket1.gameObject);
         }
-
-		else if (col.collider == floor)
+        else if (col.collider == floor)
         {
             outcome = rallyState.MakeStep(RallyState.eRallyStateMachineAction.RSMA_OUT);
         }
-
-		else
-		{
-			return; // ignore collisions with anything else.
-		}
+        else
+        {
+            return; // ignore collisions with anything else.
+        }
 
         if (outcome == RallyState.eRallyOutcome.RO_NONE)
             return;

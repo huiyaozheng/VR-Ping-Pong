@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the start and end of a set.
+/// </summary>
 public class GameStarter : MonoBehaviour
 {
     public GameState game;
@@ -31,7 +34,6 @@ public class GameStarter : MonoBehaviour
         // initialize game
         game.InitGame();
 
-
         // stop rotating table:
         rotX = 0f;
         objectToRotateAsAJokeAfterSetEnds.rotation = defaultRotation;
@@ -53,7 +55,6 @@ public class GameStarter : MonoBehaviour
         {
             StartGame();
         }
-
 
         // Rotate table.
         if (rotX >= 0.1f)

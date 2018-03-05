@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Defines and handles rallyEnd.
+/// </summary>
 public class Events : MonoBehaviour
 {
     public delegate void VoidVoid();
@@ -44,7 +47,6 @@ public class Events : MonoBehaviour
     {
         if (racketHitBall != null)
         {
-            //Debug.Log("Run event: racketHitBall");
             racketHitBall(go);
         }
         else

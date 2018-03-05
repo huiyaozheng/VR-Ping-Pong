@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A bot based on the catcherbot.
+/// It uses heuristics to adapt its strategy against the human player.
+/// Heuristics includes side preference and maximum trajectory height preference.
+/// </summary>
 public class HeuristicBot : CatcherBot
 {
-    //TODO: Save a successful shot's trajectory, sometimes replay it with slight noise.
-
     public BotPersonality bot; // Needs to be set dynamically
     public float lowHeight = 2.2f, medHeight = 3.8f, highHeight = 5.6f;
     public float shotIsNotCentral = 2.75f;
@@ -13,8 +16,6 @@ public class HeuristicBot : CatcherBot
     private Vector3 lastShot = Vector3.zero;
     private Vector3 lastShot2 = Vector3.zero; // Second-to-last shot
     private Vector3 lastShot3 = Vector3.zero; // Third-to-last shot
-
-    // Overrides:
 
     private void OnEvent_racketHitBall(GameObject racketThatHitTheBall)
     {
@@ -48,7 +49,6 @@ public class HeuristicBot : CatcherBot
                           reactionTimeDuration.ToString() + ", ... " + bot.heuristics.reactionTime_mean.ToString());
             }
         }
-
         else
         {
             base.Update();
@@ -57,12 +57,10 @@ public class HeuristicBot : CatcherBot
 
     protected override void hit()
     {
-        //DOBO: Use AimAgent's min of the third element please
         float aimHeight = maxTrajectoryHeight;
         Vector3 aimPos = landPos;
 
         // Too high or too low - mistakes
-
         bool tooHigh = Random.value < bot.heuristics.errorRate_tooHigh;
         bool tooLow = Random.value < bot.heuristics.errorRate_tooLow;
 
@@ -163,7 +161,11 @@ public class HeuristicBot : CatcherBot
         return;
     }
 
-    // Perform a hit with the specified trajectory, and save into the 'lastShot' field.
+    /// <summary>
+    /// Perform a hit with the specified trajectory, and save into the 'lastShot' field.
+    /// </summary>
+    /// <param name="aimPos"></param>
+    /// <param name="aimHeight"></param>
     private void HitAndSaveShot(Vector3 aimPos, float aimHeight)
     {
         float dist = Mathf.Abs(landPos.x - opponentRacket.transform.position.x);
@@ -171,7 +173,7 @@ public class HeuristicBot : CatcherBot
         trainee.reward += expo(mult * (1.00f - maxTrajectoryHeight)) * 0.25f * trainee.multiplier;
 
         ball.velocity =
-			OurPhysics.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude,
+            OurPhysics.velFromTraj(aimPos, ball.position, aimHeight, Physics.gravity.magnitude,
                 false);
         lastShot3 = lastShot2;
         lastShot2 = lastShot;
@@ -222,7 +224,9 @@ public class HeuristicBot : CatcherBot
         return 2; // HIGH
     }
 
-    // Update heuristics after a won point, based on the three last shots: lastShot, lastShot2, lastShot3.
+    /// <summary>
+    /// Update heuristics after a won point, based on the three last shots: lastShot, lastShot2, lastShot3.
+    /// </summary>
     private void UpdateHeuristicsAfterWin()
     {
         // Add a winning shot to the winning shots list.
@@ -247,7 +251,9 @@ public class HeuristicBot : CatcherBot
         UpdateHeuristicsAfterWin_HelperFunction(weight: 0.25f, shot: lastShot3);
     }
 
-    // Update heuristics after a lost point, based on the three last shots: lastShot, lastShot2, lastShot3.
+    /// <summary>
+    /// Update heuristics after a lost point, based on the three last shots: lastShot, lastShot2, lastShot3.
+    /// </summary>
     private void UpdateHeuristicsAfterLoss()
     {
         // Alter error rates and reaction time.
@@ -264,7 +270,6 @@ public class HeuristicBot : CatcherBot
         UpdateHeuristicsAfterLoss_HelperFunction(weight: 0.5f, shot: lastShot2);
         UpdateHeuristicsAfterLoss_HelperFunction(weight: 0.25f, shot: lastShot3);
     }
-
 
     private void UpdateHeuristicsAfterLoss_HelperFunction(float weight, Vector3 shot)
     {

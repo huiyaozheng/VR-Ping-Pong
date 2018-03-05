@@ -18,7 +18,6 @@ public class MouseControl : MonoBehaviour
 
     private Vector3 defaultBallPos;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X");

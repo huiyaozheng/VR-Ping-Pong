@@ -120,7 +120,7 @@ public class Catcher : MonoBehaviour
     protected virtual void hit()
     {
         float aimm = Random.Range(2.0f, maxTrajectoryHeight);
-		ball.velocity = OurPhysics.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
+        ball.velocity = OurPhysics.velFromTraj(landPos, ball.position, aimm, Physics.gravity.magnitude, false);
     }
 
     protected virtual void Awake()
@@ -188,7 +188,7 @@ public class Catcher : MonoBehaviour
         Vector3 target = new Vector3(x, 0, z) * (invertXZ ? 1f : -1f);
         Debug.Log(invertXZ);
         Debug.Log("Serve target: " + target.ToString());
-		ball.velocity = OurPhysics.velFromTraj(target, ball.transform.position, myRacket.transform.position.y,
+        ball.velocity = OurPhysics.velFromTraj(target, ball.transform.position, myRacket.transform.position.y,
             Physics.gravity.magnitude, true);
         Debug.Log(ball.velocity);
     }

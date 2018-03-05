@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the event when the Back button is clicked.
+/// </summary>
 public class UI_BackButton : MonoBehaviour
 {
     public UI_Manager UI_manager;

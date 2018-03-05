@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles setting of Oculus controller.
+/// </summary>
 public class ControllerSettings : MonoBehaviour
 {
     private static OVRInput.Controller PrimaryController;
@@ -27,7 +30,6 @@ public class ControllerSettings : MonoBehaviour
         }
     }
 
-
     public static OVRInput.Controller GetSecondaryController()
     {
         return SecondaryController;
@@ -38,10 +40,5 @@ public class ControllerSettings : MonoBehaviour
     {
         PrimaryController = OVRInput.Controller.LTouch;
         SecondaryController = OVRInput.Controller.RTouch;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

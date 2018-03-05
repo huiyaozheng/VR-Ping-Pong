@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Monitors the state of a set of game.
+/// </summary>
 public class GameState : MonoBehaviour
 {
     public GameObject player0, player1;
@@ -24,13 +27,13 @@ public class GameState : MonoBehaviour
     [HideInInspector] public int score0 = 0, score1 = 0;
 
     [HideInInspector]
-    /// Guaranteed to be set before the rallyEnded event is called!
+    // Guaranteed to be set before the rallyEnded event is called!
     public bool player1WonAPoint;
 
     public bool DoesPlayer1Serve()
     {
-		return true; // The bot always serves because we haven't made player-serving work well enough.
-
+        return true; // The bot always serves because we haven't made player-serving work well enough.
+// Uncomment after fixing player-serving
 //        int n = (score0 + score1) % 4;
 //        if (n < 2)
 //            return player1StartedGame;
@@ -49,23 +52,17 @@ public class GameState : MonoBehaviour
     public void ResetBall()
     {
         hasGameStarted = false;
-        //racket0.gameObject.transform.rotation = racket0DefaultRotation;
-        //racket0.gameObject.transform.position = racket0DefaultPosition;
-        //racket0.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        //racket0.gameObject.GetComponent<Catcher>().stopTracking();
         racket1.gameObject.transform.rotation = racket1DefaultRotation;
         racket1.gameObject.transform.position = racket1DefaultPosition;
         racket1.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         racket1.gameObject.GetComponent<Catcher>().stopTracking();
         if (DoesPlayer1Serve())
         {
-			StartServeCountdown();
+            StartServeCountdown();
         }
         else
         {
-            // TODO handle the case when the player is serving
-            //racket0.gameObject.GetComponent<Catcher>().Serve();
-			PlayerServe.ServeAllowed();
+            PlayerServe.ServeAllowed();
         }
         hasGameStarted = true;
         ball.GetComponent<GameCollisionTracker>().firstBounce = true;
@@ -98,23 +95,29 @@ public class GameState : MonoBehaviour
         }
     }
 
-	private void StartServeCountdown() { serveDelayTimer = 0f; ball.gameObject.SetActive(false);}
-	private float serveDelayTimer = -1f;
-	public float serveDelayTimerDuration = 2f; // in seconds
-	void Update()
-	{
-		if (serveDelayTimer >= 0f)
-		{
-			serveDelayTimer += Time.deltaTime;
-			if (serveDelayTimer > serveDelayTimerDuration)
-			{
-				serveDelayTimer = -1f;
-				// have the bot serve:
-				ball.gameObject.SetActive(true);
-				racket1.gameObject.GetComponent<Catcher>().Serve();
-			}
-		}
-	}
+    private void StartServeCountdown()
+    {
+        serveDelayTimer = 0f;
+        ball.gameObject.SetActive(false);
+    }
+
+    private float serveDelayTimer = -1f;
+    public float serveDelayTimerDuration = 2f; // in seconds
+
+    void Update()
+    {
+        if (serveDelayTimer >= 0f)
+        {
+            serveDelayTimer += Time.deltaTime;
+            if (serveDelayTimer > serveDelayTimerDuration)
+            {
+                serveDelayTimer = -1f;
+                // have the bot serve:
+                ball.gameObject.SetActive(true);
+                racket1.gameObject.GetComponent<Catcher>().Serve();
+            }
+        }
+    }
 
 
     // Use this for initialization

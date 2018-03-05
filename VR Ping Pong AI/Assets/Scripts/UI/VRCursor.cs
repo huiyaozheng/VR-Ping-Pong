@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the VR cursor used to interact with the menu.
+/// </summary>
 public class VRCursor : MonoBehaviour
 {
     public GameObject Cursor;

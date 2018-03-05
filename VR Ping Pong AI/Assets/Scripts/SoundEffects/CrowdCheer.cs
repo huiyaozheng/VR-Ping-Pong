@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Players the sound effect when a rally ends
+/// </summary>
 public class CrowdCheer : MonoBehaviour
 {
     public AudioSource[] crowdCheer;

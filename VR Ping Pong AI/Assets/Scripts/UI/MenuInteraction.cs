@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles clicking of the menu.
+/// </summary>
 public class MenuInteraction : MonoBehaviour
 {
     public GameObject SettingsMenu;

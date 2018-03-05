@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ML-agent academy.
+/// </summary>
 public class PPAcademy : Academy
 {
     public Catcher enemyRacket;
@@ -10,7 +13,6 @@ public class PPAcademy : Academy
 
     public override void AcademyReset()
     {
-//        enemyRacket.maxRacketMovingSpeed = resetParameters["MaxRacketSpeed"];
         myRacket.maxRacketMovingSpeed = resetParameters["IncMySpeed"];
     }
 

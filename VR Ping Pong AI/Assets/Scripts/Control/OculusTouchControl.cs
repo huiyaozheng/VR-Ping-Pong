@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles Oculus input for the player's racket.
+/// </summary>
 public class OculusTouchControl : MonoBehaviour
 {
     private OVRInput.Controller ActiveController;

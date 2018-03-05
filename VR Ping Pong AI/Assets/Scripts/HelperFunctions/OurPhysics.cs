@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Functions to determine trajectory and normal.
+/// </summary>
 public static class OurPhysics
 {
     /// <summary>
@@ -36,11 +39,14 @@ public static class OurPhysics
         return vel;
     }
 
-    /**
-     * @param: batNorm -> normalised normal of the bat surface
-     */
+    /// <summary>
+    /// Returns the adjusted normal
+    /// </summary>
+    /// <param name="batVel"></param>
+    /// <param name="batNorm">normalised normal of the bat surface</param>
+    /// <returns></returns>
     public static Vector3 batHit(Vector3 batVel, Vector3 batNorm)
-	{
+    {
         Vector3 vel = batVel + batNorm;
         return vel;
     }

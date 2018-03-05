@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Collection of a heuristic bot's preference data.
+/// </summary>
 [System.Serializable]
 public class CoachableHeuristics : System.Object
 {

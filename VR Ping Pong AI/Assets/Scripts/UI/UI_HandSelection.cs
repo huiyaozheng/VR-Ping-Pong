@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Handles left hand racket / right hand racket.
+/// </summary>
 public class UI_HandSelection : MonoBehaviour
 {
     public GameObject LeftHandButtonText;

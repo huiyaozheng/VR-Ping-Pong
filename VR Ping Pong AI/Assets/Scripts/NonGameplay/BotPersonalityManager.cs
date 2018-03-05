@@ -4,6 +4,9 @@ using UnityEngine;
 using System.IO;
 using TensorFlowSharp;
 
+/// <summary>
+/// Manages all bot personalities.
+/// </summary>
 public class BotPersonalityManager : MonoBehaviour
 {
     private static BotPersonalities botPersonalities = null;
@@ -13,6 +16,7 @@ public class BotPersonalityManager : MonoBehaviour
 
     // Static fields can't be assigned to from the inspector, so we assign to these and then copy them over to the static fields immediately on Start.
     public TextAsset _botPreset00 = null;
+
     public TextAsset _botPreset01 = null;
 
     void Start()
@@ -97,7 +101,7 @@ public class BotPersonalityManager : MonoBehaviour
     public static void ChooseOpponent(BotPersonality bot, GameState game)
     {
         // game.player1 should always be set to a bot object, we will just change its personality, and the brain in control...
-		game.player1.GetComponent<HeuristicBot>().bot = bot;
+        game.player1.GetComponent<HeuristicBot>().bot = bot;
 
         CoreBrain coreBrain = game.racket1.gameObject.GetComponent<PPAimAgent>().brain.coreBrain;
 

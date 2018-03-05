@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Object representing a bot's trained model and heuristics
+/// </summary>
 [System.Serializable]
 public class BotPersonality : System.Object
 {

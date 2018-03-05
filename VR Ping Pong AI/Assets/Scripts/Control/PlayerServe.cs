@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles the human player's serve.
+/// </summary>
 public class PlayerServe : MonoBehaviour
 {
     public GameObject LeftHandAnchor;
@@ -10,7 +13,6 @@ public class PlayerServe : MonoBehaviour
     private static System.Boolean serveAllowed;
     private System.Boolean ServeInProgress;
     private OVRInput.Controller SecondaryController;
-
 
     // Use this for initialization
     void Start()
@@ -50,8 +52,7 @@ public class PlayerServe : MonoBehaviour
                 GetComponent<Rigidbody>().velocity = ServeVelocity;
                 ServeInProgress = false;
                 serveAllowed = false;
-
-				RallyState.playerWillServeNow = true;
+                RallyState.playerWillServeNow = true;
             }
         }
     }

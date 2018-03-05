@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ML-agent Agent for aimming.
+/// </summary>
 public class PPAimAgent : Agent
 {
     [Header("Specific to Ping Pong")] public Rigidbody ball;
 
-    /// <summary>
-    /// The opponent's racket.
-    /// </summary>
     public Rigidbody opponentRacket;
 
     public bool invertXZ;
@@ -18,10 +18,6 @@ public class PPAimAgent : Agent
     public float tickRate = 0.99f;
     public float multiplier = 1.0f;
 
-    //public float minX, maxX, minY, maxY, minZ, maxZ;
-    //private Queue<Collision> lastCollisions;
-
-    //FIXME temporary fix for the catcher;
     public Vector3 defaultRacketPos;
 
     private Quaternion defaultRacketRot;
@@ -33,24 +29,10 @@ public class PPAimAgent : Agent
 
     void Start()
     {
-        //Debug.Log("START CALLED");
-        //min[0]=-gameObject.GetComponent<CatcherBot>().opponentTable.transform.parent.gameObject.transform.localScale.x;
-        //max[0] = -min[0];
-        //min[1]=-gameObject.GetComponent<CatcherBot>().opponentTable.transform.parent.gameObject.transform.localScale.z;
-        //max[1] = -min[1];
-        //min[2] = 0; 
-        //max[2] = gameObject.GetComponent<CatcherBot>().maxTrajectoryHeight;
         defaultRacketPos = gameObject.transform.position;
         defaultRacketRot = gameObject.transform.rotation;
         if (System.Double.IsNaN(reward) == true)
             reward = 0.0f;
-    }
-
-    public void Update()
-    {
-        //if (System.Double.IsNaN(reward) == true)
-        //    reward = 0.0f;
-        //Debug.Log("REWERDDDD " + System.Double.IsNaN(reward));
     }
 
     public override List<float> CollectState()

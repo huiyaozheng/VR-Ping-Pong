@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 /// <summary>
-/// Hardcoded stuff goes here.
+/// Encapsulates metadata of bot stats.
 /// </summary>
 public class Statics
 {
